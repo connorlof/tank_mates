@@ -12,7 +12,7 @@ class EditTankScreen extends StatefulWidget {
 
 class _EditTankScreenState extends State<EditTankScreen> {
   AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
-  List<String> detailedResults = [
+  List<String> fishAddedList = [
     'x2 Angelfish',
     'x2 Dwarf Gourami',
     'x1 Rainbow Shark',
@@ -184,7 +184,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                   child: Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(15.0),
-                      itemCount: detailedResults.length,
+                      itemCount: fishAddedList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           height: 30.0,
@@ -201,7 +201,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Text(
-                            '${detailedResults[index]}',
+                            '${fishAddedList[index]}',
                             style: kParameterLabelTextStyle,
                           ),
                         );
