@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tank_mates/util/constants.dart';
+import 'package:tank_mates/widgets/round_button.dart';
 
 class SavedTanksScreen extends StatefulWidget {
   static String id = 'saved_tanks_screen';
@@ -57,11 +58,20 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
+            color: Colors.blueGrey.shade100,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('New Tank'),
-                Text('Saved Tanks'),
+                RoundButton(
+                  color: Colors.lightBlue,
+                  title: 'New Tank',
+                  onPressed: () {},
+                ),
+                RoundButton(
+                  color: Colors.lightBlue,
+                  title: 'Saved Tanks',
+                  onPressed: () {},
+                ),
               ],
             ),
           ),
