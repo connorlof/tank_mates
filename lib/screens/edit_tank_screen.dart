@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tank_mates/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/util/constants.dart';
+import 'package:tank_mates/widgets/parameter_tile.dart';
 
 class EditTankScreen extends StatefulWidget {
   static String id = 'edit_tank_screen';
@@ -9,7 +11,7 @@ class EditTankScreen extends StatefulWidget {
 }
 
 class _EditTankScreenState extends State<EditTankScreen> {
-  Choice _topBarIndex = choices[0]; // The app's "state".
+  AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
   List<String> detailedResults = [
     'x2 Angelfish',
     'x2 Dwarf Gourami',
@@ -31,36 +33,15 @@ class _EditTankScreenState extends State<EditTankScreen> {
     'x9 Molly',
   ];
 
-  void _selectTopIndex(Choice choice) {
-    // Causes the app to rebuild with the new _selectedChoice.
-    setState(() {
-      _topBarIndex = choice;
-    });
-  }
-
-  int _bottomBarIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _bottomBarIndex = index;
-    });
+  void _selectTopIndex(AppBarChoice choice) {
+    if (choice.title == 'Saved Tanks') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SavedTanksScreen()));
+    } else {
+      setState(() {
+        _topBarIndex = choice;
+      });
+    }
   }
 
   @override
@@ -70,12 +51,12 @@ class _EditTankScreenState extends State<EditTankScreen> {
         title: Text(appName),
         actions: <Widget>[
           // overflow menu
-          PopupMenuButton<Choice>(
+          PopupMenuButton<AppBarChoice>(
             icon: Icon(Icons.opacity),
             onSelected: _selectTopIndex,
             itemBuilder: (BuildContext context) {
-              return choices.map((Choice choice) {
-                return PopupMenuItem<Choice>(
+              return appBarChoices.map((AppBarChoice choice) {
+                return PopupMenuItem<AppBarChoice>(
                   value: choice,
                   child: Text(choice.title),
                 );
@@ -84,23 +65,9 @@ class _EditTankScreenState extends State<EditTankScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            title: Text('Edit Tank'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.storage),
-            title: Text('Saved Tanks'),
-          ),
-        ],
-        currentIndex: _bottomBarIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
             child: SingleChildScrollView(
@@ -112,49 +79,21 @@ class _EditTankScreenState extends State<EditTankScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          'Temperature',
-                          style: kParameterLabelTextStyle,
+                        ParameterTile(
+                          label: 'Temperature',
+                          value: '72 - 82°F',
                         ),
-                        Text(
-                          '72 - 82°F',
-                          style: kParameterValueTextStyle,
+                        ParameterTile(
+                          label: 'pH',
+                          value: '6.0 - 7.5',
                         ),
-                        SizedBox(
-                          height: 10.0,
+                        ParameterTile(
+                          label: 'Hardness',
+                          value: '10 - 20 dKH',
                         ),
-                        Text(
-                          'pH',
-                          style: kParameterLabelTextStyle,
-                        ),
-                        Text(
-                          '6.0 - 7.5',
-                          style: kParameterValueTextStyle,
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          'Hardness',
-                          style: kParameterLabelTextStyle,
-                        ),
-                        Text(
-                          '10 - 20 dKH',
-                          style: kParameterValueTextStyle,
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          'Care Level',
-                          style: kParameterLabelTextStyle,
-                        ),
-                        Text(
-                          'Moderate',
-                          style: kParameterValueTextStyle,
-                        ),
-                        SizedBox(
-                          height: 10.0,
+                        ParameterTile(
+                          label: 'Care Level',
+                          value: 'Moderate',
                         ),
                       ],
                     ),
@@ -218,16 +157,9 @@ class _EditTankScreenState extends State<EditTankScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        "Tank Status",
-                        style: kParameterLabelTextStyle,
-                      ),
-                      Text(
-                        "Good",
-                        style: kParameterValueTextStyle,
-                      ),
-                      SizedBox(
-                        height: 10.0,
+                      ParameterTile(
+                        label: 'Tank Status',
+                        value: 'Good',
                       ),
                       Text(
                         "45 gallon aquarium",
@@ -255,7 +187,19 @@ class _EditTankScreenState extends State<EditTankScreen> {
                       itemCount: detailedResults.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          height: 20.0,
+                          height: 30.0,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 5.0,
+                          ),
+                          margin: EdgeInsets.only(
+                            bottom: 5.0,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: kCardColor,
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           child: Text(
                             '${detailedResults[index]}',
                             style: kParameterLabelTextStyle,
@@ -282,14 +226,10 @@ class _EditTankScreenState extends State<EditTankScreen> {
                     color: kCardColor,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        Icons.add,
-                        size: 80.0,
-                        color: Colors.grey.shade50,
-                      ),
-                    ],
+                  child: Icon(
+                    Icons.add,
+                    size: 80.0,
+                    color: Colors.grey.shade50,
                   ),
                 ),
                 Row(
@@ -308,14 +248,10 @@ class _EditTankScreenState extends State<EditTankScreen> {
                           color: kCardColor,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        child: Column(
-                          children: <Widget>[
-                            Icon(
-                              Icons.settings,
-                              size: 24.0,
-                              color: Colors.grey.shade50,
-                            ),
-                          ],
+                        child: Icon(
+                          Icons.settings,
+                          size: 24.0,
+                          color: Colors.grey.shade50,
                         ),
                       ),
                     ),
@@ -333,14 +269,10 @@ class _EditTankScreenState extends State<EditTankScreen> {
                           color: kCardColor,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
-                        child: Column(
-                          children: <Widget>[
-                            Icon(
-                              Icons.save,
-                              size: 24.0,
-                              color: Colors.grey.shade50,
-                            ),
-                          ],
+                        child: Icon(
+                          Icons.save,
+                          size: 24.0,
+                          color: Colors.grey.shade50,
                         ),
                       ),
                     ),
@@ -350,42 +282,6 @@ class _EditTankScreenState extends State<EditTankScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class Choice {
-  const Choice({this.title, this.icon});
-
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'About', icon: Icons.directions_car),
-  const Choice(title: 'App Settings', icon: Icons.directions_bike),
-];
-
-class ChoiceCard extends StatelessWidget {
-  const ChoiceCard({Key key, this.choice}) : super(key: key);
-
-  final Choice choice;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return Card(
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(choice.icon, size: 128.0, color: textStyle.color),
-            Text(choice.title, style: textStyle),
-          ],
-        ),
       ),
     );
   }

@@ -21,3 +21,17 @@ const kRecommendationTextStyle = TextStyle(
   color: Color(0xFF8D8E98),
   fontFamily: 'Oswald',
 );
+
+const List<AppBarChoice> appBarChoices = const <AppBarChoice>[
+  const AppBarChoice(title: 'New Tank', icon: Icons.directions_car),
+  const AppBarChoice(title: 'Saved Tanks', icon: Icons.directions_car),
+  const AppBarChoice(title: 'About', icon: Icons.directions_car),
+  const AppBarChoice(title: 'App Settings', icon: Icons.directions_bike),
+];
+
+class AppBarChoice {
+  const AppBarChoice({this.title, this.icon});
+
+  final String title;
+  final IconData icon;
+}
