@@ -15,11 +15,11 @@ class ParameterTile extends StatelessWidget {
         children: <Widget>[
           Text(
             label,
-            style: kParameterLabelTextStyle,
+            style: kTextStyleSmall,
           ),
           Text(
             value,
-            style: kParameterValueTextStyle,
+            style: kTextStyleLarge,
           ),
           SizedBox(
             height: 10.0,

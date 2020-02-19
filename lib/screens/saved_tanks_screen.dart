@@ -3,7 +3,7 @@ import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/round_button.dart';
 
 class SavedTanksScreen extends StatefulWidget {
-  static String id = 'saved_tanks_screen';
+  static String id = kIdSavedTanksScreen;
 
   @override
   _SavedTanksScreenState createState() => _SavedTanksScreenState();
@@ -105,11 +105,11 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
                         children: <Widget>[
                           Text(
                             '${savedTankList[index]}',
-                            style: kParameterValueTextStyle,
+                            style: kTextStyleLarge,
                           ),
                           Text(
                             '24 fish - x2 Angelfish, x6 Clow...',
-                            style: kParameterLabelTextStyle,
+                            style: kTextStyleSmall,
                           ),
                         ],
                       ),
@@ -123,7 +123,7 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
                           ),
                           Text(
                             'Good',
-                            style: kParameterLabelTextStyle,
+                            style: kTextStyleSmall,
                           ),
                         ],
                       ),

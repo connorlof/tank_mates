@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
+const kIdEditTankScreen = 'edit_tank_screen';
+const kIdSavedTanksScreen = 'saved_tanks_screen';
+const kIdAboutScreen = 'about_screen';
+const kIdSettingsScreen = 'settings_screen';
+
 const String appName = 'Tank Mates';
 const kCardColor = Color(0xFF8D8E98);
 
-const kParameterLabelTextStyle = TextStyle(
+const kTextStyleSmall = TextStyle(
   fontSize: 14.0,
   color: Color(0xFF8D8E98),
   fontFamily: 'Oswald',
 );
 
-const kParameterValueTextStyle = TextStyle(
+const kTextStyleLarge = TextStyle(
   fontSize: 32.0,
   fontWeight: FontWeight.w500,
   color: Color(0xFF8D8E98),
@@ -23,15 +28,15 @@ const kRecommendationTextStyle = TextStyle(
 );
 
 const List<AppBarChoice> appBarChoices = const <AppBarChoice>[
-  const AppBarChoice(title: 'New Tank', icon: Icons.directions_car),
-  const AppBarChoice(title: 'Saved Tanks', icon: Icons.directions_car),
-  const AppBarChoice(title: 'About', icon: Icons.directions_car),
-  const AppBarChoice(title: 'App Settings', icon: Icons.directions_bike),
+  const AppBarChoice('New Tank', kIdEditTankScreen),
+  const AppBarChoice('Saved Tanks', kIdSavedTanksScreen),
+  const AppBarChoice('App Settings', kIdSettingsScreen),
+  const AppBarChoice('About', kIdAboutScreen),
 ];
 
 class AppBarChoice {
-  const AppBarChoice({this.title, this.icon});
+  const AppBarChoice(this.title, this.id);
 
   final String title;
-  final IconData icon;
+  final String id;
 }

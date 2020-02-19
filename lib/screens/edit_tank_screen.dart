@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
+import 'package:tank_mates/screens/settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/parameter_tile.dart';
 import 'package:tank_mates/widgets/round_button.dart';
 
 class EditTankScreen extends StatefulWidget {
-  static String id = 'edit_tank_screen';
+  static String id = kIdEditTankScreen;
 
   @override
   _EditTankScreenState createState() => _EditTankScreenState();
@@ -35,9 +37,15 @@ class _EditTankScreenState extends State<EditTankScreen> {
   ];
 
   void _selectTopIndex(AppBarChoice choice) {
-    if (choice.title == 'Saved Tanks') {
+    if (choice.id == kIdSavedTanksScreen) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => SavedTanksScreen()));
+    } else if (choice.id == kIdSettingsScreen) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+    } else if (choice.id == kIdAboutScreen) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AboutScreen()));
     } else {
       setState(() {
         _topBarIndex = choice;
@@ -142,26 +150,26 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             children: <Widget>[
                               Text(
                                 "Recommendations",
-                                style: kParameterLabelTextStyle,
+                                style: kTextStyleSmall,
                               ),
                               SizedBox(
                                 height: 10.0,
                               ),
                               Text(
                                 "- Upgrade tank to at least 55 gallons",
-                                style: kParameterLabelTextStyle,
+                                style: kTextStyleSmall,
                               ),
                               Text(
                                 "- Remove x1 rainbow shark",
-                                style: kParameterLabelTextStyle,
+                                style: kTextStyleSmall,
                               ),
                               Text(
                                 "- Remove x1 molly",
-                                style: kParameterLabelTextStyle,
+                                style: kTextStyleSmall,
                               ),
                               Text(
                                 "- Perform 20% water changes weekly",
-                                style: kParameterLabelTextStyle,
+                                style: kTextStyleSmall,
                               ),
                             ],
                           ),
@@ -193,7 +201,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             ),
                             Text(
                               "45 gallon aquarium",
-                              style: kParameterLabelTextStyle,
+                              style: kTextStyleSmall,
                             ),
                           ],
                         ),
@@ -205,7 +213,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                           children: <Widget>[
                             Text(
                               "24 fish added",
-                              style: kParameterLabelTextStyle,
+                              style: kTextStyleSmall,
                             ),
                           ],
                         ),
@@ -232,7 +240,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 ),
                                 child: Text(
                                   '${fishAddedList[index]}',
-                                  style: kParameterLabelTextStyle,
+                                  style: kTextStyleSmall,
                                 ),
                               );
                             },
