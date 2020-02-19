@@ -65,11 +65,15 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
                 RoundButton(
                   color: Colors.lightBlue,
                   title: 'New Tank',
-                  onPressed: () {},
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
                 RoundButton(
-                  color: Colors.lightBlue,
+                  color: Colors.white,
                   title: 'Saved Tanks',
+                  textColor: Colors.lightBlue,
                   onPressed: () {},
                 ),
               ],

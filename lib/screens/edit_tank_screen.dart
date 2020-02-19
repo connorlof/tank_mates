@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/parameter_tile.dart';
+import 'package:tank_mates/widgets/round_button.dart';
 
 class EditTankScreen extends StatefulWidget {
   static String id = 'edit_tank_screen';
@@ -65,202 +66,188 @@ class _EditTankScreenState extends State<EditTankScreen> {
           ),
         ],
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        ParameterTile(
-                          label: 'Temperature',
-                          value: '72 - 82°F',
-                        ),
-                        ParameterTile(
-                          label: 'pH',
-                          value: '6.0 - 7.5',
-                        ),
-                        ParameterTile(
-                          label: 'Hardness',
-                          value: '10 - 20 dKH',
-                        ),
-                        ParameterTile(
-                          label: 'Care Level',
-                          value: 'Moderate',
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(15.0),
-                    padding: EdgeInsets.all(4.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: kCardColor,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "Recommendations",
-                          style: kParameterLabelTextStyle,
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          "- Upgrade tank to at least 55 gallons",
-                          style: kParameterLabelTextStyle,
-                        ),
-                        Text(
-                          "- Remove x1 rainbow shark",
-                          style: kParameterLabelTextStyle,
-                        ),
-                        Text(
-                          "- Remove x1 molly",
-                          style: kParameterLabelTextStyle,
-                        ),
-                        Text(
-                          "- Perform 20% water changes weekly",
-                          style: kParameterLabelTextStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+          Container(
+            color: Colors.blueGrey.shade100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RoundButton(
+                  color: Colors.white,
+                  title: 'New Tank',
+                  textColor: Colors.lightBlue,
+                  onPressed: () {},
+                ),
+                RoundButton(
+                  color: Colors.lightBlue,
+                  title: 'Saved Tanks',
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SavedTanksScreen()));
+                  },
+                ),
+              ],
             ),
           ),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(15.0),
-                  padding: EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: kCardColor,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      ParameterTile(
-                        label: 'Tank Status',
-                        value: 'Good',
-                      ),
-                      Text(
-                        "45 gallon aquarium",
-                        style: kParameterLabelTextStyle,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "24 fish added",
-                        style: kParameterLabelTextStyle,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Expanded(
-                    child: ListView.builder(
-                      padding: const EdgeInsets.all(15.0),
-                      itemCount: fishAddedList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: 30.0,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 5.0,
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.all(15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              ParameterTile(
+                                label: 'Temperature',
+                                value: '72 - 82°F',
+                              ),
+                              ParameterTile(
+                                label: 'pH',
+                                value: '6.0 - 7.5',
+                              ),
+                              ParameterTile(
+                                label: 'Hardness',
+                                value: '10 - 20 dKH',
+                              ),
+                              ParameterTile(
+                                label: 'Care Level',
+                                value: 'Moderate',
+                              ),
+                            ],
                           ),
-                          margin: EdgeInsets.only(
-                            bottom: 5.0,
-                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(15.0),
+                          padding: EdgeInsets.all(4.0),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: kCardColor,
                             ),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
-                          child: Text(
-                            '${fishAddedList[index]}',
-                            style: kParameterLabelTextStyle,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "Recommendations",
+                                style: kParameterLabelTextStyle,
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Text(
+                                "- Upgrade tank to at least 55 gallons",
+                                style: kParameterLabelTextStyle,
+                              ),
+                              Text(
+                                "- Remove x1 rainbow shark",
+                                style: kParameterLabelTextStyle,
+                              ),
+                              Text(
+                                "- Remove x1 molly",
+                                style: kParameterLabelTextStyle,
+                              ),
+                              Text(
+                                "- Perform 20% water changes weekly",
+                                style: kParameterLabelTextStyle,
+                              ),
+                            ],
                           ),
-                        );
-                      },
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 15.0,
-                    right: 15.0,
-                    top: 15.0,
-                    bottom: 5.0,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 24.0,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: kCardColor,
-                    ),
-                    color: kCardColor,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Icon(
-                    Icons.add,
-                    size: 80.0,
-                    color: Colors.grey.shade50,
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.all(15.0),
+                        padding: EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: kCardColor,
+                          ),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            ParameterTile(
+                              label: 'Tank Status',
+                              value: 'Good',
+                            ),
+                            Text(
+                              "45 gallon aquarium",
+                              style: kParameterLabelTextStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 15.0, right: 15.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "24 fish added",
+                              style: kParameterLabelTextStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Expanded(
+                          child: ListView.builder(
+                            padding: const EdgeInsets.all(15.0),
+                            itemCount: fishAddedList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Container(
+                                height: 30.0,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 5.0,
+                                ),
+                                margin: EdgeInsets.only(
+                                  bottom: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: kCardColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Text(
+                                  '${fishAddedList[index]}',
+                                  style: kParameterLabelTextStyle,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
                         margin: EdgeInsets.only(
                           left: 15.0,
-                          right: 5.0,
-                          bottom: 5.0,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: kCardColor,
-                          ),
-                          color: kCardColor,
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Icon(
-                          Icons.settings,
-                          size: 24.0,
-                          color: Colors.grey.shade50,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(
                           right: 15.0,
-                          left: 5.0,
+                          top: 15.0,
                           bottom: 5.0,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 24.0,
                         ),
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -270,14 +257,60 @@ class _EditTankScreenState extends State<EditTankScreen> {
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Icon(
-                          Icons.save,
-                          size: 24.0,
+                          Icons.add,
+                          size: 80.0,
                           color: Colors.grey.shade50,
                         ),
                       ),
-                    ),
-                  ],
-                )
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                left: 15.0,
+                                right: 5.0,
+                                bottom: 5.0,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: kCardColor,
+                                ),
+                                color: kCardColor,
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              child: Icon(
+                                Icons.settings,
+                                size: 24.0,
+                                color: Colors.grey.shade50,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                right: 15.0,
+                                left: 5.0,
+                                bottom: 5.0,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: kCardColor,
+                                ),
+                                color: kCardColor,
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              child: Icon(
+                                Icons.save,
+                                size: 24.0,
+                                color: Colors.grey.shade50,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class RoundButton extends StatelessWidget {
-  RoundButton({this.color, this.title, @required this.onPressed});
+  RoundButton(
+      {this.color, this.title, this.textColor, @required this.onPressed});
 
   final Color color;
+  final Color textColor;
   final String title;
   final Function onPressed;
 
@@ -22,7 +24,7 @@ class RoundButton extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              color: Colors.white,
+              color: textColor,
             ),
           ),
         ),
