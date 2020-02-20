@@ -83,55 +83,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
-            color: kPrimaryColor,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: ButtonTheme(
-                    minWidth: 160.0,
-                    child: RaisedButton(
-                      onPressed: () {},
-                      child: Text(
-                        'New Tank',
-                        style: TextStyle(color: kPrimaryColor),
-                      ),
-                      color: kBackGroundColor,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: kBackGroundColor),
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: ButtonTheme(
-                    minWidth: 160.0,
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SavedTanksScreen()));
-                      },
-                      child: Text(
-                        'Saved Tanks',
-                        style: TextStyle(color: kBackGroundColor),
-                      ),
-                      color: kPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: kBackGroundColor),
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          MenuBar(),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -226,8 +178,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             ParameterTile(
-                              label: 'Tank Status',
-                              value: 'Good',
+                              label: 'Tank Status: Overstocked',
+                              value: '143 %',
                             ),
                             Text(
                               "45 gallon aquarium",
@@ -360,6 +312,65 @@ class _EditTankScreenState extends State<EditTankScreen> {
                   ),
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MenuBar extends StatelessWidget {
+  const MenuBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: kPrimaryColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: ButtonTheme(
+              minWidth: 160.0,
+              child: RaisedButton(
+                onPressed: () {},
+                child: Text(
+                  'New Tank',
+                  style: TextStyle(color: kPrimaryColor),
+                ),
+                color: kBackGroundColor,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: kBackGroundColor),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: ButtonTheme(
+              minWidth: 160.0,
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SavedTanksScreen()));
+                },
+                child: Text(
+                  'Saved Tanks',
+                  style: TextStyle(color: kBackGroundColor),
+                ),
+                color: kPrimaryColor,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: kBackGroundColor),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
             ),
           ),
         ],

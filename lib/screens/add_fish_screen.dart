@@ -23,10 +23,7 @@ class AddFishScreen extends StatelessWidget {
             Text(
               'Add Fish',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30.0,
-                color: kPrimaryColor,
-              ),
+              style: kTextStyleHeader,
             ),
             TextField(
               autofocus: true,
@@ -40,6 +37,7 @@ class AddFishScreen extends StatelessWidget {
                 'Add',
                 style: TextStyle(
                   color: kBackGroundColor,
+                  fontFamily: 'Oswald',
                 ),
               ),
               color: kPrimaryColor,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tank_mates/util/constants.dart';
-import 'package:tank_mates/widgets/round_button.dart';
 
 class SavedTanksScreen extends StatefulWidget {
   static String id = kIdSavedTanksScreen;
@@ -37,11 +36,21 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appName),
+        automaticallyImplyLeading: false,
+        iconTheme: IconThemeData(
+          color: kPrimaryColor, //change your color here
+        ),
+        title: Text(
+          appName,
+          style: kTextStyleHeader,
+        ),
         actions: <Widget>[
           // overflow menu
           PopupMenuButton<AppBarChoice>(
-            icon: Icon(Icons.opacity),
+            icon: Icon(
+              Icons.opacity,
+              color: kPrimaryColor,
+            ),
             onSelected: _selectTopIndex,
             itemBuilder: (BuildContext context) {
               return appBarChoices.map((AppBarChoice choice) {
@@ -57,28 +66,7 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
-            color: Colors.blueGrey.shade100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                RoundButton(
-                  color: Colors.lightBlue,
-                  title: 'New Tank',
-                  textColor: Colors.white,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                RoundButton(
-                  color: Colors.white,
-                  title: 'Saved Tanks',
-                  textColor: Colors.lightBlue,
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
+          MenuBar(),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(15.0),
@@ -99,6 +87,7 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,29 +97,80 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
                             style: kTextStyleLarge,
                           ),
                           Text(
-                            '24 fish - x2 Angelfish, x6 Clow...',
+                            '24 fish - x2 Angelfish, x6 Clown L...',
                             style: kTextStyleSmall,
                           ),
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Icon(
-                            Icons.check,
-                            size: 40.0,
-                            color: Color(0xFF8D8E98),
-                          ),
-                          Text(
-                            'Good',
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            'Overstocked (143 %)',
                             style: kTextStyleSmall,
                           ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
                 );
               },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MenuBar extends StatelessWidget {
+  const MenuBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: kPrimaryColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: ButtonTheme(
+              minWidth: 160.0,
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'New Tank',
+                  style: TextStyle(color: kBackGroundColor),
+                ),
+                color: kPrimaryColor,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: kBackGroundColor),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: ButtonTheme(
+              minWidth: 160.0,
+              child: RaisedButton(
+                onPressed: () {},
+                child: Text(
+                  'Saved Tanks',
+                  style: TextStyle(color: kPrimaryColor),
+                ),
+                color: kBackGroundColor,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: kBackGroundColor),
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
             ),
           ),
         ],

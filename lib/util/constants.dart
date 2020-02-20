@@ -13,7 +13,7 @@ const kCardColor = kPrimaryColor;
 
 const kTextStyleSmall = TextStyle(
   fontSize: 14.0,
-  color: kPrimaryColor,
+  color: Color(0xFF3c4146),
   fontFamily: 'Oswald',
 );
 
