@@ -6,24 +6,33 @@ const kIdAboutScreen = 'about_screen';
 const kIdSettingsScreen = 'settings_screen';
 
 const String appName = 'Tank Mates';
-const kCardColor = Color(0xFF8D8E98);
+
+const kPrimaryColor = const Color(0xFF3D6E90);
+const kBackGroundColor = const Color(0xFFFDFDFD);
+const kCardColor = kPrimaryColor;
 
 const kTextStyleSmall = TextStyle(
   fontSize: 14.0,
-  color: Color(0xFF8D8E98),
+  color: kPrimaryColor,
+  fontFamily: 'Oswald',
+);
+
+const kTextStyleHeader = TextStyle(
+  fontSize: 24.0,
+  color: kPrimaryColor,
   fontFamily: 'Oswald',
 );
 
 const kTextStyleLarge = TextStyle(
   fontSize: 32.0,
   fontWeight: FontWeight.w500,
-  color: Color(0xFF8D8E98),
+  color: kPrimaryColor,
   fontFamily: 'Oswald',
 );
 
 const kRecommendationTextStyle = TextStyle(
   fontSize: 18.0,
-  color: Color(0xFF8D8E98),
+  color: kPrimaryColor,
   fontFamily: 'Oswald',
 );
 

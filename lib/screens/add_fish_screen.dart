@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tank_mates/util/constants.dart';
 
 class AddFishScreen extends StatelessWidget {
   @override
@@ -6,11 +7,11 @@ class AddFishScreen extends StatelessWidget {
     String newTaskTitle;
 
     return Container(
-      color: Color(0xff757575),
+      color: kPrimaryColor,
       child: Container(
         padding: EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: kBackGroundColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
@@ -24,7 +25,7 @@ class AddFishScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30.0,
-                color: Colors.lightBlueAccent,
+                color: kPrimaryColor,
               ),
             ),
             TextField(
@@ -38,10 +39,10 @@ class AddFishScreen extends StatelessWidget {
               child: Text(
                 'Add',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: kBackGroundColor,
                 ),
               ),
-              color: Colors.lightBlueAccent,
+              color: kPrimaryColor,
               onPressed: () {
                 Navigator.pop(context);
               },

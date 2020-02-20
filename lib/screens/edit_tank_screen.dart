@@ -5,7 +5,6 @@ import 'package:tank_mates/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/screens/settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/parameter_tile.dart';
-import 'package:tank_mates/widgets/round_button.dart';
 
 class EditTankScreen extends StatefulWidget {
   static String id = kIdEditTankScreen;
@@ -58,11 +57,17 @@ class _EditTankScreenState extends State<EditTankScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appName),
+        title: Text(
+          appName,
+          style: kTextStyleHeader,
+        ),
         actions: <Widget>[
           // overflow menu
           PopupMenuButton<AppBarChoice>(
-            icon: Icon(Icons.opacity),
+            icon: Icon(
+              Icons.opacity,
+              color: kPrimaryColor,
+            ),
             onSelected: _selectTopIndex,
             itemBuilder: (BuildContext context) {
               return appBarChoices.map((AppBarChoice choice) {
@@ -79,26 +84,50 @@ class _EditTankScreenState extends State<EditTankScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-            color: Colors.blueGrey.shade100,
+            color: kPrimaryColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                RoundButton(
-                  color: Colors.white,
-                  title: 'New Tank',
-                  textColor: Colors.lightBlue,
-                  onPressed: () {},
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: ButtonTheme(
+                    minWidth: 160.0,
+                    child: RaisedButton(
+                      onPressed: () {},
+                      child: Text(
+                        'New Tank',
+                        style: TextStyle(color: kPrimaryColor),
+                      ),
+                      color: kBackGroundColor,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: kBackGroundColor),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ),
                 ),
-                RoundButton(
-                  color: Colors.lightBlue,
-                  title: 'Saved Tanks',
-                  textColor: Colors.white,
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SavedTanksScreen()));
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: ButtonTheme(
+                    minWidth: 160.0,
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SavedTanksScreen()));
+                      },
+                      child: Text(
+                        'Saved Tanks',
+                        style: TextStyle(color: kBackGroundColor),
+                      ),
+                      color: kPrimaryColor,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: kBackGroundColor),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -214,7 +243,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                           children: <Widget>[
                             Text(
                               "24 fish added",
-                              style: kTextStyleSmall,
+                              style: kTextStyleHeader,
                             ),
                           ],
                         ),
@@ -222,27 +251,20 @@ class _EditTankScreenState extends State<EditTankScreen> {
                       Container(
                         child: Expanded(
                           child: ListView.builder(
-                            padding: const EdgeInsets.all(15.0),
                             itemCount: fishAddedList.length,
                             itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                height: 30.0,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 5.0,
-                                ),
-                                margin: EdgeInsets.only(
-                                  bottom: 5.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: kCardColor,
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Divider(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: Text(
+                                      '${fishAddedList[index]}',
+                                      style: kTextStyleSmall,
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                child: Text(
-                                  '${fishAddedList[index]}',
-                                  style: kTextStyleSmall,
-                                ),
+                                ],
                               );
                             },
                           ),
@@ -284,7 +306,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                           child: Icon(
                             Icons.add,
                             size: 80.0,
-                            color: Colors.grey.shade50,
+                            color: kBackGroundColor,
                           ),
                         ),
                       ),
@@ -299,15 +321,15 @@ class _EditTankScreenState extends State<EditTankScreen> {
                               ),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: kCardColor,
+                                  color: kPrimaryColor,
                                 ),
-                                color: kCardColor,
+                                color: kPrimaryColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                               child: Icon(
                                 Icons.settings,
                                 size: 24.0,
-                                color: Colors.grey.shade50,
+                                color: kBackGroundColor,
                               ),
                             ),
                           ),
@@ -320,15 +342,15 @@ class _EditTankScreenState extends State<EditTankScreen> {
                               ),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: kCardColor,
+                                  color: kPrimaryColor,
                                 ),
-                                color: kCardColor,
+                                color: kPrimaryColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                               child: Icon(
                                 Icons.save,
                                 size: 24.0,
-                                color: Colors.grey.shade50,
+                                color: kBackGroundColor,
                               ),
                             ),
                           ),
