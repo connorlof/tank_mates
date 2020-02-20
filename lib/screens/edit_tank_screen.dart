@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tank_mates/screens/about_screen.dart';
+import 'package:tank_mates/screens/add_fish_screen.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/screens/settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
@@ -247,27 +248,44 @@ class _EditTankScreenState extends State<EditTankScreen> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 15.0,
-                          right: 15.0,
-                          top: 15.0,
-                          bottom: 5.0,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          vertical: 24.0,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: kCardColor,
+                      InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) => SingleChildScrollView(
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                child: AddFishScreen(),
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            left: 15.0,
+                            right: 15.0,
+                            top: 15.0,
+                            bottom: 5.0,
                           ),
-                          color: kCardColor,
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Icon(
-                          Icons.add,
-                          size: 80.0,
-                          color: Colors.grey.shade50,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 24.0,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: kCardColor,
+                            ),
+                            color: kCardColor,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            size: 80.0,
+                            color: Colors.grey.shade50,
+                          ),
                         ),
                       ),
                       Row(
