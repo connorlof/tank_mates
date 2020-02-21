@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tank_mates/util/constants.dart';
+import 'package:tank_mates/widgets/menu_bar.dart';
 
 class SavedTanksScreen extends StatefulWidget {
   static String id = kIdSavedTanksScreen;
@@ -66,7 +67,7 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          MenuBar(),
+          MenuBar(false),
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(15.0),
@@ -123,58 +124,58 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
   }
 }
 
-class MenuBar extends StatelessWidget {
-  const MenuBar({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: kPrimaryColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: ButtonTheme(
-              minWidth: 160.0,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  'New Tank',
-                  style: TextStyle(color: kBackGroundColor),
-                ),
-                color: kPrimaryColor,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: kBackGroundColor),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: ButtonTheme(
-              minWidth: 160.0,
-              child: RaisedButton(
-                onPressed: () {},
-                child: Text(
-                  'Saved Tanks',
-                  style: TextStyle(color: kPrimaryColor),
-                ),
-                color: kBackGroundColor,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: kBackGroundColor),
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//class MenuBar extends StatelessWidget {
+//  const MenuBar({
+//    Key key,
+//  }) : super(key: key);
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Container(
+//      color: kPrimaryColor,
+//      child: Row(
+//        mainAxisAlignment: MainAxisAlignment.center,
+//        children: <Widget>[
+//          Padding(
+//            padding: const EdgeInsets.all(4.0),
+//            child: ButtonTheme(
+//              minWidth: 160.0,
+//              child: RaisedButton(
+//                onPressed: () {
+//                  Navigator.pop(context);
+//                },
+//                child: Text(
+//                  'New Tank',
+//                  style: TextStyle(color: kBackGroundColor),
+//                ),
+//                color: kPrimaryColor,
+//                shape: RoundedRectangleBorder(
+//                  side: BorderSide(color: kBackGroundColor),
+//                  borderRadius: BorderRadius.circular(30.0),
+//                ),
+//              ),
+//            ),
+//          ),
+//          Padding(
+//            padding: const EdgeInsets.all(4.0),
+//            child: ButtonTheme(
+//              minWidth: 160.0,
+//              child: RaisedButton(
+//                onPressed: () {},
+//                child: Text(
+//                  'Saved Tanks',
+//                  style: TextStyle(color: kPrimaryColor),
+//                ),
+//                color: kBackGroundColor,
+//                shape: RoundedRectangleBorder(
+//                  side: BorderSide(color: kBackGroundColor),
+//                  borderRadius: BorderRadius.circular(30.0),
+//                ),
+//              ),
+//            ),
+//          ),
+//        ],
+//      ),
+//    );
+//  }
+//}

@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:tank_mates/util/constants.dart';
 
 class RoundButton extends StatelessWidget {
-  RoundButton(
-      {this.color, this.title, this.textColor, @required this.onPressed});
+  RoundButton({this.isSelected, this.title, @required this.onPressed});
 
-  final Color color;
-  final Color textColor;
+  final bool isSelected;
   final String title;
   final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Material(
-        elevation: 0.0,
-        color: color,
-        borderRadius: BorderRadius.circular(30.0),
-        child: MaterialButton(
+      padding: const EdgeInsets.all(4.0),
+      child: ButtonTheme(
+        minWidth: 160.0,
+        child: RaisedButton(
           onPressed: onPressed,
-          minWidth: 150.0,
-          height: 45.0,
           child: Text(
             title,
             style: TextStyle(
-              color: textColor,
+              fontSize: 18.0,
+              color: isSelected ? kPrimaryColor : kBackGroundColor,
+              fontFamily: 'Oswald',
             ),
+          ),
+          color: isSelected ? kBackGroundColor : kPrimaryColor,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: kBackGroundColor),
+            borderRadius: BorderRadius.circular(30.0),
           ),
         ),
       ),
