@@ -236,7 +236,9 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       bottom: MediaQuery.of(context)
                                           .viewInsets
                                           .bottom),
-                                  child: AddFishScreen(),
+                                  child: AddFishScreen(
+                                    data: fishAvailableList,
+                                  ),
                                 ),
                               ),
                             );

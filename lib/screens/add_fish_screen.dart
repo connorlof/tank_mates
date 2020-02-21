@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class AddFishScreen extends StatelessWidget {
+  AddFishScreen({@required this.data});
+
+  final List<String> data;
+
   @override
   Widget build(BuildContext context) {
-    String newTaskTitle;
-
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -25,16 +27,38 @@ class AddFishScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: kTextStyleHeader,
             ),
-            TextField(
-              autofocus: true,
-              textAlign: TextAlign.center,
-              onChanged: (newText) {
-                newTaskTitle = newText;
-              },
+            Container(
+              height: 400.0,
+              child: ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      print('adding ${data[index]}');
+                      Navigator.pop(context);
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Divider(),
+                        Text(
+                          '${data[index]}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Oswald',
+                            fontSize: 18.0,
+                            color: Color(0xFF3c4146),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
             FlatButton(
               child: Text(
-                'Add',
+                'Cancel',
                 style: TextStyle(
                   color: kBackGroundColor,
                   fontFamily: 'Oswald',
