@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/add_fish_screen.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
@@ -11,7 +14,10 @@ import 'package:tank_mates/widgets/recommendation_card.dart';
 import 'package:tank_mates/widgets/small_card_button.dart';
 
 class EditTankScreen extends StatefulWidget {
+  EditTankScreen({this.fishData});
+
   static String id = kIdEditTankScreen;
+  final fishData;
 
   @override
   _EditTankScreenState createState() => _EditTankScreenState();
@@ -19,6 +25,10 @@ class EditTankScreen extends StatefulWidget {
 
 class _EditTankScreenState extends State<EditTankScreen> {
   AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
+
+  var compData = <dynamic>[];
+  var fishAvailableList = <String>[];
+
   List<String> fishAddedList = [
     'x2 Angelfish',
     'x2 Dwarf Gourami',
@@ -39,6 +49,26 @@ class _EditTankScreenState extends State<EditTankScreen> {
     'x5 False Julii Cory',
     'x9 Molly',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    parseFishData();
+    //fishComparator = FishComparator(compData, fishAvailableList.length);
+  }
+
+  void parseFishData() {
+    Map<String, dynamic> decodedData = jsonDecode(widget.fishData);
+    compData = decodedData["freshwater_data"];
+
+    for (int i = 0; i < compData.length; i++) {
+      fishAvailableList.add(compData[i]['Name']);
+      print(compData[i]['Name']);
+    }
+  }
 
   void _selectTopIndex(AppBarChoice choice) {
     if (choice.id == kIdSavedTanksScreen) {
@@ -65,6 +95,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
           appName,
           style: kTextStyleHeader,
         ),
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           // overflow menu
           PopupMenuButton<AppBarChoice>(
@@ -84,154 +115,160 @@ class _EditTankScreenState extends State<EditTankScreen> {
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          MenuBar(true),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: SingleChildScrollView(
+      body: WillPopScope(
+        onWillPop: () async {
+          return Future.value(false);
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            MenuBar(true),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.all(15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                ParameterTile(
+                                  label: 'Temperature',
+                                  value: '72 - 82°F',
+                                ),
+                                ParameterTile(
+                                  label: 'pH',
+                                  value: '6.0 - 7.5',
+                                ),
+                                ParameterTile(
+                                  label: 'Hardness',
+                                  value: '10 - 20 dKH',
+                                ),
+                                ParameterTile(
+                                  label: 'Care Level',
+                                  value: 'Moderate',
+                                ),
+                              ],
+                            ),
+                          ),
+                          RecommendationCard(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.all(15.0),
+                          padding: EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: kCardColor,
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               ParameterTile(
-                                label: 'Temperature',
-                                value: '72 - 82°F',
+                                label: 'Tank Status: Overstocked',
+                                value: '143 %',
                               ),
-                              ParameterTile(
-                                label: 'pH',
-                                value: '6.0 - 7.5',
-                              ),
-                              ParameterTile(
-                                label: 'Hardness',
-                                value: '10 - 20 dKH',
-                              ),
-                              ParameterTile(
-                                label: 'Care Level',
-                                value: 'Moderate',
+                              Text(
+                                "45 gallon aquarium",
+                                style: kTextStyleSmall,
                               ),
                             ],
                           ),
                         ),
-                        RecommendationCard(),
+                        Container(
+                          margin: EdgeInsets.only(left: 15.0, right: 15.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "24 fish added",
+                                style: kTextStyleHeader,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: Expanded(
+                            child: ListView.builder(
+                              itemCount: fishAddedList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Divider(),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 15.0),
+                                      child: Text(
+                                        '${fishAddedList[index]}',
+                                        style: kTextStyleSmall,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (context) => SingleChildScrollView(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom),
+                                  child: AddFishScreen(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: CardButton(),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: SmallCardButton(
+                                icon: Icons.settings,
+                                leftMargin: 15.0,
+                                rightMargin: 5.0,
+                              ),
+                            ),
+                            Expanded(
+                              child: SmallCardButton(
+                                icon: Icons.save,
+                                leftMargin: 5.0,
+                                rightMargin: 15.0,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(15.0),
-                        padding: EdgeInsets.all(4.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: kCardColor,
-                          ),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            ParameterTile(
-                              label: 'Tank Status: Overstocked',
-                              value: '143 %',
-                            ),
-                            Text(
-                              "45 gallon aquarium",
-                              style: kTextStyleSmall,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 15.0, right: 15.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "24 fish added",
-                              style: kTextStyleHeader,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Expanded(
-                          child: ListView.builder(
-                            itemCount: fishAddedList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Divider(),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15.0),
-                                    child: Text(
-                                      '${fishAddedList[index]}',
-                                      style: kTextStyleSmall,
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            builder: (context) => SingleChildScrollView(
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context)
-                                        .viewInsets
-                                        .bottom),
-                                child: AddFishScreen(),
-                              ),
-                            ),
-                          );
-                        },
-                        child: CardButton(),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: SmallCardButton(
-                              icon: Icons.settings,
-                              leftMargin: 15.0,
-                              rightMargin: 5.0,
-                            ),
-                          ),
-                          Expanded(
-                            child: SmallCardButton(
-                              icon: Icons.save,
-                              leftMargin: 5.0,
-                              rightMargin: 15.0,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

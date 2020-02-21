@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const kIdLoadingScreen = 'loading_screen';
 const kIdEditTankScreen = 'edit_tank_screen';
 const kIdSavedTanksScreen = 'saved_tanks_screen';
 const kIdAboutScreen = 'about_screen';
