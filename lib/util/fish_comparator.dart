@@ -1,11 +1,10 @@
 import 'package:tank_mates/models/fish.dart';
 
 class FishComparator {
-  //String aggressiveness = "aggressive";
   //String phRange = "6.9-7.1";
   //String temperatureRange = "75-86";
   //String hardness = "1-10";
-  //String careLevel = "Moderate";
+
   //String maximumaAdultSize = "5";
   //String diet = "Carnivore";
   //String minTankSize = "30";
@@ -33,5 +32,30 @@ class FishComparator {
     }
 
     return highestAggressiveness;
+  }
+
+  static CareLevel determineCareLevel(List<Fish> fishList) {
+    CareLevel highestCareLevel = CareLevel.easy;
+    List<CareLevel> careLevels = [];
+
+    for (var fish in fishList) {
+      if (fish.careLevel == CareLevel.moderate) {
+        careLevels.add(CareLevel.moderate);
+      } else if (fish.careLevel == CareLevel.difficult) {
+        careLevels.add(CareLevel.difficult);
+      } else if (fish.careLevel == CareLevel.expert) {
+        careLevels.add(CareLevel.expert);
+      }
+    }
+
+    if (careLevels.contains(CareLevel.expert)) {
+      highestCareLevel = CareLevel.expert;
+    } else if (careLevels.contains(CareLevel.difficult)) {
+      highestCareLevel = CareLevel.difficult;
+    } else if (careLevels.contains(CareLevel.moderate)) {
+      highestCareLevel = CareLevel.moderate;
+    }
+
+    return highestCareLevel;
   }
 }
