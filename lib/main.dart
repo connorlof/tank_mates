@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/models/added_fish_data.dart';
+import 'package:tank_mates/models/tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/edit_tank_screen.dart';
 import 'package:tank_mates/screens/loading_screen.dart';
@@ -17,7 +17,7 @@ class TankMatesApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: kBackGroundColor));
     return ChangeNotifierProvider(
-      create: (context) => AddedFishData(),
+      create: (context) => TankData(),
       child: MaterialApp(
         theme: ThemeData(
             primaryColor: kBackGroundColor,

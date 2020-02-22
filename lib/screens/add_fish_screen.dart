@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/models/added_fish_data.dart';
 import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/models/tank_data.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class AddFishScreen extends StatelessWidget {
@@ -39,7 +39,7 @@ class AddFishScreen extends StatelessWidget {
                     onTap: () {
                       print('adding ${data[index].name}');
 
-                      Provider.of<AddedFishData>(context, listen: false)
+                      Provider.of<TankData>(context, listen: false)
                           .addFish(data[index]);
 
                       Navigator.pop(context);

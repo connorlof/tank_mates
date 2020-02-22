@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:tank_mates/models/fish.dart';
 
-class AddedFishData extends ChangeNotifier {
+class TankData extends ChangeNotifier {
   List<Fish> _fish = [];
 
   UnmodifiableListView<Fish> get addedFish {

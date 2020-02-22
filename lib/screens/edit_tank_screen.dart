@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/models/added_fish_data.dart';
 import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/models/tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/add_fish_screen.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/screens/settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
+import 'package:tank_mates/util/fish_comparator.dart';
 import 'package:tank_mates/widgets/card_button.dart';
 import 'package:tank_mates/widgets/menu_bar.dart';
 import 'package:tank_mates/widgets/parameter_tile.dart';
@@ -27,6 +28,7 @@ class EditTankScreen extends StatefulWidget {
 class _EditTankScreenState extends State<EditTankScreen> {
   AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
 
+  FishComparator fishComparator = FishComparator();
   List<String> fishAvailableList = <String>[];
   List<Fish> addedFish = [];
 
@@ -171,14 +173,14 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                '${Provider.of<AddedFishData>(context).taskCount} fish added',
+                                '${Provider.of<TankData>(context).taskCount} fish added',
                                 style: kTextStyleHeader,
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          child: Consumer<AddedFishData>(
+                          child: Consumer<TankData>(
                               builder: (context, addedFishData, child) {
                             if (addedFishData.addedFish.length > 0) {
                               return Expanded(
