@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/models/added_fish_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/edit_tank_screen.dart';
 import 'package:tank_mates/screens/loading_screen.dart';
@@ -14,24 +16,27 @@ class TankMatesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: kBackGroundColor));
-    return MaterialApp(
-      theme: ThemeData(
-          primaryColor: kBackGroundColor,
-          secondaryHeaderColor: kPrimaryColor,
-          accentColor: kPrimaryColor,
-          scaffoldBackgroundColor: kBackGroundColor,
-          primaryTextTheme: TextTheme(
-              title: TextStyle(
-            color: kPrimaryColor,
-          ))),
-      initialRoute: LoadingScreen.id,
-      routes: {
-        LoadingScreen.id: (context) => LoadingScreen(),
-        EditTankScreen.id: (context) => EditTankScreen(),
-        SavedTanksScreen.id: (context) => SavedTanksScreen(),
-        SettingsScreen.id: (context) => EditTankScreen(),
-        AboutScreen.id: (context) => AboutScreen(),
-      },
+    return ChangeNotifierProvider(
+      create: (context) => AddedFishData(),
+      child: MaterialApp(
+        theme: ThemeData(
+            primaryColor: kBackGroundColor,
+            secondaryHeaderColor: kPrimaryColor,
+            accentColor: kPrimaryColor,
+            scaffoldBackgroundColor: kBackGroundColor,
+            primaryTextTheme: TextTheme(
+                title: TextStyle(
+              color: kPrimaryColor,
+            ))),
+        initialRoute: LoadingScreen.id,
+        routes: {
+          LoadingScreen.id: (context) => LoadingScreen(),
+          EditTankScreen.id: (context) => EditTankScreen(),
+          SavedTanksScreen.id: (context) => SavedTanksScreen(),
+          SettingsScreen.id: (context) => EditTankScreen(),
+          AboutScreen.id: (context) => AboutScreen(),
+        },
+      ),
     );
   }
 }

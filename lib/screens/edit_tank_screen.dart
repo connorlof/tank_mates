@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/models/added_fish_data.dart';
 import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/add_fish_screen.dart';
@@ -25,29 +27,8 @@ class EditTankScreen extends StatefulWidget {
 class _EditTankScreenState extends State<EditTankScreen> {
   AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
 
-  var compData = <dynamic>[];
   List<String> fishAvailableList = <String>[];
-
-  List<String> fishAddedList = [
-    'x2 Angelfish',
-    'x2 Dwarf Gourami',
-    'x1 Rainbow Shark',
-    'x6 Clown Loach',
-    'x5 False Julii Cory',
-    'x9 Molly',
-    'x2 Angelfish',
-    'x2 Dwarf Gourami',
-    'x1 Rainbow Shark',
-    'x6 Clown Loach',
-    'x5 False Julii Cory',
-    'x9 Molly',
-    'x2 Angelfish',
-    'x2 Dwarf Gourami',
-    'x1 Rainbow Shark',
-    'x6 Clown Loach',
-    'x5 False Julii Cory',
-    'x9 Molly',
-  ];
+  List<Fish> addedFish = [];
 
   @override
   void initState() {
@@ -56,7 +37,6 @@ class _EditTankScreenState extends State<EditTankScreen> {
       DeviceOrientation.portraitUp,
     ]);
     generateAvailableFishList();
-    //fishComparator = FishComparator(compData, fishAvailableList.length);
   }
 
   void generateAvailableFishList() {
@@ -191,34 +171,56 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                "24 fish added",
+                                '${Provider.of<AddedFishData>(context).taskCount} fish added',
                                 style: kTextStyleHeader,
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          child: Expanded(
-                            child: ListView.builder(
-                              itemCount: fishAddedList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Divider(),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 15.0),
-                                      child: Text(
-                                        '${fishAddedList[index]}',
-                                        style: kTextStyleSmall,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
+                          child: Consumer<AddedFishData>(
+                              builder: (context, addedFishData, child) {
+                            if (addedFishData.addedFish.length > 0) {
+                              return Expanded(
+                                child: ListView.builder(
+                                  itemCount: addedFishData.addedFish.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final Fish fish =
+                                        addedFishData.addedFish[index];
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Divider(),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 15.0),
+                                          child: Text(
+                                            '${fish.name}',
+                                            style: kTextStyleSmall,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              );
+                            } else {
+                              return Expanded(
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Divider(),
+                                    ],
+                                  ),
+                                ),
+                              );
+                              ;
+                            }
+                          }),
                         ),
                         InkWell(
                           onTap: () {
@@ -232,7 +234,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                           .viewInsets
                                           .bottom),
                                   child: AddFishScreen(
-                                    data: fishAvailableList,
+                                    data: widget.fishObjs,
                                   ),
                                 ),
                               ),

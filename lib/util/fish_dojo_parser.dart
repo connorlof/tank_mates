@@ -7,26 +7,28 @@ class FishPodoParser {
   Fish outputValidatedFish(FishJsonPodo fishPodo) {
     Fish newFishObj = new Fish();
 
-    newFishObj.name = fishPodo.name;
-    newFishObj.scientificName = fishPodo.scientificName;
-    newFishObj.speciesGroup = fishPodo.speciesGroup;
+    try {
+      newFishObj.name = fishPodo.name;
+      newFishObj.scientificName = fishPodo.scientificName;
+      newFishObj.speciesGroup = fishPodo.speciesGroup;
 
-    newFishObj.aggressiveness =
-        parseAggressivenessFromString(fishPodo.aggressiveness);
+      newFishObj.aggressiveness =
+          parseAggressivenessFromString(fishPodo.aggressiveness);
 
-    newFishObj.phMin = parsePhMinFromRange(fishPodo.phRange);
-    newFishObj.phMax = parsePhMaxFromRange(fishPodo.phRange);
+      newFishObj.phMin = parsePhMinFromRange(fishPodo.phRange);
+      newFishObj.phMax = parsePhMaxFromRange(fishPodo.phRange);
 
-    newFishObj.tempMin = parseTempMinFromRange(fishPodo.temperatureRange);
-    newFishObj.tempMax = parseTempMaxFromRange(fishPodo.temperatureRange);
+      newFishObj.tempMin = parseTempMinFromRange(fishPodo.temperatureRange);
+      newFishObj.tempMax = parseTempMaxFromRange(fishPodo.temperatureRange);
 
-    newFishObj.hardnessMin = parseHardnessMinFromRange(fishPodo.hardness);
-    newFishObj.hardnessMax = parseHardnessMaxFromRange(fishPodo.hardness);
+      newFishObj.hardnessMin = parseHardnessMinFromRange(fishPodo.hardness);
+      newFishObj.hardnessMax = parseHardnessMaxFromRange(fishPodo.hardness);
 
-    newFishObj.careLevel = parseCareLevelFromString(fishPodo.careLevel);
-    newFishObj.maximumaAdultSize = parseMaxSize(fishPodo.maximumaAdultSize);
-    newFishObj.diet = parseDietFromString(fishPodo.diet);
-    newFishObj.minTankSize = parseMinTankSize(fishPodo.minTankSize);
+      newFishObj.careLevel = parseCareLevelFromString(fishPodo.careLevel);
+      newFishObj.maximumaAdultSize = parseMaxSize(fishPodo.maximumaAdultSize);
+      newFishObj.diet = parseDietFromString(fishPodo.diet);
+      newFishObj.minTankSize = parseMinTankSize(fishPodo.minTankSize);
+    } catch (e) {}
 
     return newFishObj;
   }
