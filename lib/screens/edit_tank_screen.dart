@@ -173,7 +173,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                '${Provider.of<TankData>(context).taskCount} fish added',
+                                '${Provider.of<TankData>(context).numFish} fish added',
                                 style: kTextStyleHeader,
                               ),
                             ],
