@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/add_fish_screen.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
@@ -14,10 +13,10 @@ import 'package:tank_mates/widgets/recommendation_card.dart';
 import 'package:tank_mates/widgets/small_card_button.dart';
 
 class EditTankScreen extends StatefulWidget {
-  EditTankScreen({this.fishData});
+  EditTankScreen({this.fishObjs});
 
   static String id = kIdEditTankScreen;
-  final fishData;
+  final List<Fish> fishObjs;
 
   @override
   _EditTankScreenState createState() => _EditTankScreenState();
@@ -27,7 +26,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
   AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
 
   var compData = <dynamic>[];
-  var fishAvailableList = <String>[];
+  List<String> fishAvailableList = <String>[];
 
   List<String> fishAddedList = [
     'x2 Angelfish',
@@ -56,17 +55,13 @@ class _EditTankScreenState extends State<EditTankScreen> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-    parseFishData();
+    generateAvailableFishList();
     //fishComparator = FishComparator(compData, fishAvailableList.length);
   }
 
-  void parseFishData() {
-    Map<String, dynamic> decodedData = jsonDecode(widget.fishData);
-    compData = decodedData["freshwater_data"];
-
-    for (int i = 0; i < compData.length; i++) {
-      fishAvailableList.add(compData[i]['Name']);
-      print(compData[i]['Name']);
+  void generateAvailableFishList() {
+    for (int i = 0; i < widget.fishObjs.length; i++) {
+      fishAvailableList.add(widget.fishObjs[i].name);
     }
   }
 
