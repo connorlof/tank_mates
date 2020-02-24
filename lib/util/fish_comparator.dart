@@ -7,7 +7,6 @@ class FishComparator {
 
   //String maximumaAdultSize = "5";
   //String diet = "Carnivore";
-  //String minTankSize = "30";
 
   static Aggressiveness determineAggressiveness(List<Fish> fishList) {
     Aggressiveness highestAggressiveness = Aggressiveness.peaceful;
@@ -57,5 +56,35 @@ class FishComparator {
     }
 
     return highestCareLevel;
+  }
+
+  static int determineMinTankSize(List<Fish> fishList) {
+    int greatestMinTank = 0;
+
+    for (var fish in fishList) {
+      if (fish.minTankSize > greatestMinTank) {
+        greatestMinTank = fish.minTankSize;
+      }
+    }
+
+    return greatestMinTank;
+  }
+
+  //todo: determine better formula other than inch per gallon
+  static int determineStockingPercent(List<Fish> fishList, int tankGallons) {
+    if (fishList.isEmpty) {
+      return 0;
+    }
+
+    double stockingPercent = 0.00;
+    double totalInchesOfFish = 0.00;
+
+    for (var fish in fishList) {
+      totalInchesOfFish += fish.maximumaAdultSize;
+    }
+
+    stockingPercent = totalInchesOfFish / tankGallons * 100;
+
+    return stockingPercent.round();
   }
 }

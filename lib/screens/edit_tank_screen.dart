@@ -161,7 +161,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 value: '143 %',
                               ),
                               Text(
-                                "45 gallon aquarium",
+                                '45 gallon aquarium',
                                 style: kTextStyleSmall,
                               ),
                             ],
