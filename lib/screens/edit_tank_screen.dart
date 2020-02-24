@@ -129,7 +129,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 ),
                                 ParameterTile(
                                   label: 'Care Level',
-                                  value: 'Moderate',
+                                  value:
+                                      '${Provider.of<TankData>(context).tank.careLevel.toString()}',
                                 ),
                               ],
                             ),
@@ -158,10 +159,11 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             children: <Widget>[
                               ParameterTile(
                                 label: 'Tank Status: Overstocked',
-                                value: '143 %',
+                                value:
+                                    '${Provider.of<TankData>(context).tank.percentFilled} %',
                               ),
                               Text(
-                                '45 gallon aquarium',
+                                '${Provider.of<TankData>(context).tank.gallons} gallon aquarium',
                                 style: kTextStyleSmall,
                               ),
                             ],

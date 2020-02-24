@@ -283,4 +283,17 @@ void testDetermineStockingPercent() {
     //expectation
     expect(stockingPercent, 200);
   });
+
+  test('determineStockingPercent returns 999 when passed a fish and 0 gallons',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fishSize1];
+    final int gallons = 0;
+
+    int stockingPercent =
+        FishComparator.determineStockingPercent(fishList, gallons);
+
+    //expectation
+    expect(stockingPercent, 999);
+  });
 }

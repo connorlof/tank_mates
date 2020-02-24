@@ -76,6 +76,10 @@ class FishComparator {
       return 0;
     }
 
+    if (tankGallons == 0) {
+      return 999;
+    }
+
     double stockingPercent = 0.00;
     double totalInchesOfFish = 0.00;
 
