@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/models/tank_data.dart';
@@ -117,22 +118,26 @@ class _EditTankScreenState extends State<EditTankScreen> {
                               children: <Widget>[
                                 ParameterTile(
                                   label: 'Temperature',
-                                  value:
+                                  value: //todo: needs validation
                                       '${Provider.of<TankData>(context).tank.tempMin} - '
                                       '${Provider.of<TankData>(context).tank.tempMax}°F',
                                 ),
                                 ParameterTile(
                                   label: 'pH',
-                                  value: '6.0 - 7.5',
+                                  value: //todo: needs validation
+                                      '${Provider.of<TankData>(context).tank.phMin} - '
+                                      '${Provider.of<TankData>(context).tank.phMax}',
                                 ),
                                 ParameterTile(
                                   label: 'Hardness',
-                                  value: '10 - 20 dKH',
+                                  value: //todo: needs validation
+                                      '${Provider.of<TankData>(context).tank.hardnessMin} - '
+                                      '${Provider.of<TankData>(context).tank.hardnessMax} dKH',
                                 ),
                                 ParameterTile(
                                   label: 'Care Level',
                                   value:
-                                      '${Provider.of<TankData>(context).tank.careLevel.toString()}',
+                                      '${toBeginningOfSentenceCase(Provider.of<TankData>(context).tank.careLevel.toString().split('.').last)}',
                                 ),
                               ],
                             ),

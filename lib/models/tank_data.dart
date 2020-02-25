@@ -30,10 +30,19 @@ class TankData extends ChangeNotifier {
   void updateTankValues() {
     _tank.aggressiveness = FishComparator.determineAggressiveness(_fish);
     _tank.careLevel = FishComparator.determineCareLevel(_fish);
+
     _tank.percentFilled =
         FishComparator.determineStockingPercent(_fish, _tank.gallons);
+
     _tank.tempMin = FishComparator.determineMinTemp(_fish);
     _tank.tempMax = FishComparator.determineMaxTemp(_fish);
+
+    _tank.phMin = FishComparator.determineMinPh(_fish);
+    _tank.phMax = FishComparator.determineMaxPh(_fish);
+
+    _tank.hardnessMin = FishComparator.determineMinHardness(_fish);
+    _tank.hardnessMax = FishComparator.determineMaxHardness(_fish);
+
     //determineMinTankSize
   }
 

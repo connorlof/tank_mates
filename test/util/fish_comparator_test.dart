@@ -9,6 +9,10 @@ void main() {
   testDetermineStockingPercent();
   testDetermineMinTemp();
   testDetermineMaxTemp();
+  testDetermineMinPh();
+  testDetermineMaxPh();
+  testDetermineMinHardness();
+  testDetermineMaxHardness();
 }
 
 void testDetermineAggressiveness() {
@@ -393,5 +397,201 @@ void testDetermineMaxTemp() {
 
     //expectation
     expect(maxTemp, fish1.tempMax);
+  });
+}
+
+void testDetermineMinPh() {
+  final Fish fish1 = Fish();
+  fish1.phMin = 6.0;
+  fish1.phMax = 8.0;
+
+  final Fish fish2 = Fish();
+  fish2.phMin = 7.0;
+  fish2.phMax = 8.0;
+
+  final Fish fish3 = Fish();
+  fish3.phMin = 8.0;
+  fish3.phMax = 9.0;
+
+  test('determineMinPh returns 0.0 (double) when passed an empty fish list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [];
+
+    double minPh = FishComparator.determineMinPh(fishList);
+
+    //expectation
+    expect(minPh, 0.0);
+  });
+
+  test(
+      'determineMinPh returns the phMin of a Fish if it is the only one in a list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1];
+
+    double minPh = FishComparator.determineMinPh(fishList);
+
+    //expectation
+    expect(minPh, fish1.phMin);
+  });
+
+  test(
+      'determineMinPh returns the highest phMin of three fish with different phMins',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1, fish2, fish3];
+
+    double minPh = FishComparator.determineMinPh(fishList);
+
+    //expectation
+    expect(minPh, fish3.phMin);
+  });
+}
+
+void testDetermineMaxPh() {
+  final Fish fish1 = Fish();
+  fish1.phMin = 6.0;
+  fish1.phMax = 7.0;
+
+  final Fish fish2 = Fish();
+  fish2.phMin = 7.0;
+  fish2.phMax = 8.0;
+
+  final Fish fish3 = Fish();
+  fish3.phMin = 8.0;
+  fish3.phMax = 9.0;
+
+  test('determineMaxPh returns 14.0 (double) when passed an empty fish list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [];
+
+    double maxPh = FishComparator.determineMaxPh(fishList);
+
+    //expectation
+    expect(maxPh, 14.0);
+  });
+
+  test(
+      'determineMaxPh returns the phMax of a Fish if it is the only one in a list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1];
+
+    double maxPh = FishComparator.determineMaxPh(fishList);
+
+    //expectation
+    expect(maxPh, fish1.phMax);
+  });
+
+  test(
+      'determineMaxPh returns the lowest phMax of three fish with different phMaxes',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1, fish2, fish3];
+
+    double maxPh = FishComparator.determineMaxPh(fishList);
+
+    //expectation
+    expect(maxPh, fish1.phMax);
+  });
+}
+
+void testDetermineMinHardness() {
+  final Fish fish1 = Fish();
+  fish1.hardnessMin = 5;
+  fish1.hardnessMax = 20;
+
+  final Fish fish2 = Fish();
+  fish2.hardnessMin = 10;
+  fish2.hardnessMax = 20;
+
+  final Fish fish3 = Fish();
+  fish3.hardnessMin = 15;
+  fish3.hardnessMax = 20;
+
+  test('determineMinHardness returns 0 (int) when passed an empty fish list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [];
+
+    int minHardness = FishComparator.determineMinHardness(fishList);
+
+    //expectation
+    expect(minHardness, 0);
+  });
+
+  test(
+      'determineMinHardness returns the hardnessMin of a Fish if it is the only one in a list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1];
+
+    int minHardness = FishComparator.determineMinHardness(fishList);
+
+    //expectation
+    expect(minHardness, fish1.hardnessMin);
+  });
+
+  test(
+      'determineMinHardness returns the highest hardnessMin of three fish with different hardnessMin',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1, fish2, fish3];
+
+    int minHardness = FishComparator.determineMinHardness(fishList);
+
+    //expectation
+    expect(minHardness, fish3.hardnessMin);
+  });
+}
+
+void testDetermineMaxHardness() {
+  final Fish fish1 = Fish();
+  fish1.hardnessMin = 5;
+  fish1.hardnessMax = 10;
+
+  final Fish fish2 = Fish();
+  fish2.hardnessMin = 10;
+  fish2.hardnessMax = 15;
+
+  final Fish fish3 = Fish();
+  fish3.hardnessMin = 15;
+  fish3.hardnessMax = 20;
+
+  test('determineMaxHardness returns 0 (int) when passed an empty fish list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [];
+
+    int maxHardness = FishComparator.determineMaxHardness(fishList);
+
+    //expectation
+    expect(maxHardness, 100);
+  });
+
+  test(
+      'determineMaxHardness returns the hardnessMax of a Fish if it is the only one in a list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1];
+
+    int maxHardness = FishComparator.determineMaxHardness(fishList);
+
+    //expectation
+    expect(maxHardness, fish1.hardnessMax);
+  });
+
+  test(
+      'determineMaxHardness returns the highest hardnessMax of three fish with different hardnessMax',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1, fish2, fish3];
+
+    int maxHardness = FishComparator.determineMaxHardness(fishList);
+
+    //expectation
+    expect(maxHardness, fish1.hardnessMax);
   });
 }

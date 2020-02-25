@@ -117,4 +117,52 @@ class FishComparator {
 
     return maxTemp;
   }
+
+  static double determineMinPh(List<Fish> fishList) {
+    double minPh = 0.0;
+
+    for (var fish in fishList) {
+      if (minPh < fish.phMin) {
+        minPh = fish.phMin;
+      }
+    }
+
+    return minPh;
+  }
+
+  static double determineMaxPh(List<Fish> fishList) {
+    double maxPh = 14.0;
+
+    for (var fish in fishList) {
+      if (maxPh > fish.phMax) {
+        maxPh = fish.phMax;
+      }
+    }
+
+    return maxPh;
+  }
+
+  static int determineMinHardness(List<Fish> fishList) {
+    int minHardness = 0;
+
+    for (var fish in fishList) {
+      if (minHardness < fish.hardnessMin) {
+        minHardness = fish.hardnessMin;
+      }
+    }
+
+    return minHardness;
+  }
+
+  static int determineMaxHardness(List<Fish> fishList) {
+    int maxHardness = 100;
+
+    for (var fish in fishList) {
+      if (maxHardness > fish.hardnessMax) {
+        maxHardness = fish.hardnessMax;
+      }
+    }
+
+    return maxHardness;
+  }
 }
