@@ -117,7 +117,9 @@ class _EditTankScreenState extends State<EditTankScreen> {
                               children: <Widget>[
                                 ParameterTile(
                                   label: 'Temperature',
-                                  value: '72 - 82°F',
+                                  value:
+                                      '${Provider.of<TankData>(context).tank.tempMin} - '
+                                      '${Provider.of<TankData>(context).tank.tempMax}°F',
                                 ),
                                 ParameterTile(
                                   label: 'pH',

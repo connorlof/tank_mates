@@ -32,6 +32,8 @@ class TankData extends ChangeNotifier {
     _tank.careLevel = FishComparator.determineCareLevel(_fish);
     _tank.percentFilled =
         FishComparator.determineStockingPercent(_fish, _tank.gallons);
+    _tank.tempMin = FishComparator.determineMinTemp(_fish);
+    _tank.tempMax = FishComparator.determineMaxTemp(_fish);
     //determineMinTankSize
   }
 

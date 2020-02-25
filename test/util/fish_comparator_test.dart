@@ -7,6 +7,8 @@ void main() {
   testDetermineCareLevel();
   testDetermineMinTankSize();
   testDetermineStockingPercent();
+  testDetermineMinTemp();
+  testDetermineMaxTemp();
 }
 
 void testDetermineAggressiveness() {
@@ -295,5 +297,101 @@ void testDetermineStockingPercent() {
 
     //expectation
     expect(stockingPercent, 999);
+  });
+}
+
+void testDetermineMinTemp() {
+  final Fish fish1 = Fish();
+  fish1.tempMin = 70;
+  fish1.tempMax = 80;
+
+  final Fish fish2 = Fish();
+  fish2.tempMin = 65;
+  fish2.tempMax = 80;
+
+  final Fish fish3 = Fish();
+  fish3.tempMin = 40;
+  fish3.tempMax = 80;
+
+  test('determineMinTemp returns 0 (int) when passed an empty fish list', () {
+    //setup of test case
+    final List<Fish> fishList = [];
+
+    int minTemp = FishComparator.determineMinTemp(fishList);
+
+    //expectation
+    expect(minTemp, 0);
+  });
+
+  test(
+      'determineMinTemp returns the tempMin of a Fish if it is the only one in a list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1];
+
+    int minTemp = FishComparator.determineMinTemp(fishList);
+
+    //expectation
+    expect(minTemp, fish1.tempMin);
+  });
+
+  test(
+      'determineMinTemp returns the highest tempMin of three fish with different tempMins',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1, fish2, fish3];
+
+    int minTemp = FishComparator.determineMinTemp(fishList);
+
+    //expectation
+    expect(minTemp, fish1.tempMin);
+  });
+}
+
+void testDetermineMaxTemp() {
+  final Fish fish1 = Fish();
+  fish1.tempMin = 50;
+  fish1.tempMax = 60;
+
+  final Fish fish2 = Fish();
+  fish2.tempMin = 65;
+  fish2.tempMax = 70;
+
+  final Fish fish3 = Fish();
+  fish3.tempMin = 40;
+  fish3.tempMax = 80;
+
+  test('determineMaxTemp returns 100 (int) when passed an empty fish list', () {
+    //setup of test case
+    final List<Fish> fishList = [];
+
+    int maxTemp = FishComparator.determineMaxTemp(fishList);
+
+    //expectation
+    expect(maxTemp, 100);
+  });
+
+  test(
+      'determineMaxTemp returns the tempMax of a Fish if it is the only one in a list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1];
+
+    int maxTemp = FishComparator.determineMaxTemp(fishList);
+
+    //expectation
+    expect(maxTemp, fish1.tempMax);
+  });
+
+  test(
+      'determineMaxTemp returns the smallest tempMax of three fish with different tempMaxes',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish1, fish2, fish3];
+
+    int maxTemp = FishComparator.determineMaxTemp(fishList);
+
+    //expectation
+    expect(maxTemp, fish1.tempMax);
   });
 }

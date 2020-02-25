@@ -91,4 +91,30 @@ class FishComparator {
 
     return stockingPercent.round();
   }
+
+  //todo: take unit setting into account, Fahrenheit only for now
+  static int determineMinTemp(List<Fish> fishList) {
+    int minTemp = 0;
+
+    for (var fish in fishList) {
+      if (minTemp < fish.tempMin) {
+        minTemp = fish.tempMin;
+      }
+    }
+
+    return minTemp;
+  }
+
+  //todo: take unit setting into account, Fahrenheit only for now
+  static int determineMaxTemp(List<Fish> fishList) {
+    int maxTemp = 100;
+
+    for (var fish in fishList) {
+      if (maxTemp > fish.tempMax) {
+        maxTemp = fish.tempMax;
+      }
+    }
+
+    return maxTemp;
+  }
 }
