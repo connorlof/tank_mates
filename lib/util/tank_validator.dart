@@ -1,15 +1,40 @@
 import 'package:tank_mates/models/tank.dart';
 
 class TankValidator {
-  Tank tank;
+  bool isValidTank(Tank tank) {
+    if (!isValidTemperature(tank)) {
+      return false;
+    }
 
-  TankValidator(this.tank);
+    if (!isValidPh(tank)) {
+      return false;
+    }
 
-  bool isValidTemperature() {
-    int min = tank.tempMin;
-    int max = tank.tempMax;
+    if (!isValidHardness(tank)) {
+      return false;
+    }
 
-    if (min <= max) {
+    return true;
+  }
+
+  bool isValidTemperature(Tank tank) {
+    if (tank.tempMin <= tank.tempMax) {
+      return true;
+    }
+
+    return false;
+  }
+
+  bool isValidPh(Tank tank) {
+    if (tank.phMin <= tank.phMax) {
+      return true;
+    }
+
+    return false;
+  }
+
+  bool isValidHardness(Tank tank) {
+    if (tank.hardnessMin <= tank.hardnessMax) {
       return true;
     }
 

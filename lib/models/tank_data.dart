@@ -4,10 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/models/tank.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
+import 'package:tank_mates/util/tank_validator.dart';
 
 class TankData extends ChangeNotifier {
   List<Fish> _fish = [];
   Tank _tank = Tank();
+  TankValidator tankValidator = TankValidator();
 
   UnmodifiableListView<Fish> get addedFish {
     return UnmodifiableListView(_fish);
@@ -44,6 +46,14 @@ class TankData extends ChangeNotifier {
     _tank.hardnessMax = FishComparator.determineMaxHardness(_fish);
 
     //determineMinTankSize
+
+    if (!tankValidator.isValidTank(_tank)) {
+      _tank.status = TankStatus.Incompatible;
+    } else if (_tank.percentFilled > 130) {
+      _tank.status = TankStatus.Overstocked;
+    } else {
+      _tank.status = TankStatus.Good;
+    }
   }
 
 //  void updateFish(Fish newFish) {

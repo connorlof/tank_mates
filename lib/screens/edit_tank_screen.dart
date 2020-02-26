@@ -165,7 +165,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               ParameterTile(
-                                label: 'Tank Status: Overstocked',
+                                label: 'Tank Status: '
+                                    '${toBeginningOfSentenceCase(Provider.of<TankData>(context).tank.status.toString().split('.').last)}',
                                 value:
                                     '${Provider.of<TankData>(context).tank.percentFilled} %',
                               ),

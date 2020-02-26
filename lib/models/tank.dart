@@ -1,6 +1,8 @@
 import 'package:tank_mates/models/fish.dart';
 
 class Tank {
+  TankStatus status = TankStatus.Good;
+
   String tankName = "Tank Name";
   int gallons = 100; //todo: set to proper value
   Aggressiveness aggressiveness = Aggressiveness.peaceful;
@@ -13,3 +15,5 @@ class Tank {
   CareLevel careLevel = CareLevel.easy;
   int percentFilled = 0;
 }
+
+enum TankStatus { Good, Warning, Incompatible, Overstocked }
