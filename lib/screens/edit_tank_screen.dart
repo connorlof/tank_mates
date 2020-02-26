@@ -8,6 +8,7 @@ import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/add_fish_screen.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/screens/settings_screen.dart';
+import 'package:tank_mates/screens/tank_settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 import 'package:tank_mates/widgets/card_button.dart';
@@ -152,29 +153,46 @@ class _EditTankScreenState extends State<EditTankScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.all(15.0),
-                          padding: EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: kCardColor,
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              builder: (context) => SingleChildScrollView(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom),
+                                  child: TankSettingsScreen(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            margin: EdgeInsets.all(15.0),
+                            padding: EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: kCardColor,
+                              ),
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              ParameterTile(
-                                label: 'Tank Status: '
-                                    '${toBeginningOfSentenceCase(Provider.of<TankData>(context).tank.status.toString().split('.').last)}',
-                                value:
-                                    '${Provider.of<TankData>(context).tank.percentFilled} %',
-                              ),
-                              Text(
-                                '${Provider.of<TankData>(context).tank.gallons} gallon aquarium',
-                                style: kTextStyleSmall,
-                              ),
-                            ],
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                ParameterTile(
+                                  label: 'Tank Status: '
+                                      '${toBeginningOfSentenceCase(Provider.of<TankData>(context).tank.status.toString().split('.').last)}',
+                                  value:
+                                      '${Provider.of<TankData>(context).tank.percentFilled} %',
+                                ),
+                                Text(
+                                  '${Provider.of<TankData>(context).tank.gallons} gallon aquarium',
+                                  style: kTextStyleSmall,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Container(

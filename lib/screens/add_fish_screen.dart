@@ -69,6 +69,7 @@ class AddFishScreen extends StatelessWidget {
                 style: TextStyle(
                   color: kBackGroundColor,
                   fontFamily: 'Oswald',
+                  fontSize: 18.0,
                 ),
               ),
               color: kPrimaryColor,

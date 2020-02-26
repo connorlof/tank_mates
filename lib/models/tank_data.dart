@@ -56,11 +56,6 @@ class TankData extends ChangeNotifier {
     }
   }
 
-//  void updateFish(Fish newFish) {
-//    task.toggleDone();
-//    notifyListeners();
-//  }
-
   void removeFish(Fish fish) {
     _fish.remove(fish);
     notifyListeners();
