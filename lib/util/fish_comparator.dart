@@ -165,4 +165,16 @@ class FishComparator {
 
     return maxHardness;
   }
+
+  static String determineRecommendationFood(List<Fish> fishList) {
+    return '';
+  }
+
+  static String determineUpgradeTankSize(List<Fish> fishList) {
+    return '';
+  }
+
+  static List<String> determineFishOverMinTankSize(List<Fish> fishList) {
+    return [''];
+  }
 }

@@ -30,6 +30,32 @@ class TankSettingsScreen extends StatelessWidget {
             Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'TankName',
+                    style: kTextStyleSmall,
+                  ),
+                  TextField(
+                    controller: TextEditingController(
+                      text: '${Provider.of<TankData>(context).tank.tankName}',
+                    ),
+                    style: kTextStyleLarge,
+                    autofocus: true,
+                    textAlign: TextAlign.start,
+                    onChanged: (newText) {
+                      Provider.of<TankData>(context, listen: false)
+                          .setTankName(newText);
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,16 +69,40 @@ class TankSettingsScreen extends StatelessWidget {
                     children: <Widget>[
                       RoundIconButton(
                         icon: Icons.remove,
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<TankData>(context, listen: false)
+                              .decrementTankGallons();
+                        },
                       ),
                       SizedBox(
                         width: 10.0,
                       ),
                       RoundIconButton(
                         icon: Icons.add,
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<TankData>(context, listen: false)
+                              .incrementTankGallons();
+                        },
                       ),
                     ],
+                  ),
+                ],
+              ),
+            ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Save to Device',
+                    style: kTextStyleSmall,
+                  ),
+                  Checkbox(
+                    value: false,
+                    onChanged: (bool value) {},
                   ),
                 ],
               ),

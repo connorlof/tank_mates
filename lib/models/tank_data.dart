@@ -56,6 +56,10 @@ class TankData extends ChangeNotifier {
     }
   }
 
+  void setTankName(String name) {
+    _tank.tankName = name;
+  }
+
   void removeFish(Fish fish) {
     _fish.remove(fish);
     notifyListeners();
@@ -63,5 +67,17 @@ class TankData extends ChangeNotifier {
 
   void resetTank() {
     _tank = Tank();
+  }
+
+  void incrementTankGallons() {
+    _tank.gallons++;
+    updateTankValues();
+    notifyListeners();
+  }
+
+  void decrementTankGallons() {
+    _tank.gallons--;
+    updateTankValues();
+    notifyListeners();
   }
 }
