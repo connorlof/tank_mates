@@ -15,6 +15,7 @@ void main() {
   testDetermineMinHardness();
   testDetermineMaxHardness();
   testDetermineRecommendationFood();
+  testDetermineFishOverMinTankSize();
 }
 
 void testDetermineAggressiveness() {
@@ -671,5 +672,61 @@ void testDetermineRecommendationFood() {
     //expectation
     expect(
         kRecFoodOmnivore, FishComparator.determineRecommendationFood(fishList));
+  });
+}
+
+void testDetermineFishOverMinTankSize() {
+  final Fish fish10 = Fish();
+  fish10.name = '10 inch fish';
+  fish10.minTankSize = 10;
+
+  final Fish fish55 = Fish();
+  fish55.name = '55 inch fish';
+  fish55.minTankSize = 55;
+
+  test(
+      'determineFishOverMinTankSize returns an empty list when passed an empty fish list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [];
+    final int tankSize = 20;
+
+    //expectation
+    expect([], FishComparator.determineFishOverMinTankSize(fishList, tankSize));
+  });
+
+  test(
+      'determineFishOverMinTankSize returns an empty list when passed an all fish under the tank size',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish10, fish10];
+    final int tankSize = 20;
+
+    //expectation
+    expect([], FishComparator.determineFishOverMinTankSize(fishList, tankSize));
+  });
+
+  test(
+      'determineFishOverMinTankSize returns the name of a fish over size when passed it',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish10, fish55];
+    final int tankSize = 20;
+
+    //expectation
+    expect([fish55],
+        FishComparator.determineFishOverMinTankSize(fishList, tankSize));
+  });
+
+  test(
+      'determineFishOverMinTankSize returns only a single item for name of a fish over size when passed multiple versions of it',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fish55, fish55];
+    final int tankSize = 20;
+
+    //expectation
+    expect([fish55],
+        FishComparator.determineFishOverMinTankSize(fishList, tankSize));
   });
 }

@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/models/tank.dart';
+import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 import 'package:tank_mates/util/tank_validator.dart';
 
@@ -48,7 +49,19 @@ class TankData extends ChangeNotifier {
     _tank.recommendationList.clear();
     _tank.recommendationList
         .add(FishComparator.determineRecommendationFood(_fish));
-    //determineMinTankSize
+
+    if (_tank.status == TankStatus.Overstocked) {
+      _tank.recommendationList.add(kRecUpgradeTank);
+    }
+
+    List<Fish> oversizedFish =
+        FishComparator.determineFishOverMinTankSize(_fish, _tank.gallons);
+    if (oversizedFish.length > 0) {
+      for (Fish fish in oversizedFish) {
+        _tank.recommendationList.add(
+            '${fish.name} needs at least a ${fish.minTankSize} gallon tank');
+      }
+    }
 
     if (!tankValidator.isValidTank(_tank)) {
       _tank.status = TankStatus.Incompatible;

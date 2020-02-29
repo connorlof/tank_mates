@@ -201,11 +201,16 @@ class FishComparator {
     return null;
   }
 
-  static String determineUpgradeTankSize(List<Fish> fishList) {
-    return '';
-  }
+  static List<Fish> determineFishOverMinTankSize(
+      List<Fish> fishList, int tankSize) {
+    List<Fish> overSizedFish = [];
 
-  static List<String> determineFishOverMinTankSize(List<Fish> fishList) {
-    return [''];
+    for (var fish in fishList) {
+      if (fish.minTankSize > tankSize && (!overSizedFish.contains(fish))) {
+        overSizedFish.add(fish);
+      }
+    }
+
+    return overSizedFish;
   }
 }
