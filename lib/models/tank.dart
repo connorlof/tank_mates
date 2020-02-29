@@ -14,6 +14,8 @@ class Tank {
   int hardnessMax = 100;
   CareLevel careLevel = CareLevel.easy;
   int percentFilled = 0;
+
+  List<String> recommendationList = ['Add some fish to your tank!'];
 }
 
 enum TankStatus { Good, Warning, Incompatible, Overstocked }

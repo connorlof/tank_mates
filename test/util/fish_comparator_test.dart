@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 
 void main() {
@@ -13,6 +14,7 @@ void main() {
   testDetermineMaxPh();
   testDetermineMinHardness();
   testDetermineMaxHardness();
+  testDetermineRecommendationFood();
 }
 
 void testDetermineAggressiveness() {
@@ -593,5 +595,81 @@ void testDetermineMaxHardness() {
 
     //expectation
     expect(maxHardness, fish1.hardnessMax);
+  });
+}
+
+void testDetermineRecommendationFood() {
+  final Fish fishCarnivore = Fish();
+  fishCarnivore.diet = Diet.carnivore;
+
+  final Fish fishHerbivore = Fish();
+  fishHerbivore.diet = Diet.herbivore;
+
+  final Fish fishOmnivore = Fish();
+  fishOmnivore.diet = Diet.omnivore;
+
+  test(
+      'determineRecommendationFood returns null when passed an empty fish list',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [];
+
+    //expectation
+    expect(null, FishComparator.determineRecommendationFood(fishList));
+  });
+
+  test(
+      'determineRecommendationFood returns kRecFoodCarnivore when passed a list containing only carnivores',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fishCarnivore, fishCarnivore, fishCarnivore];
+
+    //expectation
+    expect(kRecFoodCarnivore,
+        FishComparator.determineRecommendationFood(fishList));
+  });
+
+  test(
+      'determineRecommendationFood returns kRecFoodHerbivore when passed a list containing only herbivores',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fishHerbivore, fishHerbivore, fishHerbivore];
+
+    //expectation
+    expect(kRecFoodHerbivore,
+        FishComparator.determineRecommendationFood(fishList));
+  });
+
+  test(
+      'determineRecommendationFood returns kRecFoodOmnivore when passed a list containing herbivores and carnivores',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fishHerbivore, fishCarnivore, fishHerbivore];
+
+    //expectation
+    expect(
+        kRecFoodOmnivore, FishComparator.determineRecommendationFood(fishList));
+  });
+
+  test(
+      'determineRecommendationFood returns kRecFoodOmnivore when passed a list containing only omnivores',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fishOmnivore, fishOmnivore, fishOmnivore];
+
+    //expectation
+    expect(
+        kRecFoodOmnivore, FishComparator.determineRecommendationFood(fishList));
+  });
+
+  test(
+      'determineRecommendationFood returns kRecFoodOmnivore when passed a list containing omnivores, herbivores, carnivores',
+      () {
+    //setup of test case
+    final List<Fish> fishList = [fishOmnivore, fishCarnivore, fishHerbivore];
+
+    //expectation
+    expect(
+        kRecFoodOmnivore, FishComparator.determineRecommendationFood(fishList));
   });
 }

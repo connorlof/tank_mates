@@ -8,6 +8,14 @@ const kIdSettingsScreen = 'settings_screen';
 
 const String appName = 'Tank Mates';
 
+//Recommendation constants
+const String kRecFoodCarnivore =
+    'Ensure you are providing your fish a meat based food';
+const String kRecFoodHerbivore =
+    'Ensure you are providing your fish a plant based food';
+const String kRecFoodOmnivore =
+    'Ensure you are providing your fish both plant and meat based foods';
+
 const kPrimaryColor = const Color(0xFF3D6E90);
 const kBackGroundColor = const Color(0xFFFDFDFD);
 const kCardColor = kPrimaryColor;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/provider/tank_data.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class RecommendationCard extends StatelessWidget {
@@ -8,6 +10,9 @@ class RecommendationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> recommendationList =
+        Provider.of<TankData>(context).tank.recommendationList;
+
     return Container(
       margin: EdgeInsets.all(15.0),
       padding: EdgeInsets.all(4.0),
@@ -27,21 +32,16 @@ class RecommendationCard extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
-          Text(
-            "- Upgrade tank to at least 55 gallons",
-            style: kTextStyleSmall,
-          ),
-          Text(
-            "- Remove x1 rainbow shark",
-            style: kTextStyleSmall,
-          ),
-          Text(
-            "- Remove x1 molly",
-            style: kTextStyleSmall,
-          ),
-          Text(
-            "- Perform 20% water changes weekly",
-            style: kTextStyleSmall,
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: recommendationList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Text(
+                '- ${recommendationList[index]}',
+                style: kTextStyleSmall,
+              );
+            },
           ),
         ],
       ),

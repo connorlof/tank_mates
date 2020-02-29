@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/models/fish.dart';
-import 'package:tank_mates/models/tank_data.dart';
+import 'package:tank_mates/provider/tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/add_fish_screen.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
@@ -119,21 +119,47 @@ class _EditTankScreenState extends State<EditTankScreen> {
                               children: <Widget>[
                                 ParameterTile(
                                   label: 'Temperature',
-                                  value: //todo: needs validation
-                                      '${Provider.of<TankData>(context).tank.tempMin} - '
-                                      '${Provider.of<TankData>(context).tank.tempMax}°F',
+                                  value: isValueValid(
+                                          Provider.of<TankData>(context)
+                                              .tank
+                                              .tempMin
+                                              .toDouble(),
+                                          Provider.of<TankData>(context)
+                                              .tank
+                                              .tempMax
+                                              .toDouble())
+                                      ? '${Provider.of<TankData>(context).tank.tempMin} - '
+                                          '${Provider.of<TankData>(context).tank.tempMax}°F'
+                                      : '?',
                                 ),
                                 ParameterTile(
                                   label: 'pH',
-                                  value: //todo: needs validation
-                                      '${Provider.of<TankData>(context).tank.phMin} - '
-                                      '${Provider.of<TankData>(context).tank.phMax}',
+                                  value: isValueValid(
+                                          Provider.of<TankData>(context)
+                                              .tank
+                                              .phMin,
+                                          Provider.of<TankData>(context)
+                                              .tank
+                                              .phMax)
+                                      ? '${Provider.of<TankData>(context).tank.phMin} - '
+                                          '${Provider.of<TankData>(context).tank.phMax}°F'
+                                      : '?',
                                 ),
                                 ParameterTile(
                                   label: 'Hardness',
                                   value: //todo: needs validation
-                                      '${Provider.of<TankData>(context).tank.hardnessMin} - '
-                                      '${Provider.of<TankData>(context).tank.hardnessMax} dKH',
+                                      isValueValid(
+                                              Provider.of<TankData>(context)
+                                                  .tank
+                                                  .hardnessMin
+                                                  .toDouble(),
+                                              Provider.of<TankData>(context)
+                                                  .tank
+                                                  .hardnessMax
+                                                  .toDouble())
+                                          ? '${Provider.of<TankData>(context).tank.hardnessMin} - '
+                                              '${Provider.of<TankData>(context).tank.hardnessMax} dKH'
+                                          : '?',
                                 ),
                                 ParameterTile(
                                   label: 'Care Level',
@@ -283,7 +309,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             ),
                             Expanded(
                               child: SmallCardButton(
-                                icon: Icons.save,
+                                icon: Icons.refresh,
                                 leftMargin: 5.0,
                                 rightMargin: 15.0,
                               ),
@@ -301,4 +327,11 @@ class _EditTankScreenState extends State<EditTankScreen> {
       ),
     );
   }
+}
+
+bool isValueValid(double minValue, double maxValue) {
+  if (minValue <= maxValue) {
+    return true;
+  }
+  return false;
 }

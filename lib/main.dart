@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/models/tank_data.dart';
+import 'package:tank_mates/provider/tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/edit_tank_screen.dart';
 import 'package:tank_mates/screens/loading_screen.dart';

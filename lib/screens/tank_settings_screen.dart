@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/models/tank_data.dart';
+import 'package:tank_mates/provider/tank_data.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/parameter_tile.dart';
 import 'package:tank_mates/widgets/round_icon_button.dart';
@@ -35,7 +35,7 @@ class TankSettingsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'TankName',
+                    'Tank Name',
                     style: kTextStyleSmall,
                   ),
                   TextField(

@@ -45,6 +45,9 @@ class TankData extends ChangeNotifier {
     _tank.hardnessMin = FishComparator.determineMinHardness(_fish);
     _tank.hardnessMax = FishComparator.determineMaxHardness(_fish);
 
+    _tank.recommendationList.clear();
+    _tank.recommendationList
+        .add(FishComparator.determineRecommendationFood(_fish));
     //determineMinTankSize
 
     if (!tankValidator.isValidTank(_tank)) {
@@ -67,6 +70,7 @@ class TankData extends ChangeNotifier {
 
   void resetTank() {
     _tank = Tank();
+    notifyListeners();
   }
 
   void incrementTankGallons() {

@@ -7,7 +7,7 @@ import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/models/fish_json_podo.dart';
 import 'package:tank_mates/screens/edit_tank_screen.dart';
 import 'package:tank_mates/util/constants.dart';
-import 'package:tank_mates/util/fish_dojo_parser.dart';
+import 'package:tank_mates/util/fish_podo_parser.dart';
 
 class LoadingScreen extends StatefulWidget {
   static String id = kIdLoadingScreen;

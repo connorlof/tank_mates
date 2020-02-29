@@ -1,4 +1,5 @@
 import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/util/constants.dart';
 
 class FishComparator {
   //String phRange = "6.9-7.1";
@@ -167,7 +168,37 @@ class FishComparator {
   }
 
   static String determineRecommendationFood(List<Fish> fishList) {
-    return '';
+    bool hasCarnivore = false;
+    bool hasHerbivore = false;
+    bool hasOmnivore = false;
+
+    for (var fish in fishList) {
+      if (fish.diet == Diet.carnivore) {
+        hasCarnivore = true;
+      } else if (fish.diet == Diet.herbivore) {
+        hasHerbivore = true;
+      } else if (fish.diet == Diet.omnivore) {
+        hasOmnivore = true;
+      }
+    }
+
+    if (hasOmnivore) {
+      return kRecFoodOmnivore;
+    }
+
+    if (hasCarnivore && hasHerbivore) {
+      return kRecFoodOmnivore;
+    }
+
+    if (hasHerbivore && !hasCarnivore) {
+      return kRecFoodHerbivore;
+    }
+
+    if (hasCarnivore && !hasHerbivore) {
+      return kRecFoodCarnivore;
+    }
+
+    return null;
   }
 
   static String determineUpgradeTankSize(List<Fish> fishList) {
