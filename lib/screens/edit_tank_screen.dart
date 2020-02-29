@@ -236,14 +236,16 @@ class _EditTankScreenState extends State<EditTankScreen> {
                         Container(
                           child: Consumer<TankData>(
                               builder: (context, addedFishData, child) {
-                            if (addedFishData.addedFish.length > 0) {
+                            if (addedFishData.addedFishConsolidated.length >
+                                0) {
                               return Expanded(
                                 child: ListView.builder(
-                                  itemCount: addedFishData.addedFish.length,
+                                  itemCount: addedFishData
+                                      .addedFishConsolidated.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    final Fish fish =
-                                        addedFishData.addedFish[index];
+                                    final String fish = addedFishData
+                                        .addedFishConsolidated[index];
                                     return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -253,7 +255,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                           padding:
                                               const EdgeInsets.only(left: 15.0),
                                           child: Text(
-                                            '${fish.name}',
+                                            '$fish',
                                             style: kTextStyleSmall,
                                           ),
                                         ),

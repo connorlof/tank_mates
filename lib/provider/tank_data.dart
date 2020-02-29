@@ -24,6 +24,24 @@ class TankData extends ChangeNotifier {
     return _fish.length;
   }
 
+  UnmodifiableListView<String> get addedFishConsolidated {
+    List<Fish> distinctFish = LinkedHashSet<Fish>.from(_fish).toList();
+    List<int> numFish = List.filled(distinctFish.length, 0);
+    List<String> consolidatedList = [];
+
+    for (int i = 0; i < distinctFish.length; i++) {
+      for (Fish fish in _fish) {
+        if (distinctFish[i] == fish) {
+          numFish[i]++;
+        }
+      }
+
+      consolidatedList.add('x${numFish[i]} ${distinctFish[i].name}');
+    }
+
+    return UnmodifiableListView(consolidatedList);
+  }
+
   void addFish(Fish fish) {
     _fish.add(fish);
     updateTankValues();
@@ -83,6 +101,7 @@ class TankData extends ChangeNotifier {
 
   void resetTank() {
     _tank = Tank();
+    _fish = [];
     notifyListeners();
   }
 
