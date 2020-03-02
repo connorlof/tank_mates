@@ -57,7 +57,10 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
               return appBarChoices.map((AppBarChoice choice) {
                 return PopupMenuItem<AppBarChoice>(
                   value: choice,
-                  child: Text(choice.title),
+                  child: Text(
+                    choice.title,
+                    style: kTextStyleSmall,
+                  ),
                 );
               }).toList();
             },

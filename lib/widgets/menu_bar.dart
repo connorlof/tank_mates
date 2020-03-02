@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/round_button.dart';
-import 'package:tank_mates/widgets/slide_right_route.dart';
 
 class MenuBar extends StatelessWidget {
   MenuBar(this.isNewTank);
@@ -27,7 +26,9 @@ class MenuBar extends StatelessWidget {
                   title: 'Saved Tanks',
                   onPressed: () {
                     Navigator.push(
-                        context, SlideRightRoute(page: SavedTanksScreen()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SavedTanksScreen()));
                   },
                 ),
               ],

@@ -87,7 +87,10 @@ class _EditTankScreenState extends State<EditTankScreen> {
               return appBarChoices.map((AppBarChoice choice) {
                 return PopupMenuItem<AppBarChoice>(
                   value: choice,
-                  child: Text(choice.title),
+                  child: Text(
+                    choice.title,
+                    style: kTextStyleSmall,
+                  ),
                 );
               }).toList();
             },
@@ -120,46 +123,55 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 ParameterTile(
                                   label: 'Temperature',
                                   value: isValueValid(
+                                              Provider.of<TankData>(context)
+                                                  .tank
+                                                  .tempMin
+                                                  .toDouble(),
+                                              Provider.of<TankData>(context)
+                                                  .tank
+                                                  .tempMax
+                                                  .toDouble()) &&
                                           Provider.of<TankData>(context)
-                                              .tank
-                                              .tempMin
-                                              .toDouble(),
-                                          Provider.of<TankData>(context)
-                                              .tank
-                                              .tempMax
-                                              .toDouble())
+                                                  .numFish >
+                                              0
                                       ? '${Provider.of<TankData>(context).tank.tempMin} - '
                                           '${Provider.of<TankData>(context).tank.tempMax}°F'
-                                      : '?',
+                                      : '?? - ??',
                                 ),
                                 ParameterTile(
                                   label: 'pH',
                                   value: isValueValid(
+                                              Provider.of<TankData>(context)
+                                                  .tank
+                                                  .phMin,
+                                              Provider.of<TankData>(context)
+                                                  .tank
+                                                  .phMax) &&
                                           Provider.of<TankData>(context)
-                                              .tank
-                                              .phMin,
-                                          Provider.of<TankData>(context)
-                                              .tank
-                                              .phMax)
+                                                  .numFish >
+                                              0
                                       ? '${Provider.of<TankData>(context).tank.phMin} - '
                                           '${Provider.of<TankData>(context).tank.phMax}°F'
-                                      : '?',
+                                      : '?? - ??',
                                 ),
                                 ParameterTile(
                                   label: 'Hardness',
                                   value: //todo: needs validation
                                       isValueValid(
+                                                  Provider.of<TankData>(context)
+                                                      .tank
+                                                      .hardnessMin
+                                                      .toDouble(),
+                                                  Provider.of<TankData>(context)
+                                                      .tank
+                                                      .hardnessMax
+                                                      .toDouble()) &&
                                               Provider.of<TankData>(context)
-                                                  .tank
-                                                  .hardnessMin
-                                                  .toDouble(),
-                                              Provider.of<TankData>(context)
-                                                  .tank
-                                                  .hardnessMax
-                                                  .toDouble())
+                                                      .numFish >
+                                                  0
                                           ? '${Provider.of<TankData>(context).tank.hardnessMin} - '
                                               '${Provider.of<TankData>(context).tank.hardnessMax} dKH'
-                                          : '?',
+                                          : '?? - ??',
                                 ),
                                 ParameterTile(
                                   label: 'Care Level',

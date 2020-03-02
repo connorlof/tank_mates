@@ -19,11 +19,12 @@ const String kRecUpgradeTank = 'You are overstocked, upgrade your tank size';
 
 const kPrimaryColor = const Color(0xFF3D6E90);
 const kBackGroundColor = const Color(0xFFFDFDFD);
+const kSecondaryColor = const Color(0xFF3c4146);
 const kCardColor = kPrimaryColor;
 
 const kTextStyleSmall = TextStyle(
   fontSize: 14.0,
-  color: Color(0xFF3c4146),
+  color: kSecondaryColor,
   fontFamily: 'Oswald',
 );
 

@@ -38,7 +38,10 @@ class _AboutScreenState extends State<AboutScreen> {
               return appBarChoices.map((AppBarChoice choice) {
                 return PopupMenuItem<AppBarChoice>(
                   value: choice,
-                  child: Text(choice.title),
+                  child: Text(
+                    choice.title,
+                    style: kTextStyleSmall,
+                  ),
                 );
               }).toList();
             },

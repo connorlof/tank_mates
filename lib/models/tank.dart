@@ -19,14 +19,3 @@ class Tank {
 }
 
 enum TankStatus { Good, Warning, Incompatible, Overstocked }
-
-//Map<String, dynamic> toMap() {
-//  var map = <String, dynamic>{
-//    columnTitle: title,
-//    columnDone: done == true ? 1 : 0
-//  };
-//  if (id != null) {
-//    map[columnId] = id;
-//  }
-//  return map;
-//}
