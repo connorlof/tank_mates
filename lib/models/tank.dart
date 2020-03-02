@@ -4,7 +4,7 @@ class Tank {
   TankStatus status = TankStatus.Good;
 
   String tankName = "Tank Name";
-  int gallons = 100; //todo: set to proper value
+  int gallons = 20;
   Aggressiveness aggressiveness = Aggressiveness.peaceful;
   double phMin = 0.0;
   double phMax = 14.0;
@@ -19,3 +19,14 @@ class Tank {
 }
 
 enum TankStatus { Good, Warning, Incompatible, Overstocked }
+
+//Map<String, dynamic> toMap() {
+//  var map = <String, dynamic>{
+//    columnTitle: title,
+//    columnDone: done == true ? 1 : 0
+//  };
+//  if (id != null) {
+//    map[columnId] = id;
+//  }
+//  return map;
+//}
