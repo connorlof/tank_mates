@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/persistence/tank_database.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/menu_bar.dart';
 
@@ -72,54 +75,7 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
         children: <Widget>[
           MenuBar(false),
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(15.0),
-              itemCount: savedTankList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 5.0,
-                  ),
-                  margin: EdgeInsets.only(
-                    bottom: 10.0,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: kCardColor,
-                    ),
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            '${savedTankList[index]}',
-                            style: kTextStyleLarge,
-                          ),
-                          Text(
-                            '24 fish - x2 Angelfish, x6 Clown L...',
-                            style: kTextStyleSmall,
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text(
-                            'Overstocked (143 %)',
-                            style: kTextStyleSmall,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+            child: _buildTankList(context),
           ),
         ],
       ),
@@ -127,58 +83,80 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
   }
 }
 
-//class MenuBar extends StatelessWidget {
-//  const MenuBar({
-//    Key key,
-//  }) : super(key: key);
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      color: kPrimaryColor,
-//      child: Row(
-//        mainAxisAlignment: MainAxisAlignment.center,
-//        children: <Widget>[
-//          Padding(
-//            padding: const EdgeInsets.all(4.0),
-//            child: ButtonTheme(
-//              minWidth: 160.0,
-//              child: RaisedButton(
-//                onPressed: () {
-//                  Navigator.pop(context);
-//                },
-//                child: Text(
-//                  'New Tank',
-//                  style: TextStyle(color: kBackGroundColor),
-//                ),
-//                color: kPrimaryColor,
-//                shape: RoundedRectangleBorder(
-//                  side: BorderSide(color: kBackGroundColor),
-//                  borderRadius: BorderRadius.circular(30.0),
-//                ),
-//              ),
-//            ),
-//          ),
-//          Padding(
-//            padding: const EdgeInsets.all(4.0),
-//            child: ButtonTheme(
-//              minWidth: 160.0,
-//              child: RaisedButton(
-//                onPressed: () {},
-//                child: Text(
-//                  'Saved Tanks',
-//                  style: TextStyle(color: kPrimaryColor),
-//                ),
-//                color: kBackGroundColor,
-//                shape: RoundedRectangleBorder(
-//                  side: BorderSide(color: kBackGroundColor),
-//                  borderRadius: BorderRadius.circular(30.0),
-//                ),
-//              ),
-//            ),
-//          ),
-//        ],
-//      ),
-//    );
-//  }
-//}
+StreamBuilder<List<Tank>> _buildTankList(BuildContext context) {
+  final database = Provider.of<AppDatabase>(context);
+  return StreamBuilder(
+    stream: database.watchAllTanks(),
+    builder: (context, AsyncSnapshot<List<Tank>> snapshot) {
+      final tanks = snapshot.data ?? List();
+
+      return ListView.builder(
+        itemCount: tanks.length,
+        padding: const EdgeInsets.all(15.0),
+        itemBuilder: (_, index) {
+          final itemTask = tanks[index];
+          return _buildListItem(itemTask, database);
+        },
+      );
+    },
+  );
+}
+
+Widget _buildListItem(Tank itemTank, AppDatabase database) {
+  return Slidable(
+    actionPane: SlidableDrawerActionPane(),
+    secondaryActions: <Widget>[
+      IconSlideAction(
+        foregroundColor: kPrimaryColor,
+        caption: 'Delete',
+        color: kBackGroundColor,
+        icon: Icons.delete,
+        onTap: () => database.deleteTank(itemTank),
+      )
+    ],
+    child: Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 5.0,
+      ),
+      margin: EdgeInsets.only(
+        bottom: 10.0,
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: kCardColor,
+        ),
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                itemTank.name.length < 16
+                    ? itemTank.name
+                    : '${itemTank.name.substring(0, 15)}...',
+                style: kTextStyleLarge,
+              ),
+              Text(
+                'X fish - ${itemTank.fishList.substring(0, 25)}...', //todo
+                style: kTextStyleSmall,
+              ),
+            ],
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                '${itemTank.status} (${itemTank.percentFilled} %)',
+                style: kTextStyleSmall,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}

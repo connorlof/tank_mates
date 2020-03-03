@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/provider/tank_data.dart';
+import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class RecommendationCard extends StatelessWidget {
@@ -11,7 +11,7 @@ class RecommendationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> recommendationList =
-        Provider.of<TankData>(context).tank.recommendationList;
+        Provider.of<ActiveTankData>(context).tank.recommendationList;
 
     return Container(
       margin: EdgeInsets.all(15.0),

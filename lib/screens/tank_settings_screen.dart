@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/provider/tank_data.dart';
+import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/parameter_tile.dart';
 import 'package:tank_mates/widgets/round_icon_button.dart';
@@ -40,13 +40,14 @@ class TankSettingsScreen extends StatelessWidget {
                   ),
                   TextField(
                     controller: TextEditingController(
-                      text: '${Provider.of<TankData>(context).tank.tankName}',
+                      text:
+                          '${Provider.of<ActiveTankData>(context).tank.tankName}',
                     ),
                     style: kTextStyleLarge,
                     autofocus: true,
                     textAlign: TextAlign.start,
                     onChanged: (newText) {
-                      Provider.of<TankData>(context, listen: false)
+                      Provider.of<ActiveTankData>(context, listen: false)
                           .setTankName(newText);
                     },
                   ),
@@ -62,7 +63,8 @@ class TankSettingsScreen extends StatelessWidget {
                 children: <Widget>[
                   ParameterTile(
                     label: 'Gallons',
-                    value: '${Provider.of<TankData>(context).tank.gallons}',
+                    value:
+                        '${Provider.of<ActiveTankData>(context).tank.gallons}',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +72,7 @@ class TankSettingsScreen extends StatelessWidget {
                       RoundIconButton(
                         icon: Icons.remove,
                         onPressed: () {
-                          Provider.of<TankData>(context, listen: false)
+                          Provider.of<ActiveTankData>(context, listen: false)
                               .decrementTankGallons();
                         },
                       ),
@@ -80,7 +82,7 @@ class TankSettingsScreen extends StatelessWidget {
                       RoundIconButton(
                         icon: Icons.add,
                         onPressed: () {
-                          Provider.of<TankData>(context, listen: false)
+                          Provider.of<ActiveTankData>(context, listen: false)
                               .incrementTankGallons();
                         },
                       ),

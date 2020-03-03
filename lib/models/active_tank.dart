@@ -1,10 +1,10 @@
 import 'package:tank_mates/models/fish.dart';
 
-class Tank {
-  TankStatus status = TankStatus.Good;
-
+class ActiveTank {
   String tankName = "Tank Name";
   int gallons = 20;
+  TankStatus status = TankStatus.Good;
+
   Aggressiveness aggressiveness = Aggressiveness.peaceful;
   double phMin = 0.0;
   double phMax = 14.0;

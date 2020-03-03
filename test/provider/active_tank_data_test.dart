@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tank_mates/models/fish.dart';
-import 'package:tank_mates/provider/tank_data.dart';
+import 'package:tank_mates/provider/active_tank_data.dart';
 
 void main() {
   testAddFish();
 }
 
 void testAddFish() {
-  final TankData tankData = TankData();
+  final ActiveTankData tankData = ActiveTankData();
   final Fish fish1 = Fish();
 
   test(

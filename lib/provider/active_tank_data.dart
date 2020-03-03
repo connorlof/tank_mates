@@ -1,22 +1,22 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
+import 'package:tank_mates/models/active_tank.dart';
 import 'package:tank_mates/models/fish.dart';
-import 'package:tank_mates/models/tank.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 import 'package:tank_mates/util/tank_validator.dart';
 
-class TankData extends ChangeNotifier {
+class ActiveTankData extends ChangeNotifier {
   List<Fish> _fish = [];
-  Tank _tank = Tank();
+  ActiveTank _tank = ActiveTank();
   TankValidator tankValidator = TankValidator();
 
   UnmodifiableListView<Fish> get addedFish {
     return UnmodifiableListView(_fish);
   }
 
-  Tank get tank {
+  ActiveTank get tank {
     return _tank;
   }
 
@@ -100,7 +100,7 @@ class TankData extends ChangeNotifier {
   }
 
   void resetTank() {
-    _tank = Tank();
+    _tank = ActiveTank();
     _fish = [];
     notifyListeners();
   }

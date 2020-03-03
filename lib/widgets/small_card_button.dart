@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tank_mates/provider/tank_data.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class SmallCardButton extends StatelessWidget {
-  SmallCardButton({@required this.icon, this.leftMargin, this.rightMargin});
+  SmallCardButton(
+      {@required this.icon, this.leftMargin, this.rightMargin, this.onTap});
 
+  final Function onTap;
   final IconData icon;
   double leftMargin = 15.0;
   double rightMargin = 15.0;
@@ -13,9 +13,7 @@ class SmallCardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Provider.of<TankData>(context, listen: false).resetTank();
-      },
+      onTap: onTap,
       child: Container(
         margin: EdgeInsets.only(
           right: rightMargin,

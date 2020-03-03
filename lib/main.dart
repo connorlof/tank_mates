@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/provider/tank_data.dart';
+import 'package:tank_mates/persistence/tank_database.dart';
+import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/edit_tank_screen.dart';
 import 'package:tank_mates/screens/loading_screen.dart';
@@ -16,8 +17,11 @@ class TankMatesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: kBackGroundColor));
-    return ChangeNotifierProvider(
-      create: (context) => TankData(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ActiveTankData()),
+        Provider(create: (context) => AppDatabase()),
+      ],
       child: MaterialApp(
         theme: ThemeData(
             primaryColor: kBackGroundColor,

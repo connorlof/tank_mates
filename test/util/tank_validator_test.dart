@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/models/tank.dart';
+import 'package:tank_mates/models/active_tank.dart';
 import 'package:tank_mates/util/tank_validator.dart';
 
 void main() {
@@ -11,13 +11,13 @@ void main() {
 void testIsValidTemperature() {
   final TankValidator tankValidator = TankValidator();
 
-  final Tank defaultTank = Tank();
+  final ActiveTank defaultTank = ActiveTank();
 
-  final Tank validTank = Tank();
+  final ActiveTank validTank = ActiveTank();
   validTank.tempMin = 75;
   validTank.tempMax = 85;
 
-  final Tank invalidTank = Tank();
+  final ActiveTank invalidTank = ActiveTank();
   invalidTank.tempMin = 75;
   invalidTank.tempMax = 65;
 
@@ -53,13 +53,13 @@ void testIsValidTemperature() {
 void testIsValidPh() {
   final TankValidator tankValidator = TankValidator();
 
-  final Tank defaultTank = Tank();
+  final ActiveTank defaultTank = ActiveTank();
 
-  final Tank validTank = Tank();
+  final ActiveTank validTank = ActiveTank();
   validTank.phMin = 6.0;
   validTank.phMax = 8.0;
 
-  final Tank invalidTank = Tank();
+  final ActiveTank invalidTank = ActiveTank();
   invalidTank.phMin = 8.0;
   invalidTank.phMax = 6.0;
 
@@ -92,13 +92,13 @@ void testIsValidPh() {
 void testIsValidHardness() {
   final TankValidator tankValidator = TankValidator();
 
-  final Tank defaultTank = Tank();
+  final ActiveTank defaultTank = ActiveTank();
 
-  final Tank validTank = Tank();
+  final ActiveTank validTank = ActiveTank();
   validTank.hardnessMin = 10;
   validTank.hardnessMax = 20;
 
-  final Tank invalidTank = Tank();
+  final ActiveTank invalidTank = ActiveTank();
   invalidTank.hardnessMin = 20;
   invalidTank.hardnessMax = 10;
 
