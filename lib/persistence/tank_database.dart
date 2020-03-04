@@ -11,22 +11,24 @@ class Tanks extends Table {
   // autoIncrement automatically sets this to be the primary key
   IntColumn get id => integer().autoIncrement()();
 
-  TextColumn get name => text().withLength(min: 1, max: 50)();
+  TextColumn get name => text().withLength(min: 0, max: 50)();
   IntColumn get gallons => integer()();
-  TextColumn get status => text().withLength(min: 1, max: 50)();
+  TextColumn get status => text().withLength(min: 0, max: 50)();
 
-  TextColumn get aggressiveness => text().withLength(min: 1, max: 50)();
+  TextColumn get aggressiveness => text().withLength(min: 0, max: 50)();
   RealColumn get phMin => real()();
   RealColumn get phMax => real()();
   IntColumn get tempMin => integer()();
   IntColumn get tempMax => integer()();
   IntColumn get hardnessMin => integer()();
   IntColumn get hardnessMax => integer()();
-  TextColumn get careLevel => text().withLength(min: 1, max: 50)();
+  TextColumn get careLevel => text().withLength(min: 0, max: 50)();
   IntColumn get percentFilled => integer()();
 
-  TextColumn get recommendationList => text().withLength(min: 1, max: 5000)();
-  TextColumn get fishList => text().withLength(min: 1, max: 5000)();
+  TextColumn get recommendationList => text().withLength(min: 0, max: 5000)();
+  TextColumn get fishList => text().withLength(min: 0, max: 5000)();
+  TextColumn get fishJson => text().withLength(min: 0, max: 5000)();
+  IntColumn get numFish => integer()();
 }
 
 LazyDatabase _openConnection() {

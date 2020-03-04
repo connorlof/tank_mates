@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:tank_mates/models/active_tank.dart';
 import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/persistence/tank_database.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 import 'package:tank_mates/util/tank_validator.dart';
@@ -115,5 +116,31 @@ class ActiveTankData extends ChangeNotifier {
     _tank.gallons--;
     updateTankValues();
     notifyListeners();
+  }
+
+  void loadSavedTank(Tank tankDataToLoad) {
+    resetTank();
+
+    _tank.tankName = tankDataToLoad.name;
+    _tank.gallons = tankDataToLoad.gallons;
+    _tank.phMin = tankDataToLoad.phMin;
+    _tank.phMax = tankDataToLoad.phMax;
+    _tank.tempMin = tankDataToLoad.tempMin;
+    _tank.tempMax = tankDataToLoad.tempMax;
+    _tank.hardnessMin = tankDataToLoad.hardnessMin;
+    _tank.hardnessMax = tankDataToLoad.hardnessMax;
+
+    _tank.percentFilled = tankDataToLoad.percentFilled;
+
+    //addedFish
+    //_tank.recommendationList = tankDataToLoad.recommendationList;
+
+//    TankStatus status = TankStatus.Good;
+//    Aggressiveness aggressiveness = Aggressiveness.peaceful;
+//    CareLevel careLevel = CareLevel.easy;
+
+//    List<String> recommendationList = ['Add some fish to your tank!'];
+
+    //updateTankValues();
   }
 }

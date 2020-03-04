@@ -95,67 +95,84 @@ StreamBuilder<List<Tank>> _buildTankList(BuildContext context) {
         padding: const EdgeInsets.all(15.0),
         itemBuilder: (_, index) {
           final itemTask = tanks[index];
-          return _buildListItem(itemTask, database);
+          return _buildListItem(itemTask, database, context);
         },
       );
     },
   );
 }
 
-Widget _buildListItem(Tank itemTank, AppDatabase database) {
+Widget _buildListItem(
+    Tank itemTank, AppDatabase database, BuildContext context) {
   return Slidable(
     actionPane: SlidableDrawerActionPane(),
     secondaryActions: <Widget>[
-      IconSlideAction(
-        foregroundColor: kPrimaryColor,
-        caption: 'Delete',
-        color: kBackGroundColor,
-        icon: Icons.delete,
-        onTap: () => database.deleteTank(itemTank),
+      Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 5.0,
+        ),
+        margin: EdgeInsets.only(
+          bottom: 10.0,
+        ),
+        child: IconSlideAction(
+          foregroundColor: kPrimaryColor,
+          caption: 'Delete',
+          color: kBackGroundColor,
+          icon: Icons.delete,
+          onTap: () => database.deleteTank(itemTank),
+        ),
       )
     ],
-    child: Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 5.0,
-      ),
-      margin: EdgeInsets.only(
-        bottom: 10.0,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: kCardColor,
+    child: InkWell(
+      onTap: () {
+        Navigator.pop(context, itemTank);
+        //Provider.of<ActiveTankData>(context).loadSavedTank(itemTank);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 5.0,
         ),
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                itemTank.name.length < 16
-                    ? itemTank.name
-                    : '${itemTank.name.substring(0, 15)}...',
-                style: kTextStyleLarge,
-              ),
-              Text(
-                'X fish - ${itemTank.fishList.substring(0, 25)}...', //todo
-                style: kTextStyleSmall,
-              ),
-            ],
+        margin: EdgeInsets.only(
+          bottom: 10.0,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: kCardColor,
           ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                '${itemTank.status} (${itemTank.percentFilled} %)',
-                style: kTextStyleSmall,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  itemTank.name.length < 16
+                      ? itemTank.name
+                      : '${itemTank.name.substring(0, 15)}...',
+                  style: kTextStyleLarge,
+                ),
+                Text(
+                  itemTank.fishList.length < 25
+                      ? itemTank.fishList
+                      : 'X fish - ${itemTank.fishList.substring(0, 25)}...',
+                  style: kTextStyleSmall,
+                ),
+              ],
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  '${itemTank.status} (${itemTank.percentFilled} %)',
+                  style: kTextStyleSmall,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   );

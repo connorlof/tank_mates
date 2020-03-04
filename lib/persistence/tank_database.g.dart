@@ -23,6 +23,8 @@ class Tank extends DataClass implements Insertable<Tank> {
   final int percentFilled;
   final String recommendationList;
   final String fishList;
+  final String fishJson;
+  final int numFish;
   Tank(
       {@required this.id,
       @required this.name,
@@ -38,7 +40,9 @@ class Tank extends DataClass implements Insertable<Tank> {
       @required this.careLevel,
       @required this.percentFilled,
       @required this.recommendationList,
-      @required this.fishList});
+      @required this.fishList,
+      @required this.fishJson,
+      @required this.numFish});
   factory Tank.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -74,6 +78,10 @@ class Tank extends DataClass implements Insertable<Tank> {
           data['${effectivePrefix}recommendation_list']),
       fishList: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}fish_list']),
+      fishJson: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fish_json']),
+      numFish:
+          intType.mapFromDatabaseResponse(data['${effectivePrefix}num_fish']),
     );
   }
   factory Tank.fromJson(Map<String, dynamic> json,
@@ -96,6 +104,8 @@ class Tank extends DataClass implements Insertable<Tank> {
       recommendationList:
           serializer.fromJson<String>(json['recommendationList']),
       fishList: serializer.fromJson<String>(json['fishList']),
+      fishJson: serializer.fromJson<String>(json['fishJson']),
+      numFish: serializer.fromJson<int>(json['numFish']),
     );
   }
   @override
@@ -117,6 +127,8 @@ class Tank extends DataClass implements Insertable<Tank> {
       'percentFilled': serializer.toJson<int>(percentFilled),
       'recommendationList': serializer.toJson<String>(recommendationList),
       'fishList': serializer.toJson<String>(fishList),
+      'fishJson': serializer.toJson<String>(fishJson),
+      'numFish': serializer.toJson<int>(numFish),
     };
   }
 
@@ -161,6 +173,12 @@ class Tank extends DataClass implements Insertable<Tank> {
       fishList: fishList == null && nullToAbsent
           ? const Value.absent()
           : Value(fishList),
+      fishJson: fishJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fishJson),
+      numFish: numFish == null && nullToAbsent
+          ? const Value.absent()
+          : Value(numFish),
     );
   }
 
@@ -179,7 +197,9 @@ class Tank extends DataClass implements Insertable<Tank> {
           String careLevel,
           int percentFilled,
           String recommendationList,
-          String fishList}) =>
+          String fishList,
+          String fishJson,
+          int numFish}) =>
       Tank(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -196,6 +216,8 @@ class Tank extends DataClass implements Insertable<Tank> {
         percentFilled: percentFilled ?? this.percentFilled,
         recommendationList: recommendationList ?? this.recommendationList,
         fishList: fishList ?? this.fishList,
+        fishJson: fishJson ?? this.fishJson,
+        numFish: numFish ?? this.numFish,
       );
   @override
   String toString() {
@@ -214,7 +236,9 @@ class Tank extends DataClass implements Insertable<Tank> {
           ..write('careLevel: $careLevel, ')
           ..write('percentFilled: $percentFilled, ')
           ..write('recommendationList: $recommendationList, ')
-          ..write('fishList: $fishList')
+          ..write('fishList: $fishList, ')
+          ..write('fishJson: $fishJson, ')
+          ..write('numFish: $numFish')
           ..write(')'))
         .toString();
   }
@@ -249,8 +273,13 @@ class Tank extends DataClass implements Insertable<Tank> {
                                                       $mrjc(
                                                           recommendationList
                                                               .hashCode,
-                                                          fishList
-                                                              .hashCode)))))))))))))));
+                                                          $mrjc(
+                                                              fishList.hashCode,
+                                                              $mrjc(
+                                                                  fishJson
+                                                                      .hashCode,
+                                                                  numFish
+                                                                      .hashCode)))))))))))))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -269,7 +298,9 @@ class Tank extends DataClass implements Insertable<Tank> {
           other.careLevel == this.careLevel &&
           other.percentFilled == this.percentFilled &&
           other.recommendationList == this.recommendationList &&
-          other.fishList == this.fishList);
+          other.fishList == this.fishList &&
+          other.fishJson == this.fishJson &&
+          other.numFish == this.numFish);
 }
 
 class TanksCompanion extends UpdateCompanion<Tank> {
@@ -288,6 +319,8 @@ class TanksCompanion extends UpdateCompanion<Tank> {
   final Value<int> percentFilled;
   final Value<String> recommendationList;
   final Value<String> fishList;
+  final Value<String> fishJson;
+  final Value<int> numFish;
   const TanksCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -304,6 +337,8 @@ class TanksCompanion extends UpdateCompanion<Tank> {
     this.percentFilled = const Value.absent(),
     this.recommendationList = const Value.absent(),
     this.fishList = const Value.absent(),
+    this.fishJson = const Value.absent(),
+    this.numFish = const Value.absent(),
   });
   TanksCompanion.insert({
     this.id = const Value.absent(),
@@ -321,6 +356,8 @@ class TanksCompanion extends UpdateCompanion<Tank> {
     @required int percentFilled,
     @required String recommendationList,
     @required String fishList,
+    @required String fishJson,
+    @required int numFish,
   })  : name = Value(name),
         gallons = Value(gallons),
         status = Value(status),
@@ -334,7 +371,9 @@ class TanksCompanion extends UpdateCompanion<Tank> {
         careLevel = Value(careLevel),
         percentFilled = Value(percentFilled),
         recommendationList = Value(recommendationList),
-        fishList = Value(fishList);
+        fishList = Value(fishList),
+        fishJson = Value(fishJson),
+        numFish = Value(numFish);
   TanksCompanion copyWith(
       {Value<int> id,
       Value<String> name,
@@ -350,7 +389,9 @@ class TanksCompanion extends UpdateCompanion<Tank> {
       Value<String> careLevel,
       Value<int> percentFilled,
       Value<String> recommendationList,
-      Value<String> fishList}) {
+      Value<String> fishList,
+      Value<String> fishJson,
+      Value<int> numFish}) {
     return TanksCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -367,6 +408,8 @@ class TanksCompanion extends UpdateCompanion<Tank> {
       percentFilled: percentFilled ?? this.percentFilled,
       recommendationList: recommendationList ?? this.recommendationList,
       fishList: fishList ?? this.fishList,
+      fishJson: fishJson ?? this.fishJson,
+      numFish: numFish ?? this.numFish,
     );
   }
 }
@@ -390,7 +433,7 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
   GeneratedTextColumn get name => _name ??= _constructName();
   GeneratedTextColumn _constructName() {
     return GeneratedTextColumn('name', $tableName, false,
-        minTextLength: 1, maxTextLength: 50);
+        minTextLength: 0, maxTextLength: 50);
   }
 
   final VerificationMeta _gallonsMeta = const VerificationMeta('gallons');
@@ -411,7 +454,7 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
   GeneratedTextColumn get status => _status ??= _constructStatus();
   GeneratedTextColumn _constructStatus() {
     return GeneratedTextColumn('status', $tableName, false,
-        minTextLength: 1, maxTextLength: 50);
+        minTextLength: 0, maxTextLength: 50);
   }
 
   final VerificationMeta _aggressivenessMeta =
@@ -422,7 +465,7 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
       _aggressiveness ??= _constructAggressiveness();
   GeneratedTextColumn _constructAggressiveness() {
     return GeneratedTextColumn('aggressiveness', $tableName, false,
-        minTextLength: 1, maxTextLength: 50);
+        minTextLength: 0, maxTextLength: 50);
   }
 
   final VerificationMeta _phMinMeta = const VerificationMeta('phMin');
@@ -507,7 +550,7 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
   GeneratedTextColumn get careLevel => _careLevel ??= _constructCareLevel();
   GeneratedTextColumn _constructCareLevel() {
     return GeneratedTextColumn('care_level', $tableName, false,
-        minTextLength: 1, maxTextLength: 50);
+        minTextLength: 0, maxTextLength: 50);
   }
 
   final VerificationMeta _percentFilledMeta =
@@ -532,7 +575,7 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
       _recommendationList ??= _constructRecommendationList();
   GeneratedTextColumn _constructRecommendationList() {
     return GeneratedTextColumn('recommendation_list', $tableName, false,
-        minTextLength: 1, maxTextLength: 5000);
+        minTextLength: 0, maxTextLength: 5000);
   }
 
   final VerificationMeta _fishListMeta = const VerificationMeta('fishList');
@@ -541,7 +584,28 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
   GeneratedTextColumn get fishList => _fishList ??= _constructFishList();
   GeneratedTextColumn _constructFishList() {
     return GeneratedTextColumn('fish_list', $tableName, false,
-        minTextLength: 1, maxTextLength: 5000);
+        minTextLength: 0, maxTextLength: 5000);
+  }
+
+  final VerificationMeta _fishJsonMeta = const VerificationMeta('fishJson');
+  GeneratedTextColumn _fishJson;
+  @override
+  GeneratedTextColumn get fishJson => _fishJson ??= _constructFishJson();
+  GeneratedTextColumn _constructFishJson() {
+    return GeneratedTextColumn('fish_json', $tableName, false,
+        minTextLength: 0, maxTextLength: 5000);
+  }
+
+  final VerificationMeta _numFishMeta = const VerificationMeta('numFish');
+  GeneratedIntColumn _numFish;
+  @override
+  GeneratedIntColumn get numFish => _numFish ??= _constructNumFish();
+  GeneratedIntColumn _constructNumFish() {
+    return GeneratedIntColumn(
+      'num_fish',
+      $tableName,
+      false,
+    );
   }
 
   @override
@@ -560,7 +624,9 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
         careLevel,
         percentFilled,
         recommendationList,
-        fishList
+        fishList,
+        fishJson,
+        numFish
       ];
   @override
   $TanksTable get asDslTable => this;
@@ -665,6 +731,18 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
     } else if (isInserting) {
       context.missing(_fishListMeta);
     }
+    if (d.fishJson.present) {
+      context.handle(_fishJsonMeta,
+          fishJson.isAcceptableValue(d.fishJson.value, _fishJsonMeta));
+    } else if (isInserting) {
+      context.missing(_fishJsonMeta);
+    }
+    if (d.numFish.present) {
+      context.handle(_numFishMeta,
+          numFish.isAcceptableValue(d.numFish.value, _numFishMeta));
+    } else if (isInserting) {
+      context.missing(_numFishMeta);
+    }
     return context;
   }
 
@@ -725,6 +803,12 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
     }
     if (d.fishList.present) {
       map['fish_list'] = Variable<String, StringType>(d.fishList.value);
+    }
+    if (d.fishJson.present) {
+      map['fish_json'] = Variable<String, StringType>(d.fishJson.value);
+    }
+    if (d.numFish.present) {
+      map['num_fish'] = Variable<int, IntType>(d.numFish.value);
     }
     return map;
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/round_button.dart';
@@ -24,11 +26,16 @@ class MenuBar extends StatelessWidget {
                 RoundButton(
                   isSelected: false,
                   title: 'Saved Tanks',
-                  onPressed: () {
-                    Navigator.push(
+                  onPressed: () async {
+                    var loadedTank = await Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => SavedTanksScreen()));
+
+                    if (loadedTank != null) {
+                      Provider.of<ActiveTankData>(context, listen: false)
+                          .loadSavedTank(loadedTank);
+                    }
                   },
                 ),
               ],

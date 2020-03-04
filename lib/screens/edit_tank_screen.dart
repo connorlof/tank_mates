@@ -389,6 +389,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             listen: false)
                                         .addedFishConsolidated
                                         .toString(),
+                                    fishJson: '', //todo
+                                    numFish: 0,
                                   );
                                   database.insertTank(tank);
                                 },
