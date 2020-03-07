@@ -71,7 +71,7 @@ class FishComparator {
     return greatestMinTank;
   }
 
-  //todo: determine better formula other than inch per gallon
+  //TODO: determine better formula other than inch per gallon
   static int determineStockingPercent(List<Fish> fishList, int tankGallons) {
     if (fishList.isEmpty) {
       return 0;
@@ -96,7 +96,6 @@ class FishComparator {
     return stockingPercent.round();
   }
 
-  //todo: take unit setting into account, Fahrenheit only for now
   static int determineMinTemp(List<Fish> fishList) {
     int minTemp = 0;
 
@@ -109,7 +108,6 @@ class FishComparator {
     return minTemp;
   }
 
-  //todo: take unit setting into account, Fahrenheit only for now
   static int determineMaxTemp(List<Fish> fishList) {
     int maxTemp = 100;
 

@@ -93,25 +93,32 @@ class TankSettingsScreen extends StatelessWidget {
             ),
             Divider(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 16.0,
+              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Save to Device',
+                    'Auto-save changes to tank',
                     style: kTextStyleSmall,
                   ),
-                  Checkbox(
-                    value: false,
-                    onChanged: (bool value) {},
+                  SizedBox(
+                    width: 24.0,
+                    height: 24.0,
+                    child: Checkbox(
+                      value: false,
+                      onChanged: (bool value) {},
+                    ),
                   ),
                 ],
               ),
             ),
             FlatButton(
               child: Text(
-                'Save',
+                'Return To Edit Tank',
                 style: TextStyle(
                   color: kBackGroundColor,
                   fontFamily: 'Oswald',

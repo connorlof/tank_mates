@@ -138,18 +138,6 @@ class ActiveTankData extends ChangeNotifier {
   void loadSavedTank(Tank tankDataToLoad) {
     resetTank();
 
-    //TODO: remove setting values, not needed do to recalculation on fish list
-    _tank.tankName = tankDataToLoad.name;
-    _tank.gallons = tankDataToLoad.gallons;
-    _tank.phMin = tankDataToLoad.phMin;
-    _tank.phMax = tankDataToLoad.phMax;
-    _tank.tempMin = tankDataToLoad.tempMin;
-    _tank.tempMax = tankDataToLoad.tempMax;
-    _tank.hardnessMin = tankDataToLoad.hardnessMin;
-    _tank.hardnessMax = tankDataToLoad.hardnessMax;
-
-    _tank.percentFilled = tankDataToLoad.percentFilled;
-
     //TODO: move to method, TEST
     List<String> addedFishNames = tankDataToLoad.fishJson;
 

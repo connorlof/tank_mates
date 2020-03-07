@@ -153,7 +153,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 ),
                                 ParameterTile(
                                   label: 'Hardness',
-                                  value: //todo: needs validation
+                                  value:
                                       isValueValid(
                                                   Provider.of<ActiveTankData>(
                                                           context)
