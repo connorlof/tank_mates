@@ -389,7 +389,10 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             listen: false)
                                         .addedFishConsolidated
                                         .toString(),
-                                    fishJson: '', //todo
+                                    fishJson: Provider.of<ActiveTankData>(
+                                            context,
+                                            listen: false)
+                                        .addedFishNames, //todo
                                     numFish: 0,
                                   );
                                   database.insertTank(tank);

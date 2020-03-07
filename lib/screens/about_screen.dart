@@ -48,35 +48,50 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Center(
-            child: Text(
-              'About Tank Mates',
-              style: kTextStyleLarge,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Center(
+              child: Text(
+                'About Tank Mates',
+                style: kTextStyleLarge,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Text(
-            'Contributing - Github page or email link for issues',
-            style: kTextStyleSmall,
-          ),
-          Divider(),
-          Text(
-            'About Author - Blurb about me and link to website',
-            style: kTextStyleSmall,
-          ),
-          Divider(),
-          Text(
-            'Support the app - Rate, leave feedback, share, donate',
-            style: kTextStyleSmall,
-          ),
-          Divider(),
-        ],
+            Text(
+              'Developer',
+              style: kTextStyleHeader,
+            ),
+            Text(
+              'About Author - Blurb about me and link to website',
+              style: kTextStyleSmall,
+            ),
+            Divider(),
+            Text(
+              'Improve Tank Mates ',
+              style: kTextStyleHeader,
+            ),
+            Text(
+              'Report an Issue/Contribute Pull request - Github issue page',
+              style: kTextStyleSmall,
+            ),
+            Divider(),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Support Tank Mates',
+              style: kTextStyleHeader,
+            ),
+            Text(
+              'Support the app - Rate, leave feedback, share, donate',
+              style: kTextStyleSmall,
+            ),
+            Divider(),
+          ],
+        ),
       ),
     );
   }

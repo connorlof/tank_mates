@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tank_mates/models/active_tank.dart';
 import 'package:tank_mates/models/fish.dart';
@@ -11,6 +12,8 @@ import 'package:tank_mates/util/tank_validator.dart';
 class ActiveTankData extends ChangeNotifier {
   List<Fish> _fish = [];
   ActiveTank _tank = ActiveTank();
+
+  List<Fish> availableFish = [];
   TankValidator tankValidator = TankValidator();
 
   UnmodifiableListView<Fish> get addedFish {
@@ -41,6 +44,16 @@ class ActiveTankData extends ChangeNotifier {
     }
 
     return UnmodifiableListView(consolidatedList);
+  }
+
+  List<String> get addedFishNames {
+    List<String> fishNames = [];
+
+    for (Fish fish in _fish) {
+      fishNames.add(fish.name);
+    }
+
+    return fishNames;
   }
 
   void addFish(Fish fish) {
@@ -95,6 +108,10 @@ class ActiveTankData extends ChangeNotifier {
     _tank.tankName = name;
   }
 
+  void setAvailableFish(List<Fish> fish) {
+    availableFish = fish;
+  }
+
   void removeFish(Fish fish) {
     _fish.remove(fish);
     notifyListeners();
@@ -132,7 +149,18 @@ class ActiveTankData extends ChangeNotifier {
 
     _tank.percentFilled = tankDataToLoad.percentFilled;
 
-    //addedFish
+    //TODO: move to method, TEST
+    List<String> addedFishNames = tankDataToLoad.fishJson;
+
+    for (String name in addedFishNames) {
+      //find fish object by name
+      for (Fish fish in availableFish) {
+        if (fish.name == name) {
+          _fish.add(Fish());
+        }
+      }
+    }
+
     //_tank.recommendationList = tankDataToLoad.recommendationList;
 
 //    TankStatus status = TankStatus.Good;
@@ -141,6 +169,6 @@ class ActiveTankData extends ChangeNotifier {
 
 //    List<String> recommendationList = ['Add some fish to your tank!'];
 
-    //updateTankValues();
+    updateTankValues();
   }
 }

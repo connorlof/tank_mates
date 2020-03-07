@@ -23,7 +23,7 @@ class Tank extends DataClass implements Insertable<Tank> {
   final int percentFilled;
   final String recommendationList;
   final String fishList;
-  final String fishJson;
+  final List<String> fishJson;
   final int numFish;
   Tank(
       {@required this.id,
@@ -41,7 +41,7 @@ class Tank extends DataClass implements Insertable<Tank> {
       @required this.percentFilled,
       @required this.recommendationList,
       @required this.fishList,
-      @required this.fishJson,
+      this.fishJson,
       @required this.numFish});
   factory Tank.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
@@ -78,8 +78,8 @@ class Tank extends DataClass implements Insertable<Tank> {
           data['${effectivePrefix}recommendation_list']),
       fishList: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}fish_list']),
-      fishJson: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}fish_json']),
+      fishJson: $TanksTable.$converter0.mapToDart(stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}fish_json'])),
       numFish:
           intType.mapFromDatabaseResponse(data['${effectivePrefix}num_fish']),
     );
@@ -104,7 +104,7 @@ class Tank extends DataClass implements Insertable<Tank> {
       recommendationList:
           serializer.fromJson<String>(json['recommendationList']),
       fishList: serializer.fromJson<String>(json['fishList']),
-      fishJson: serializer.fromJson<String>(json['fishJson']),
+      fishJson: serializer.fromJson<List<String>>(json['fishJson']),
       numFish: serializer.fromJson<int>(json['numFish']),
     );
   }
@@ -127,7 +127,7 @@ class Tank extends DataClass implements Insertable<Tank> {
       'percentFilled': serializer.toJson<int>(percentFilled),
       'recommendationList': serializer.toJson<String>(recommendationList),
       'fishList': serializer.toJson<String>(fishList),
-      'fishJson': serializer.toJson<String>(fishJson),
+      'fishJson': serializer.toJson<List<String>>(fishJson),
       'numFish': serializer.toJson<int>(numFish),
     };
   }
@@ -198,7 +198,7 @@ class Tank extends DataClass implements Insertable<Tank> {
           int percentFilled,
           String recommendationList,
           String fishList,
-          String fishJson,
+          List<String> fishJson,
           int numFish}) =>
       Tank(
         id: id ?? this.id,
@@ -319,7 +319,7 @@ class TanksCompanion extends UpdateCompanion<Tank> {
   final Value<int> percentFilled;
   final Value<String> recommendationList;
   final Value<String> fishList;
-  final Value<String> fishJson;
+  final Value<List<String>> fishJson;
   final Value<int> numFish;
   const TanksCompanion({
     this.id = const Value.absent(),
@@ -356,7 +356,7 @@ class TanksCompanion extends UpdateCompanion<Tank> {
     @required int percentFilled,
     @required String recommendationList,
     @required String fishList,
-    @required String fishJson,
+    this.fishJson = const Value.absent(),
     @required int numFish,
   })  : name = Value(name),
         gallons = Value(gallons),
@@ -372,7 +372,6 @@ class TanksCompanion extends UpdateCompanion<Tank> {
         percentFilled = Value(percentFilled),
         recommendationList = Value(recommendationList),
         fishList = Value(fishList),
-        fishJson = Value(fishJson),
         numFish = Value(numFish);
   TanksCompanion copyWith(
       {Value<int> id,
@@ -390,7 +389,7 @@ class TanksCompanion extends UpdateCompanion<Tank> {
       Value<int> percentFilled,
       Value<String> recommendationList,
       Value<String> fishList,
-      Value<String> fishJson,
+      Value<List<String>> fishJson,
       Value<int> numFish}) {
     return TanksCompanion(
       id: id ?? this.id,
@@ -592,8 +591,11 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
   @override
   GeneratedTextColumn get fishJson => _fishJson ??= _constructFishJson();
   GeneratedTextColumn _constructFishJson() {
-    return GeneratedTextColumn('fish_json', $tableName, false,
-        minTextLength: 0, maxTextLength: 5000);
+    return GeneratedTextColumn(
+      'fish_json',
+      $tableName,
+      true,
+    );
   }
 
   final VerificationMeta _numFishMeta = const VerificationMeta('numFish');
@@ -731,12 +733,7 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
     } else if (isInserting) {
       context.missing(_fishListMeta);
     }
-    if (d.fishJson.present) {
-      context.handle(_fishJsonMeta,
-          fishJson.isAcceptableValue(d.fishJson.value, _fishJsonMeta));
-    } else if (isInserting) {
-      context.missing(_fishJsonMeta);
-    }
+    context.handle(_fishJsonMeta, const VerificationResult.success());
     if (d.numFish.present) {
       context.handle(_numFishMeta,
           numFish.isAcceptableValue(d.numFish.value, _numFishMeta));
@@ -805,7 +802,9 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
       map['fish_list'] = Variable<String, StringType>(d.fishList.value);
     }
     if (d.fishJson.present) {
-      map['fish_json'] = Variable<String, StringType>(d.fishJson.value);
+      final converter = $TanksTable.$converter0;
+      map['fish_json'] =
+          Variable<String, StringType>(converter.mapToSql(d.fishJson.value));
     }
     if (d.numFish.present) {
       map['num_fish'] = Variable<int, IntType>(d.numFish.value);
@@ -817,6 +816,9 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
   $TanksTable createAlias(String alias) {
     return $TanksTable(_db, alias);
   }
+
+  static TypeConverter<List<String>, String> $converter0 =
+      const ListColumnConverter();
 }
 
 abstract class _$AppDatabase extends GeneratedDatabase {

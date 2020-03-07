@@ -5,6 +5,8 @@ import 'package:moor_ffi/moor_ffi.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import 'list_column_converter.dart';
+
 part 'tank_database.g.dart';
 
 class Tanks extends Table {
@@ -27,7 +29,8 @@ class Tanks extends Table {
 
   TextColumn get recommendationList => text().withLength(min: 0, max: 5000)();
   TextColumn get fishList => text().withLength(min: 0, max: 5000)();
-  TextColumn get fishJson => text().withLength(min: 0, max: 5000)();
+  TextColumn get fishJson =>
+      text().map(const ListColumnConverter()).nullable()();
   IntColumn get numFish => integer()();
 }
 
