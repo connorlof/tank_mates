@@ -7,8 +7,6 @@ import 'package:tank_mates/persistence/tank_database.dart';
 import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/add_fish_screen.dart';
-import 'package:tank_mates/screens/saved_tanks_screen.dart';
-import 'package:tank_mates/screens/settings_screen.dart';
 import 'package:tank_mates/screens/tank_settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
@@ -51,13 +49,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
   }
 
   void _selectTopIndex(AppBarChoice choice) {
-    if (choice.id == kIdSavedTanksScreen) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SavedTanksScreen()));
-    } else if (choice.id == kIdSettingsScreen) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SettingsScreen()));
-    } else if (choice.id == kIdAboutScreen) {
+    if (choice.id == kIdAboutScreen) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AboutScreen()));
     } else {

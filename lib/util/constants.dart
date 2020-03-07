@@ -48,9 +48,9 @@ const kRecommendationTextStyle = TextStyle(
 );
 
 const List<AppBarChoice> appBarChoices = const <AppBarChoice>[
-  const AppBarChoice('New Tank', kIdEditTankScreen),
-  const AppBarChoice('Saved Tanks', kIdSavedTanksScreen),
-  const AppBarChoice('App Settings', kIdSettingsScreen),
+  //const AppBarChoice('New Tank', kIdEditTankScreen),
+  //const AppBarChoice('Saved Tanks', kIdSavedTanksScreen),
+  //const AppBarChoice('App Settings', kIdSettingsScreen),
   const AppBarChoice('About', kIdAboutScreen),
 ];
 

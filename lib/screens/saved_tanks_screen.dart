@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/persistence/tank_database.dart';
+import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/menu_bar.dart';
 
@@ -30,10 +31,14 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
   ];
 
   void _selectTopIndex(AppBarChoice choice) {
-    // Causes the app to rebuild with the new _selectedChoice.
-    setState(() {
-      _topBarIndex = choice;
-    });
+    if (choice.id == kIdAboutScreen) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AboutScreen()));
+    } else {
+      setState(() {
+        _topBarIndex = choice;
+      });
+    }
   }
 
   @override

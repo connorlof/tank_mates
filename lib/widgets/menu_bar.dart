@@ -20,7 +20,7 @@ class MenuBar extends StatelessWidget {
               children: <Widget>[
                 RoundButton(
                   isSelected: true,
-                  title: 'New Tank',
+                  title: 'Edit Tank',
                   onPressed: () {},
                 ),
                 RoundButton(
