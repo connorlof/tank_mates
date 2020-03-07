@@ -27,7 +27,8 @@ class Tanks extends Table {
   TextColumn get careLevel => text().withLength(min: 0, max: 50)();
   IntColumn get percentFilled => integer()();
 
-  TextColumn get recommendationList => text().withLength(min: 0, max: 5000)();
+  TextColumn get recommendationList =>
+      text().map(const ListColumnConverter()).nullable()();
   TextColumn get fishList => text().withLength(min: 0, max: 5000)();
   TextColumn get fishJson =>
       text().map(const ListColumnConverter()).nullable()();

@@ -138,6 +138,7 @@ class ActiveTankData extends ChangeNotifier {
   void loadSavedTank(Tank tankDataToLoad) {
     resetTank();
 
+    //TODO: remove setting values, not needed do to recalculation on fish list
     _tank.tankName = tankDataToLoad.name;
     _tank.gallons = tankDataToLoad.gallons;
     _tank.phMin = tankDataToLoad.phMin;
@@ -156,16 +157,12 @@ class ActiveTankData extends ChangeNotifier {
       //find fish object by name
       for (Fish fish in availableFish) {
         if (fish.name == name) {
-          _fish.add(Fish());
+          _fish.add(fish);
         }
       }
     }
 
-    //_tank.recommendationList = tankDataToLoad.recommendationList;
-
-//    TankStatus status = TankStatus.Good;
-//    Aggressiveness aggressiveness = Aggressiveness.peaceful;
-//    CareLevel careLevel = CareLevel.easy;
+    _tank.recommendationList = tankDataToLoad.recommendationList;
 
 //    List<String> recommendationList = ['Add some fish to your tank!'];
 

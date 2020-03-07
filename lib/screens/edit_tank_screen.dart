@@ -342,8 +342,17 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             listen: false)
                                         .tank
                                         .gallons,
-                                    status: 'Good', //todo
-                                    aggressiveness: 'Peaceful', //todo
+                                    status: Provider.of<ActiveTankData>(context,
+                                            listen: false)
+                                        .tank
+                                        .status
+                                        .toString(),
+                                    aggressiveness: Provider.of<ActiveTankData>(
+                                            context,
+                                            listen: false)
+                                        .tank
+                                        .aggressiveness
+                                        .toString(),
                                     phMin: Provider.of<ActiveTankData>(context,
                                             listen: false)
                                         .tank
@@ -372,7 +381,12 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             listen: false)
                                         .tank
                                         .hardnessMax,
-                                    careLevel: 'Easy', //todo
+                                    careLevel: Provider.of<ActiveTankData>(
+                                            context,
+                                            listen: false)
+                                        .tank
+                                        .careLevel
+                                        .toString(),
                                     percentFilled: Provider.of<ActiveTankData>(
                                             context,
                                             listen: false)
@@ -382,8 +396,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                         Provider.of<ActiveTankData>(context,
                                                 listen: false)
                                             .tank
-                                            .recommendationList
-                                            .toString(), //todo
+                                            .recommendationList,
                                     fishList: Provider.of<ActiveTankData>(
                                             context,
                                             listen: false)
@@ -392,7 +405,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                     fishJson: Provider.of<ActiveTankData>(
                                             context,
                                             listen: false)
-                                        .addedFishNames, //todo
+                                        .addedFishNames,
                                     numFish: 0,
                                   );
                                   database.insertTank(tank);

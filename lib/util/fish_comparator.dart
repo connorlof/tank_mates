@@ -85,6 +85,9 @@ class FishComparator {
     double totalInchesOfFish = 0.00;
 
     for (var fish in fishList) {
+      print('totalInchesOfFish:' + totalInchesOfFish.toString());
+      print('fish.maximumaAdultSize:' + fish.maximumaAdultSize.toString());
+
       totalInchesOfFish += fish.maximumaAdultSize;
     }
 
