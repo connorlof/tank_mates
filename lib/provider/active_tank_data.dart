@@ -108,6 +108,10 @@ class ActiveTankData extends ChangeNotifier {
     _tank.tankName = name;
   }
 
+  void setTankGallons(int newGallons) {
+    _tank.gallons = newGallons;
+  }
+
   void setAvailableFish(List<Fish> fish) {
     availableFish = fish;
   }

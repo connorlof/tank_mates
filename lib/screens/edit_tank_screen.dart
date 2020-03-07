@@ -153,25 +153,23 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 ),
                                 ParameterTile(
                                   label: 'Hardness',
-                                  value:
-                                      isValueValid(
-                                                  Provider.of<ActiveTankData>(
-                                                          context)
-                                                      .tank
-                                                      .hardnessMin
-                                                      .toDouble(),
-                                                  Provider.of<ActiveTankData>(
-                                                          context)
-                                                      .tank
-                                                      .hardnessMax
-                                                      .toDouble()) &&
+                                  value: isValueValid(
                                               Provider.of<ActiveTankData>(
-                                                          context)
-                                                      .numFish >
-                                                  0
-                                          ? '${Provider.of<ActiveTankData>(context).tank.hardnessMin} - '
-                                              '${Provider.of<ActiveTankData>(context).tank.hardnessMax} dKH'
-                                          : '?? - ??',
+                                                      context)
+                                                  .tank
+                                                  .hardnessMin
+                                                  .toDouble(),
+                                              Provider.of<ActiveTankData>(
+                                                      context)
+                                                  .tank
+                                                  .hardnessMax
+                                                  .toDouble()) &&
+                                          Provider.of<ActiveTankData>(context)
+                                                  .numFish >
+                                              0
+                                      ? '${Provider.of<ActiveTankData>(context).tank.hardnessMin} - '
+                                          '${Provider.of<ActiveTankData>(context).tank.hardnessMax} dKH'
+                                      : '?? - ??',
                                 ),
                                 ParameterTile(
                                   label: 'Care Level',

@@ -44,7 +44,7 @@ class TankSettingsScreen extends StatelessWidget {
                           '${Provider.of<ActiveTankData>(context).tank.tankName}',
                     ),
                     style: kTextStyleLarge,
-                    autofocus: true,
+                    autofocus: false,
                     textAlign: TextAlign.start,
                     onChanged: (newText) {
                       Provider.of<ActiveTankData>(context, listen: false)

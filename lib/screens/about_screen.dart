@@ -65,28 +65,36 @@ class _AboutScreenState extends State<AboutScreen> {
               style: kTextStyleHeader,
             ),
             Text(
-              'About Author - Blurb about me and link to website',
+              'Hi there I\'m Connor, a mobile software developer living just outside of Philadelphia, PA.'
+              ' I got my first taste of coding in 2014. I spent the following summer learning to create my own Android apps.',
               style: kTextStyleSmall,
             ),
-            Divider(),
-            Text(
-              'Improve Tank Mates ',
-              style: kTextStyleHeader,
-            ),
-            Text(
-              'Report an Issue/Contribute Pull request - Github issue page',
-              style: kTextStyleSmall,
-            ),
-            Divider(),
             SizedBox(
-              height: 20.0,
+              height: 10.0,
             ),
+            Text(
+              'In my free time I have combined my passion for writing user friendly and functional applications with my aquarium hobby.'
+              ' I created this app as both a challenge to myself while learning Flutter and'
+              ' to create an aquarium compatibility tool that uses modern day design principles.'
+              ' I plan to continue to work on and release regular updates on Tank Mates.',
+              style: kTextStyleSmall,
+            ),
+            Divider(),
             Text(
               'Support Tank Mates',
               style: kTextStyleHeader,
             ),
             Text(
-              'Support the app - Rate, leave feedback, share, donate',
+              'Thanks for downloading and checking out Tank Mates. Many improvements are planned for the future'
+              ' but I appreciate any feedback or feature requests. If you enjoy this app or see a feature'
+              ' you would like added please leave a rating for this app on the Play Store or App Store. ',
+              style: kTextStyleSmall,
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              'If you would like to reach out to me direct with an issue or feedback send me an email at loftydev@gmail.com',
               style: kTextStyleSmall,
             ),
             Divider(),
