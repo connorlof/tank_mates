@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/models/fish.dart';
@@ -256,20 +257,40 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       (BuildContext context, int index) {
                                     final String fish = addedFishData
                                         .addedFishConsolidated[index];
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Divider(),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 15.0),
-                                          child: Text(
-                                            '$fish',
-                                            style: kTextStyleSmall,
+                                    return Slidable(
+                                      actionPane: SlidableDrawerActionPane(),
+                                      secondaryActions: <Widget>[
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                            top: 15.0,
                                           ),
-                                        ),
+                                          child: IconSlideAction(
+                                            foregroundColor: kPrimaryColor,
+                                            color: kBackGroundColor,
+                                            icon: Icons.delete,
+                                            onTap: () =>
+                                                Provider.of<ActiveTankData>(
+                                                        context,
+                                                        listen: false)
+                                                    .removeFish(fish),
+                                          ),
+                                        )
                                       ],
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Divider(),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 15.0),
+                                            child: Text(
+                                              '$fish',
+                                              style: kTextStyleSmall,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 ),
@@ -317,10 +338,17 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 icon: Icons.save,
                                 leftMargin: 15.0,
                                 rightMargin: 5.0,
-                                onTap: () {
+                                onTap: () async {
                                   final database = Provider.of<AppDatabase>(
                                       context,
                                       listen: false);
+
+                                  List<Tank> tanksInDb =
+                                      await database.getAllTanks();
+                                  int currentId = Provider.of<ActiveTankData>(
+                                          context,
+                                          listen: false)
+                                      .id;
 
                                   final tank = Tank(
                                     name: Provider.of<ActiveTankData>(context,
@@ -396,8 +424,21 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             context,
                                             listen: false)
                                         .addedFishNames,
-                                    numFish: 0,
+                                    numFish: Provider.of<ActiveTankData>(
+                                            context,
+                                            listen: false)
+                                        .numFish,
                                   );
+
+                                  for (Tank currentTank in tanksInDb) {
+                                    if (currentTank.id == currentId) {
+                                      database.updateTank(currentTank);
+
+                                      //TODO: check if should return here to avoid insert
+                                      return;
+                                    }
+                                  }
+
                                   database.insertTank(tank);
                                 },
                               ),

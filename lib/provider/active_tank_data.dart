@@ -12,6 +12,7 @@ import 'package:tank_mates/util/tank_validator.dart';
 class ActiveTankData extends ChangeNotifier {
   List<Fish> _fish = [];
   ActiveTank _tank = ActiveTank();
+  int id = -1;
 
   List<Fish> availableFish = [];
   TankValidator tankValidator = TankValidator();
@@ -58,6 +59,24 @@ class ActiveTankData extends ChangeNotifier {
 
   void addFish(Fish fish) {
     _fish.add(fish);
+    updateTankValues();
+    notifyListeners();
+  }
+
+  void removeFish(String fishName) {
+    List<String> nameParts = fishName.split(' ');
+    String trimmedName = '';
+
+    for (int j = 1; j < nameParts.length; j++) {
+      if (j > 1) {
+        trimmedName = trimmedName + ' ';
+      }
+
+      trimmedName = trimmedName + nameParts[j];
+    }
+
+    _fish.removeWhere((item) => item.name == trimmedName);
+
     updateTankValues();
     notifyListeners();
   }
@@ -116,11 +135,6 @@ class ActiveTankData extends ChangeNotifier {
     availableFish = fish;
   }
 
-  void removeFish(Fish fish) {
-    _fish.remove(fish);
-    notifyListeners();
-  }
-
   void resetTank() {
     _tank = ActiveTank();
     _fish = [];
@@ -141,6 +155,7 @@ class ActiveTankData extends ChangeNotifier {
 
   void loadSavedTank(Tank tankDataToLoad) {
     resetTank();
+    id = tankDataToLoad.id;
 
     //TODO: move to method, TEST
     List<String> addedFishNames = tankDataToLoad.fishJson;
@@ -155,8 +170,6 @@ class ActiveTankData extends ChangeNotifier {
     }
 
     _tank.recommendationList = tankDataToLoad.recommendationList;
-
-//    List<String> recommendationList = ['Add some fish to your tank!'];
 
     updateTankValues();
   }

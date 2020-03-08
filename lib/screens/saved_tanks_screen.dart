@@ -160,9 +160,10 @@ Widget _buildListItem(
                   style: kTextStyleLarge,
                 ),
                 Text(
+                  //TODO: test and into function
                   itemTank.fishList.length < 25
-                      ? itemTank.fishList
-                      : 'X fish - ${itemTank.fishList.substring(0, 25)}...',
+                      ? '${itemTank.numFish} fish - ${itemTank.fishList.substring(0, itemTank.fishList.length - 1).replaceAll('[', '')}...'
+                      : '${itemTank.numFish} fish - ${itemTank.fishList.substring(0, 25).replaceAll('[', '')}...',
                   style: kTextStyleSmall,
                 ),
               ],

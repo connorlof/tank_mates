@@ -5,7 +5,12 @@ import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/parameter_tile.dart';
 import 'package:tank_mates/widgets/round_icon_button.dart';
 
-class TankSettingsScreen extends StatelessWidget {
+class TankSettingsScreen extends StatefulWidget {
+  @override
+  _TankSettingsScreenState createState() => _TankSettingsScreenState();
+}
+
+class _TankSettingsScreenState extends State<TankSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
