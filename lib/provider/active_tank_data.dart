@@ -12,7 +12,8 @@ import 'package:tank_mates/util/tank_validator.dart';
 class ActiveTankData extends ChangeNotifier {
   List<Fish> _fish = [];
   ActiveTank _tank = ActiveTank();
-  int id = -1;
+  int id = 1;
+  Tank tankDbEntity;
 
   List<Fish> availableFish = [];
   TankValidator tankValidator = TankValidator();
@@ -136,6 +137,8 @@ class ActiveTankData extends ChangeNotifier {
   }
 
   void resetTank() {
+    //TODO: check logic for handling id, ensure it does not already exist
+    id++;
     _tank = ActiveTank();
     _fish = [];
     notifyListeners();
@@ -155,6 +158,8 @@ class ActiveTankData extends ChangeNotifier {
 
   void loadSavedTank(Tank tankDataToLoad) {
     resetTank();
+    tankDbEntity = tankDataToLoad;
+
     id = tankDataToLoad.id;
 
     //TODO: move to method, TEST

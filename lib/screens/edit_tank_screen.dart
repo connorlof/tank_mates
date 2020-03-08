@@ -351,6 +351,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       .id;
 
                                   final tank = Tank(
+                                    id: currentId,
                                     name: Provider.of<ActiveTankData>(context,
                                             listen: false)
                                         .tank
@@ -431,8 +432,23 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   );
 
                                   for (Tank currentTank in tanksInDb) {
+                                    print('saving currentTank.id: ' +
+                                        currentTank.id.toString() +
+                                        ' - currentId: ' +
+                                        currentId.toString());
+
                                     if (currentTank.id == currentId) {
-                                      database.updateTank(currentTank);
+                                      database.updateTank(currentTank.copyWith(
+                                        name: tank.name,
+                                        gallons: tank.gallons,
+                                        status: tank.status,
+                                        percentFilled: tank.percentFilled,
+                                        recommendationList:
+                                            tank.recommendationList,
+                                        fishList: tank.fishList,
+                                        fishJson: tank.fishJson,
+                                        numFish: tank.numFish,
+                                      ));
 
                                       //TODO: check if should return here to avoid insert
                                       return;
