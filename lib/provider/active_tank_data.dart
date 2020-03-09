@@ -161,6 +161,7 @@ class ActiveTankData extends ChangeNotifier {
     tankDbEntity = tankDataToLoad;
 
     id = tankDataToLoad.id;
+    _tank.tankName = tankDataToLoad.name;
 
     //TODO: move to method, TEST
     List<String> addedFishNames = tankDataToLoad.fishJson;

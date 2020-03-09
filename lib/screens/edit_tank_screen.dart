@@ -450,7 +450,6 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                         numFish: tank.numFish,
                                       ));
 
-                                      //TODO: check if should return here to avoid insert
                                       return;
                                     }
                                   }
