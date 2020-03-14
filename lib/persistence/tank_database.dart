@@ -16,15 +16,6 @@ class Tanks extends Table {
   TextColumn get name => text().withLength(min: 0, max: 50)();
   IntColumn get gallons => integer()();
   TextColumn get status => text().withLength(min: 0, max: 50)();
-
-  TextColumn get aggressiveness => text().withLength(min: 0, max: 50)();
-  RealColumn get phMin => real()();
-  RealColumn get phMax => real()();
-  IntColumn get tempMin => integer()();
-  IntColumn get tempMax => integer()();
-  IntColumn get hardnessMin => integer()();
-  IntColumn get hardnessMax => integer()();
-  TextColumn get careLevel => text().withLength(min: 0, max: 50)();
   IntColumn get percentFilled => integer()();
 
   TextColumn get recommendationList =>
@@ -55,7 +46,7 @@ class AppDatabase extends _$AppDatabase {
 
   Future<List<Tank>> getAllTanks() => select(tanks).get();
   Stream<List<Tank>> watchAllTanks() => select(tanks).watch();
-  Future insertTank(Tank tank) => into(tanks).insert(tank);
+  Future insertTank(TanksCompanion tank) => into(tanks).insert(tank);
   Future updateTank(Tank tank) => update(tanks).replace(tank);
   Future deleteTank(Tank tank) => delete(tanks).delete(tank);
 }

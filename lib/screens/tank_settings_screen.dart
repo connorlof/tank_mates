@@ -96,31 +96,31 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                 ],
               ),
             ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 16.0,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Auto-save changes to tank',
-                    style: kTextStyleSmall,
-                  ),
-                  SizedBox(
-                    width: 24.0,
-                    height: 24.0,
-                    child: Checkbox(
-                      value: false,
-                      onChanged: (bool value) {},
-                    ),
-                  ),
-                ],
-              ),
-            ),
+//            Divider(),
+//            Padding(
+//              padding: const EdgeInsets.symmetric(
+//                horizontal: 8.0,
+//                vertical: 16.0,
+//              ),
+//              child: Row(
+//                crossAxisAlignment: CrossAxisAlignment.start,
+//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                children: <Widget>[
+//                  Text(
+//                    'Auto-save changes to tank',
+//                    style: kTextStyleSmall,
+//                  ),
+//                  SizedBox(
+//                    width: 24.0,
+//                    height: 24.0,
+//                    child: Checkbox(
+//                      value: false,
+//                      onChanged: (bool value) {},
+//                    ),
+//                  ),
+//                ],
+//              ),
+//            ),
             FlatButton(
               child: Text(
                 'Return To Edit Tank',

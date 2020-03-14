@@ -172,7 +172,7 @@ Widget _buildListItem(
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  '${itemTank.status} (${itemTank.percentFilled} %)',
+                  '${itemTank.status.toString().split('.').last} (${itemTank.percentFilled} %)',
                   style: kTextStyleSmall,
                 ),
               ),

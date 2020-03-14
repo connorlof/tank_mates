@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:moor/moor.dart' show Value;
 import 'package:provider/provider.dart';
 import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/persistence/tank_database.dart';
@@ -350,85 +351,46 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                           listen: false)
                                       .id;
 
-                                  final tank = Tank(
-                                    id: currentId,
-                                    name: Provider.of<ActiveTankData>(context,
-                                            listen: false)
-                                        .tank
-                                        .tankName,
-                                    gallons: Provider.of<ActiveTankData>(
+                                  final tank = TanksCompanion(
+                                    name: Value(Provider.of<ActiveTankData>(
                                             context,
                                             listen: false)
                                         .tank
-                                        .gallons,
-                                    status: Provider.of<ActiveTankData>(context,
+                                        .tankName),
+                                    gallons: Value(Provider.of<ActiveTankData>(
+                                            context,
+                                            listen: false)
+                                        .tank
+                                        .gallons),
+                                    status: Value(Provider.of<ActiveTankData>(
+                                            context,
                                             listen: false)
                                         .tank
                                         .status
-                                        .toString(),
-                                    aggressiveness: Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .aggressiveness
-                                        .toString(),
-                                    phMin: Provider.of<ActiveTankData>(context,
-                                            listen: false)
-                                        .tank
-                                        .phMin,
-                                    phMax: Provider.of<ActiveTankData>(context,
-                                            listen: false)
-                                        .tank
-                                        .phMax,
-                                    tempMin: Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .tempMin,
-                                    tempMax: Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .tempMax,
-                                    hardnessMin: Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .hardnessMin,
-                                    hardnessMax: Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .hardnessMax,
-                                    careLevel: Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .careLevel
-                                        .toString(),
-                                    percentFilled: Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .percentFilled,
-                                    recommendationList:
+                                        .toString()),
+                                    percentFilled: Value(
                                         Provider.of<ActiveTankData>(context,
                                                 listen: false)
                                             .tank
-                                            .recommendationList,
-                                    fishList: Provider.of<ActiveTankData>(
+                                            .percentFilled),
+                                    recommendationList: Value(
+                                        Provider.of<ActiveTankData>(context,
+                                                listen: false)
+                                            .tank
+                                            .recommendationList),
+                                    fishList: Value(Provider.of<ActiveTankData>(
                                             context,
                                             listen: false)
                                         .addedFishConsolidated
-                                        .toString(),
-                                    fishJson: Provider.of<ActiveTankData>(
+                                        .toString()),
+                                    fishJson: Value(Provider.of<ActiveTankData>(
                                             context,
                                             listen: false)
-                                        .addedFishNames,
-                                    numFish: Provider.of<ActiveTankData>(
+                                        .addedFishNames),
+                                    numFish: Value(Provider.of<ActiveTankData>(
                                             context,
                                             listen: false)
-                                        .numFish,
+                                        .numFish),
                                   );
 
                                   for (Tank currentTank in tanksInDb) {
@@ -439,15 +401,15 @@ class _EditTankScreenState extends State<EditTankScreen> {
 
                                     if (currentTank.id == currentId) {
                                       database.updateTank(currentTank.copyWith(
-                                        name: tank.name,
-                                        gallons: tank.gallons,
-                                        status: tank.status,
-                                        percentFilled: tank.percentFilled,
+                                        name: tank.name.value,
+                                        gallons: tank.gallons.value,
+                                        status: tank.status.value,
+                                        percentFilled: tank.percentFilled.value,
                                         recommendationList:
-                                            tank.recommendationList,
-                                        fishList: tank.fishList,
-                                        fishJson: tank.fishJson,
-                                        numFish: tank.numFish,
+                                            tank.recommendationList.value,
+                                        fishList: tank.fishList.value,
+                                        fishJson: tank.fishJson.value,
+                                        numFish: tank.numFish.value,
                                       ));
 
                                       return;
