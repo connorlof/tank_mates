@@ -1,4 +1,5 @@
 class Fish {
+  //TODO: give default values
   String name;
   String scientificName;
   String speciesGroup;
