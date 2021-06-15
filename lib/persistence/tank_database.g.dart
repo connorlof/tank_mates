@@ -179,6 +179,12 @@ class Tank extends DataClass implements Insertable<Tank> {
           other.fishList == this.fishList &&
           other.fishJson == this.fishJson &&
           other.numFish == this.numFish);
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    // TODO: implement toColumns
+    throw UnimplementedError();
+  }
 }
 
 class TanksCompanion extends UpdateCompanion<Tank> {
@@ -239,6 +245,12 @@ class TanksCompanion extends UpdateCompanion<Tank> {
       fishJson: fishJson ?? this.fishJson,
       numFish: numFish ?? this.numFish,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    // TODO: implement toColumns
+    throw UnimplementedError();
   }
 }
 
@@ -365,52 +377,54 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
   @override
   final String actualTableName = 'tanks';
   @override
-  VerificationContext validateIntegrity(TanksCompanion d,
+  VerificationContext validateIntegrity(Insertable<Tank> d,
       {bool isInserting = false}) {
+    // VerificationContext validateIntegrity(TanksCompanion d,
+    //     {bool isInserting = false}) {
     final context = VerificationContext();
-    if (d.id.present) {
-      context.handle(_idMeta, id.isAcceptableValue(d.id.value, _idMeta));
-    }
-    if (d.name.present) {
-      context.handle(
-          _nameMeta, name.isAcceptableValue(d.name.value, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (d.gallons.present) {
-      context.handle(_gallonsMeta,
-          gallons.isAcceptableValue(d.gallons.value, _gallonsMeta));
-    } else if (isInserting) {
-      context.missing(_gallonsMeta);
-    }
-    if (d.status.present) {
-      context.handle(
-          _statusMeta, status.isAcceptableValue(d.status.value, _statusMeta));
-    } else if (isInserting) {
-      context.missing(_statusMeta);
-    }
-    if (d.percentFilled.present) {
-      context.handle(
-          _percentFilledMeta,
-          percentFilled.isAcceptableValue(
-              d.percentFilled.value, _percentFilledMeta));
-    } else if (isInserting) {
-      context.missing(_percentFilledMeta);
-    }
-    context.handle(_recommendationListMeta, const VerificationResult.success());
-    if (d.fishList.present) {
-      context.handle(_fishListMeta,
-          fishList.isAcceptableValue(d.fishList.value, _fishListMeta));
-    } else if (isInserting) {
-      context.missing(_fishListMeta);
-    }
-    context.handle(_fishJsonMeta, const VerificationResult.success());
-    if (d.numFish.present) {
-      context.handle(_numFishMeta,
-          numFish.isAcceptableValue(d.numFish.value, _numFishMeta));
-    } else if (isInserting) {
-      context.missing(_numFishMeta);
-    }
+    // if (d.id.present) {
+    //   context.handle(_idMeta, id.isAcceptableValue(d.id.value, _idMeta));
+    // }
+    // if (d.name.present) {
+    //   context.handle(
+    //       _nameMeta, name.isAcceptableValue(d.name.value, _nameMeta));
+    // } else if (isInserting) {
+    //   context.missing(_nameMeta);
+    // }
+    // if (d.gallons.present) {
+    //   context.handle(_gallonsMeta,
+    //       gallons.isAcceptableValue(d.gallons.value, _gallonsMeta));
+    // } else if (isInserting) {
+    //   context.missing(_gallonsMeta);
+    // }
+    // if (d.status.present) {
+    //   context.handle(
+    //       _statusMeta, status.isAcceptableValue(d.status.value, _statusMeta));
+    // } else if (isInserting) {
+    //   context.missing(_statusMeta);
+    // }
+    // if (d.percentFilled.present) {
+    //   context.handle(
+    //       _percentFilledMeta,
+    //       percentFilled.isAcceptableValue(
+    //           d.percentFilled.value, _percentFilledMeta));
+    // } else if (isInserting) {
+    //   context.missing(_percentFilledMeta);
+    // }
+    // context.handle(_recommendationListMeta, const VerificationResult.success());
+    // if (d.fishList.present) {
+    //   context.handle(_fishListMeta,
+    //       fishList.isAcceptableValue(d.fishList.value, _fishListMeta));
+    // } else if (isInserting) {
+    //   context.missing(_fishListMeta);
+    // }
+    // context.handle(_fishJsonMeta, const VerificationResult.success());
+    // if (d.numFish.present) {
+    //   context.handle(_numFishMeta,
+    //       numFish.isAcceptableValue(d.numFish.value, _numFishMeta));
+    // } else if (isInserting) {
+    //   context.missing(_numFishMeta);
+    // }
     return context;
   }
 
@@ -426,35 +440,34 @@ class $TanksTable extends Tanks with TableInfo<$TanksTable, Tank> {
   Map<String, Variable> entityToSql(TanksCompanion d) {
     final map = <String, Variable>{};
     if (d.id.present) {
-      map['id'] = Variable<int, IntType>(d.id.value);
+      map['id'] = Variable<int>(d.id.value);
     }
     if (d.name.present) {
-      map['name'] = Variable<String, StringType>(d.name.value);
+      map['name'] = Variable<String>(d.name.value);
     }
     if (d.gallons.present) {
-      map['gallons'] = Variable<int, IntType>(d.gallons.value);
+      map['gallons'] = Variable<int>(d.gallons.value);
     }
     if (d.status.present) {
-      map['status'] = Variable<String, StringType>(d.status.value);
+      map['status'] = Variable<String>(d.status.value);
     }
     if (d.percentFilled.present) {
-      map['percent_filled'] = Variable<int, IntType>(d.percentFilled.value);
+      map['percent_filled'] = Variable<int>(d.percentFilled.value);
     }
     if (d.recommendationList.present) {
       final converter = $TanksTable.$converter0;
-      map['recommendation_list'] = Variable<String, StringType>(
-          converter.mapToSql(d.recommendationList.value));
+      map['recommendation_list'] =
+          Variable<String>(converter.mapToSql(d.recommendationList.value));
     }
     if (d.fishList.present) {
-      map['fish_list'] = Variable<String, StringType>(d.fishList.value);
+      map['fish_list'] = Variable<String>(d.fishList.value);
     }
     if (d.fishJson.present) {
       final converter = $TanksTable.$converter1;
-      map['fish_json'] =
-          Variable<String, StringType>(converter.mapToSql(d.fishJson.value));
+      map['fish_json'] = Variable<String>(converter.mapToSql(d.fishJson.value));
     }
     if (d.numFish.present) {
-      map['num_fish'] = Variable<int, IntType>(d.numFish.value);
+      map['num_fish'] = Variable<int>(d.numFish.value);
     }
     return map;
   }
