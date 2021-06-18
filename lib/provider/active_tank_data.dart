@@ -3,22 +3,22 @@ import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tank_mates/models/active_tank.dart';
-import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/models/species.dart';
 import 'package:tank_mates/persistence/tank_database.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 import 'package:tank_mates/util/tank_validator.dart';
 
 class ActiveTankData extends ChangeNotifier {
-  List<Fish> _fish = [];
+  List<Species> _fish = [];
   ActiveTank _tank = ActiveTank();
   int id = -1;
   Tank tankDbEntity;
 
-  List<Fish> availableFish = [];
+  List<Species> availableFish = [];
   TankValidator tankValidator = TankValidator();
 
-  UnmodifiableListView<Fish> get addedFish {
+  UnmodifiableListView<Species> get addedFish {
     return UnmodifiableListView(_fish);
   }
 
@@ -31,12 +31,12 @@ class ActiveTankData extends ChangeNotifier {
   }
 
   UnmodifiableListView<String> get addedFishConsolidated {
-    List<Fish> distinctFish = LinkedHashSet<Fish>.from(_fish).toList();
+    List<Species> distinctFish = LinkedHashSet<Species>.from(_fish).toList();
     List<int> numFish = List.filled(distinctFish.length, 0);
     List<String> consolidatedList = [];
 
     for (int i = 0; i < distinctFish.length; i++) {
-      for (Fish fish in _fish) {
+      for (Species fish in _fish) {
         if (distinctFish[i] == fish) {
           numFish[i]++;
         }
@@ -51,14 +51,14 @@ class ActiveTankData extends ChangeNotifier {
   List<String> get addedFishNames {
     List<String> fishNames = [];
 
-    for (Fish fish in _fish) {
+    for (Species fish in _fish) {
       fishNames.add(fish.name);
     }
 
     return fishNames;
   }
 
-  void addFish(Fish fish) {
+  void addFish(Species fish) {
     _fish.add(fish);
     updateTankValues();
     notifyListeners();
@@ -106,10 +106,10 @@ class ActiveTankData extends ChangeNotifier {
       _tank.recommendationList.add(kRecUpgradeTank);
     }
 
-    List<Fish> oversizedFish =
+    List<Species> oversizedFish =
         FishComparator.determineFishOverMinTankSize(_fish, _tank.gallons);
     if (oversizedFish.length > 0) {
-      for (Fish fish in oversizedFish) {
+      for (Species fish in oversizedFish) {
         _tank.recommendationList.add(
             '${fish.name} needs at least a ${fish.minTankSize} gallon tank');
       }
@@ -132,7 +132,7 @@ class ActiveTankData extends ChangeNotifier {
     _tank.gallons = newGallons;
   }
 
-  void setAvailableFish(List<Fish> fish) {
+  void setAvailableFish(List<Species> fish) {
     availableFish = fish;
   }
 
@@ -170,7 +170,7 @@ class ActiveTankData extends ChangeNotifier {
 
     for (String name in addedFishNames) {
       //find fish object by name
-      for (Fish fish in availableFish) {
+      for (Species fish in availableFish) {
         if (fish.name == name) {
           _fish.add(fish);
         }

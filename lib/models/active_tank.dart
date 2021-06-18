@@ -1,4 +1,4 @@
-import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/models/species.dart';
 
 class ActiveTank {
   String tankName = "Tank Name";

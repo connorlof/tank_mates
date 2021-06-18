@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/models/fish_json_podo.dart';
+import 'package:tank_mates/models/species.dart';
 import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/screens/edit_tank_screen.dart';
 import 'package:tank_mates/util/constants.dart';
@@ -55,7 +55,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     List<FishJsonPodo> fishPodoObjs =
         fishObjsJson.map((tagJson) => FishJsonPodo.fromJson(tagJson)).toList();
 
-    var fishObjs = <Fish>[];
+    var fishObjs = <Species>[];
 
     for (int i = 0; i < fishPodoObjs.length; i++) {
       fishObjs.add(podoParser.outputValidatedFish(fishPodoObjs[i]));

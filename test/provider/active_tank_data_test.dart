@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/models/species.dart';
 import 'package:tank_mates/provider/active_tank_data.dart';
 
 void main() {
@@ -8,14 +8,14 @@ void main() {
 
 void testAddFish() {
   final ActiveTankData tankData = ActiveTankData();
-  final Fish fish1 = Fish();
+  final Species fish1 = Species();
 
   test(
       '_fish is empty after creation, 1 after adding a fish, _tank reflects aggressiveness level of fish',
       () {
     //setup of test case
     fish1.aggressiveness = Aggressiveness.aggressive;
-    fish1.maximumaAdultSize = 5;
+    fish1.maximumAdultSize = 5;
     fish1.name = 'example fish';
     fish1.scientificName = 'science example';
     fish1.speciesGroup = 'goldfish';

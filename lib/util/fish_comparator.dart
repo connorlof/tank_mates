@@ -1,4 +1,4 @@
-import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/models/species.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class FishComparator {
@@ -9,7 +9,7 @@ class FishComparator {
   //String maximumaAdultSize = "5";
   //String diet = "Carnivore";
 
-  static Aggressiveness determineAggressiveness(List<Fish> fishList) {
+  static Aggressiveness determineAggressiveness(List<Species> fishList) {
     Aggressiveness highestAggressiveness = Aggressiveness.peaceful;
     List<Aggressiveness> aggressionLevels = [];
 
@@ -34,7 +34,7 @@ class FishComparator {
     return highestAggressiveness;
   }
 
-  static CareLevel determineCareLevel(List<Fish> fishList) {
+  static CareLevel determineCareLevel(List<Species> fishList) {
     CareLevel highestCareLevel = CareLevel.easy;
     List<CareLevel> careLevels = [];
 
@@ -59,7 +59,7 @@ class FishComparator {
     return highestCareLevel;
   }
 
-  static int determineMinTankSize(List<Fish> fishList) {
+  static int determineMinTankSize(List<Species> fishList) {
     int greatestMinTank = 0;
 
     for (var fish in fishList) {
@@ -72,7 +72,7 @@ class FishComparator {
   }
 
   //TODO: determine better formula other than inch per gallon
-  static int determineStockingPercent(List<Fish> fishList, int tankGallons) {
+  static int determineStockingPercent(List<Species> fishList, int tankGallons) {
     if (fishList.isEmpty) {
       return 0;
     }
@@ -86,9 +86,9 @@ class FishComparator {
 
     for (var fish in fishList) {
       print('totalInchesOfFish:' + totalInchesOfFish.toString());
-      print('fish.maximumaAdultSize:' + fish.maximumaAdultSize.toString());
+      print('fish.maximumaAdultSize:' + fish.maximumAdultSize.toString());
 
-      totalInchesOfFish += fish.maximumaAdultSize;
+      totalInchesOfFish += fish.maximumAdultSize;
     }
 
     stockingPercent = totalInchesOfFish / tankGallons * 100;
@@ -96,7 +96,7 @@ class FishComparator {
     return stockingPercent.round();
   }
 
-  static int determineMinTemp(List<Fish> fishList) {
+  static int determineMinTemp(List<Species> fishList) {
     int minTemp = 0;
 
     for (var fish in fishList) {
@@ -108,7 +108,7 @@ class FishComparator {
     return minTemp;
   }
 
-  static int determineMaxTemp(List<Fish> fishList) {
+  static int determineMaxTemp(List<Species> fishList) {
     int maxTemp = 100;
 
     for (var fish in fishList) {
@@ -120,7 +120,7 @@ class FishComparator {
     return maxTemp;
   }
 
-  static double determineMinPh(List<Fish> fishList) {
+  static double determineMinPh(List<Species> fishList) {
     double minPh = 0.0;
 
     for (var fish in fishList) {
@@ -132,7 +132,7 @@ class FishComparator {
     return minPh;
   }
 
-  static double determineMaxPh(List<Fish> fishList) {
+  static double determineMaxPh(List<Species> fishList) {
     double maxPh = 14.0;
 
     for (var fish in fishList) {
@@ -144,7 +144,7 @@ class FishComparator {
     return maxPh;
   }
 
-  static int determineMinHardness(List<Fish> fishList) {
+  static int determineMinHardness(List<Species> fishList) {
     int minHardness = 0;
 
     for (var fish in fishList) {
@@ -156,7 +156,7 @@ class FishComparator {
     return minHardness;
   }
 
-  static int determineMaxHardness(List<Fish> fishList) {
+  static int determineMaxHardness(List<Species> fishList) {
     int maxHardness = 100;
 
     for (var fish in fishList) {
@@ -168,7 +168,7 @@ class FishComparator {
     return maxHardness;
   }
 
-  static String determineRecommendationFood(List<Fish> fishList) {
+  static String determineRecommendationFood(List<Species> fishList) {
     bool hasCarnivore = false;
     bool hasHerbivore = false;
     bool hasOmnivore = false;
@@ -202,9 +202,9 @@ class FishComparator {
     return null;
   }
 
-  static List<Fish> determineFishOverMinTankSize(
-      List<Fish> fishList, int tankSize) {
-    List<Fish> overSizedFish = [];
+  static List<Species> determineFishOverMinTankSize(
+      List<Species> fishList, int tankSize) {
+    List<Species> overSizedFish = [];
 
     for (var fish in fishList) {
       if (fish.minTankSize > tankSize && (!overSizedFish.contains(fish))) {

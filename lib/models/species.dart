@@ -1,5 +1,4 @@
-class Fish {
-  //TODO: give default values
+class Species {
   String name;
   String scientificName;
   String speciesGroup;
@@ -11,7 +10,7 @@ class Fish {
   int hardnessMin;
   int hardnessMax;
   CareLevel careLevel;
-  double maximumaAdultSize;
+  double maximumAdultSize;
   Diet diet;
   int minTankSize;
 }

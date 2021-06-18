@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:moor/moor.dart' show Value;
 import 'package:provider/provider.dart';
-import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/models/species.dart';
 import 'package:tank_mates/persistence/tank_database.dart';
 import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
@@ -22,7 +22,7 @@ class EditTankScreen extends StatefulWidget {
   EditTankScreen({this.fishObjs});
 
   static String id = kIdEditTankScreen;
-  final List<Fish> fishObjs;
+  final List<Species> fishObjs;
 
   @override
   _EditTankScreenState createState() => _EditTankScreenState();
@@ -33,7 +33,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
 
   FishComparator fishComparator = FishComparator();
   List<String> fishAvailableList = <String>[];
-  List<Fish> addedFish = [];
+  List<Species> addedFish = [];
 
   @override
   void initState() {

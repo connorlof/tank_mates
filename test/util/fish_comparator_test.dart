@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/models/fish.dart';
+import 'package:tank_mates/models/species.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 
@@ -19,21 +19,21 @@ void main() {
 }
 
 void testDetermineAggressiveness() {
-  final Fish peacefulFish = Fish();
+  final Species peacefulFish = Species();
   peacefulFish.aggressiveness = Aggressiveness.peaceful;
 
-  final Fish moderateFish = Fish();
+  final Species moderateFish = Species();
   moderateFish.aggressiveness = Aggressiveness.moderate;
 
-  final Fish semiAggressiveFish = Fish();
+  final Species semiAggressiveFish = Species();
   semiAggressiveFish.aggressiveness = Aggressiveness.semi_aggressive;
 
-  final Fish aggressiveFish = Fish();
+  final Species aggressiveFish = Species();
   aggressiveFish.aggressiveness = Aggressiveness.aggressive;
 
   test('determineAggressiveness returns peaceful for empty list', () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     Aggressiveness foundAggressiveness =
         FishComparator.determineAggressiveness(fishList);
@@ -46,7 +46,7 @@ void testDetermineAggressiveness() {
       'determineAggressiveness returns peaceful if only peaceful fish are in list',
       () {
     //setup of test case
-    final List<Fish> fishList = [
+    final List<Species> fishList = [
       peacefulFish,
       peacefulFish,
       peacefulFish,
@@ -64,7 +64,7 @@ void testDetermineAggressiveness() {
       'determineAggressiveness returns moderate if peaceful and moderate are in list',
       () {
     //setup of test case
-    final List<Fish> fishList = [
+    final List<Species> fishList = [
       peacefulFish,
       moderateFish,
       peacefulFish,
@@ -82,7 +82,7 @@ void testDetermineAggressiveness() {
       'determineAggressiveness returns semi_aggressive if peaceful, moderate, and semi-aggressive are in list',
       () {
     //setup of test case
-    final List<Fish> fishList = [
+    final List<Species> fishList = [
       peacefulFish,
       moderateFish,
       semiAggressiveFish,
@@ -99,7 +99,7 @@ void testDetermineAggressiveness() {
   test('determineAggressiveness returns aggressive if aggressive is in list',
       () {
     //setup of test case
-    final List<Fish> fishList = [
+    final List<Species> fishList = [
       peacefulFish,
       moderateFish,
       semiAggressiveFish,
@@ -115,21 +115,21 @@ void testDetermineAggressiveness() {
 }
 
 void testDetermineCareLevel() {
-  final Fish easyFish = Fish();
+  final Species easyFish = Species();
   easyFish.careLevel = CareLevel.easy;
 
-  final Fish moderateFish = Fish();
+  final Species moderateFish = Species();
   moderateFish.careLevel = CareLevel.moderate;
 
-  final Fish difficultFish = Fish();
+  final Species difficultFish = Species();
   difficultFish.careLevel = CareLevel.difficult;
 
-  final Fish expertFish = Fish();
+  final Species expertFish = Species();
   expertFish.careLevel = CareLevel.expert;
 
   test('determineCareLevel returns easy for empty list', () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     CareLevel determinedCareLevel = FishComparator.determineCareLevel(fishList);
 
@@ -139,7 +139,7 @@ void testDetermineCareLevel() {
 
   test('determineCareLevel returns easy if only easy fish are in list', () {
     //setup of test case
-    final List<Fish> fishList = [easyFish, easyFish, easyFish, easyFish];
+    final List<Species> fishList = [easyFish, easyFish, easyFish, easyFish];
 
     CareLevel determinedCareLevel = FishComparator.determineCareLevel(fishList);
 
@@ -150,7 +150,7 @@ void testDetermineCareLevel() {
   test('determineCareLevel returns moderate if easy and moderate are in list',
       () {
     //setup of test case
-    final List<Fish> fishList = [easyFish, moderateFish, easyFish, easyFish];
+    final List<Species> fishList = [easyFish, moderateFish, easyFish, easyFish];
 
     CareLevel determinedCareLevel = FishComparator.determineCareLevel(fishList);
 
@@ -162,7 +162,7 @@ void testDetermineCareLevel() {
       'determineCareLevel returns difficult if easy, moderate, and difficult are in list',
       () {
     //setup of test case
-    final List<Fish> fishList = [
+    final List<Species> fishList = [
       easyFish,
       moderateFish,
       difficultFish,
@@ -177,7 +177,7 @@ void testDetermineCareLevel() {
 
   test('determineCareLevel returns expert if expert is in list', () {
     //setup of test case
-    final List<Fish> fishList = [
+    final List<Species> fishList = [
       easyFish,
       moderateFish,
       difficultFish,
@@ -192,15 +192,15 @@ void testDetermineCareLevel() {
 }
 
 void testDetermineMinTankSize() {
-  final Fish fishSize1 = Fish();
+  final Species fishSize1 = Species();
   fishSize1.minTankSize = 1;
 
-  final Fish fishSize2 = Fish();
+  final Species fishSize2 = Species();
   fishSize2.minTankSize = 2;
 
   test('determineMinTankSize returns 0 for empty list', () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     int minTankSize = FishComparator.determineMinTankSize(fishList);
 
@@ -212,7 +212,7 @@ void testDetermineMinTankSize() {
       'determineMinTankSize returns minTankSize of single fish in list only containing that fish',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishSize1];
+    final List<Species> fishList = [fishSize1];
 
     int minTankSize = FishComparator.determineMinTankSize(fishList);
 
@@ -224,7 +224,7 @@ void testDetermineMinTankSize() {
       'determineMinTankSize returns minTankSize of fish with largest minTankSize in list of differing fish',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishSize1, fishSize2];
+    final List<Species> fishList = [fishSize1, fishSize2];
 
     int minTankSize = FishComparator.determineMinTankSize(fishList);
 
@@ -234,14 +234,14 @@ void testDetermineMinTankSize() {
 }
 
 void testDetermineStockingPercent() {
-  final Fish fishSize1 = Fish();
-  fishSize1.maximumaAdultSize = 1;
+  final Species fishSize1 = Species();
+  fishSize1.maximumAdultSize = 1;
 
   test(
       'determineStocking returns 0 (int) when passed an empty list and 0 gallons',
       () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
     final int gallons = 0;
 
     int stockingPercent =
@@ -255,8 +255,8 @@ void testDetermineStockingPercent() {
       'determineStockingPercent returns 100 when passed a single fish of equal inches to gallons',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishSize1];
-    final int gallons = fishSize1.maximumaAdultSize.toInt();
+    final List<Species> fishList = [fishSize1];
+    final int gallons = fishSize1.maximumAdultSize.toInt();
 
     int stockingPercent =
         FishComparator.determineStockingPercent(fishList, gallons);
@@ -269,8 +269,8 @@ void testDetermineStockingPercent() {
       'determineStockingPercent returns 50 when passed a single fish of double gallons to max size',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishSize1];
-    final int gallons = fishSize1.maximumaAdultSize.toInt() * 2;
+    final List<Species> fishList = [fishSize1];
+    final int gallons = fishSize1.maximumAdultSize.toInt() * 2;
 
     int stockingPercent =
         FishComparator.determineStockingPercent(fishList, gallons);
@@ -283,8 +283,8 @@ void testDetermineStockingPercent() {
       'determineStockingPercent returns 200 when passed a two fish of half gallons to total max size',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishSize1, fishSize1];
-    final int gallons = fishSize1.maximumaAdultSize.toInt();
+    final List<Species> fishList = [fishSize1, fishSize1];
+    final int gallons = fishSize1.maximumAdultSize.toInt();
 
     int stockingPercent =
         FishComparator.determineStockingPercent(fishList, gallons);
@@ -296,7 +296,7 @@ void testDetermineStockingPercent() {
   test('determineStockingPercent returns 999 when passed a fish and 0 gallons',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishSize1];
+    final List<Species> fishList = [fishSize1];
     final int gallons = 0;
 
     int stockingPercent =
@@ -308,21 +308,21 @@ void testDetermineStockingPercent() {
 }
 
 void testDetermineMinTemp() {
-  final Fish fish1 = Fish();
+  final Species fish1 = Species();
   fish1.tempMin = 70;
   fish1.tempMax = 80;
 
-  final Fish fish2 = Fish();
+  final Species fish2 = Species();
   fish2.tempMin = 65;
   fish2.tempMax = 80;
 
-  final Fish fish3 = Fish();
+  final Species fish3 = Species();
   fish3.tempMin = 40;
   fish3.tempMax = 80;
 
   test('determineMinTemp returns 0 (int) when passed an empty fish list', () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     int minTemp = FishComparator.determineMinTemp(fishList);
 
@@ -334,7 +334,7 @@ void testDetermineMinTemp() {
       'determineMinTemp returns the tempMin of a Fish if it is the only one in a list',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1];
+    final List<Species> fishList = [fish1];
 
     int minTemp = FishComparator.determineMinTemp(fishList);
 
@@ -346,7 +346,7 @@ void testDetermineMinTemp() {
       'determineMinTemp returns the highest tempMin of three fish with different tempMins',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1, fish2, fish3];
+    final List<Species> fishList = [fish1, fish2, fish3];
 
     int minTemp = FishComparator.determineMinTemp(fishList);
 
@@ -356,21 +356,21 @@ void testDetermineMinTemp() {
 }
 
 void testDetermineMaxTemp() {
-  final Fish fish1 = Fish();
+  final Species fish1 = Species();
   fish1.tempMin = 50;
   fish1.tempMax = 60;
 
-  final Fish fish2 = Fish();
+  final Species fish2 = Species();
   fish2.tempMin = 65;
   fish2.tempMax = 70;
 
-  final Fish fish3 = Fish();
+  final Species fish3 = Species();
   fish3.tempMin = 40;
   fish3.tempMax = 80;
 
   test('determineMaxTemp returns 100 (int) when passed an empty fish list', () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     int maxTemp = FishComparator.determineMaxTemp(fishList);
 
@@ -382,7 +382,7 @@ void testDetermineMaxTemp() {
       'determineMaxTemp returns the tempMax of a Fish if it is the only one in a list',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1];
+    final List<Species> fishList = [fish1];
 
     int maxTemp = FishComparator.determineMaxTemp(fishList);
 
@@ -394,7 +394,7 @@ void testDetermineMaxTemp() {
       'determineMaxTemp returns the smallest tempMax of three fish with different tempMaxes',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1, fish2, fish3];
+    final List<Species> fishList = [fish1, fish2, fish3];
 
     int maxTemp = FishComparator.determineMaxTemp(fishList);
 
@@ -404,22 +404,22 @@ void testDetermineMaxTemp() {
 }
 
 void testDetermineMinPh() {
-  final Fish fish1 = Fish();
+  final Species fish1 = Species();
   fish1.phMin = 6.0;
   fish1.phMax = 8.0;
 
-  final Fish fish2 = Fish();
+  final Species fish2 = Species();
   fish2.phMin = 7.0;
   fish2.phMax = 8.0;
 
-  final Fish fish3 = Fish();
+  final Species fish3 = Species();
   fish3.phMin = 8.0;
   fish3.phMax = 9.0;
 
   test('determineMinPh returns 0.0 (double) when passed an empty fish list',
       () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     double minPh = FishComparator.determineMinPh(fishList);
 
@@ -431,7 +431,7 @@ void testDetermineMinPh() {
       'determineMinPh returns the phMin of a Fish if it is the only one in a list',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1];
+    final List<Species> fishList = [fish1];
 
     double minPh = FishComparator.determineMinPh(fishList);
 
@@ -443,7 +443,7 @@ void testDetermineMinPh() {
       'determineMinPh returns the highest phMin of three fish with different phMins',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1, fish2, fish3];
+    final List<Species> fishList = [fish1, fish2, fish3];
 
     double minPh = FishComparator.determineMinPh(fishList);
 
@@ -453,22 +453,22 @@ void testDetermineMinPh() {
 }
 
 void testDetermineMaxPh() {
-  final Fish fish1 = Fish();
+  final Species fish1 = Species();
   fish1.phMin = 6.0;
   fish1.phMax = 7.0;
 
-  final Fish fish2 = Fish();
+  final Species fish2 = Species();
   fish2.phMin = 7.0;
   fish2.phMax = 8.0;
 
-  final Fish fish3 = Fish();
+  final Species fish3 = Species();
   fish3.phMin = 8.0;
   fish3.phMax = 9.0;
 
   test('determineMaxPh returns 14.0 (double) when passed an empty fish list',
       () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     double maxPh = FishComparator.determineMaxPh(fishList);
 
@@ -480,7 +480,7 @@ void testDetermineMaxPh() {
       'determineMaxPh returns the phMax of a Fish if it is the only one in a list',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1];
+    final List<Species> fishList = [fish1];
 
     double maxPh = FishComparator.determineMaxPh(fishList);
 
@@ -492,7 +492,7 @@ void testDetermineMaxPh() {
       'determineMaxPh returns the lowest phMax of three fish with different phMaxes',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1, fish2, fish3];
+    final List<Species> fishList = [fish1, fish2, fish3];
 
     double maxPh = FishComparator.determineMaxPh(fishList);
 
@@ -502,22 +502,22 @@ void testDetermineMaxPh() {
 }
 
 void testDetermineMinHardness() {
-  final Fish fish1 = Fish();
+  final Species fish1 = Species();
   fish1.hardnessMin = 5;
   fish1.hardnessMax = 20;
 
-  final Fish fish2 = Fish();
+  final Species fish2 = Species();
   fish2.hardnessMin = 10;
   fish2.hardnessMax = 20;
 
-  final Fish fish3 = Fish();
+  final Species fish3 = Species();
   fish3.hardnessMin = 15;
   fish3.hardnessMax = 20;
 
   test('determineMinHardness returns 0 (int) when passed an empty fish list',
       () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     int minHardness = FishComparator.determineMinHardness(fishList);
 
@@ -529,7 +529,7 @@ void testDetermineMinHardness() {
       'determineMinHardness returns the hardnessMin of a Fish if it is the only one in a list',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1];
+    final List<Species> fishList = [fish1];
 
     int minHardness = FishComparator.determineMinHardness(fishList);
 
@@ -541,7 +541,7 @@ void testDetermineMinHardness() {
       'determineMinHardness returns the highest hardnessMin of three fish with different hardnessMin',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1, fish2, fish3];
+    final List<Species> fishList = [fish1, fish2, fish3];
 
     int minHardness = FishComparator.determineMinHardness(fishList);
 
@@ -551,22 +551,22 @@ void testDetermineMinHardness() {
 }
 
 void testDetermineMaxHardness() {
-  final Fish fish1 = Fish();
+  final Species fish1 = Species();
   fish1.hardnessMin = 5;
   fish1.hardnessMax = 10;
 
-  final Fish fish2 = Fish();
+  final Species fish2 = Species();
   fish2.hardnessMin = 10;
   fish2.hardnessMax = 15;
 
-  final Fish fish3 = Fish();
+  final Species fish3 = Species();
   fish3.hardnessMin = 15;
   fish3.hardnessMax = 20;
 
   test('determineMaxHardness returns 0 (int) when passed an empty fish list',
       () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     int maxHardness = FishComparator.determineMaxHardness(fishList);
 
@@ -578,7 +578,7 @@ void testDetermineMaxHardness() {
       'determineMaxHardness returns the hardnessMax of a Fish if it is the only one in a list',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1];
+    final List<Species> fishList = [fish1];
 
     int maxHardness = FishComparator.determineMaxHardness(fishList);
 
@@ -590,7 +590,7 @@ void testDetermineMaxHardness() {
       'determineMaxHardness returns the highest hardnessMax of three fish with different hardnessMax',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish1, fish2, fish3];
+    final List<Species> fishList = [fish1, fish2, fish3];
 
     int maxHardness = FishComparator.determineMaxHardness(fishList);
 
@@ -600,20 +600,20 @@ void testDetermineMaxHardness() {
 }
 
 void testDetermineRecommendationFood() {
-  final Fish fishCarnivore = Fish();
+  final Species fishCarnivore = Species();
   fishCarnivore.diet = Diet.carnivore;
 
-  final Fish fishHerbivore = Fish();
+  final Species fishHerbivore = Species();
   fishHerbivore.diet = Diet.herbivore;
 
-  final Fish fishOmnivore = Fish();
+  final Species fishOmnivore = Species();
   fishOmnivore.diet = Diet.omnivore;
 
   test(
       'determineRecommendationFood returns null when passed an empty fish list',
       () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
 
     //expectation
     expect(null, FishComparator.determineRecommendationFood(fishList));
@@ -623,7 +623,11 @@ void testDetermineRecommendationFood() {
       'determineRecommendationFood returns kRecFoodCarnivore when passed a list containing only carnivores',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishCarnivore, fishCarnivore, fishCarnivore];
+    final List<Species> fishList = [
+      fishCarnivore,
+      fishCarnivore,
+      fishCarnivore
+    ];
 
     //expectation
     expect(kRecFoodCarnivore,
@@ -634,7 +638,11 @@ void testDetermineRecommendationFood() {
       'determineRecommendationFood returns kRecFoodHerbivore when passed a list containing only herbivores',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishHerbivore, fishHerbivore, fishHerbivore];
+    final List<Species> fishList = [
+      fishHerbivore,
+      fishHerbivore,
+      fishHerbivore
+    ];
 
     //expectation
     expect(kRecFoodHerbivore,
@@ -645,7 +653,11 @@ void testDetermineRecommendationFood() {
       'determineRecommendationFood returns kRecFoodOmnivore when passed a list containing herbivores and carnivores',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishHerbivore, fishCarnivore, fishHerbivore];
+    final List<Species> fishList = [
+      fishHerbivore,
+      fishCarnivore,
+      fishHerbivore
+    ];
 
     //expectation
     expect(
@@ -656,7 +668,7 @@ void testDetermineRecommendationFood() {
       'determineRecommendationFood returns kRecFoodOmnivore when passed a list containing only omnivores',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishOmnivore, fishOmnivore, fishOmnivore];
+    final List<Species> fishList = [fishOmnivore, fishOmnivore, fishOmnivore];
 
     //expectation
     expect(
@@ -667,7 +679,7 @@ void testDetermineRecommendationFood() {
       'determineRecommendationFood returns kRecFoodOmnivore when passed a list containing omnivores, herbivores, carnivores',
       () {
     //setup of test case
-    final List<Fish> fishList = [fishOmnivore, fishCarnivore, fishHerbivore];
+    final List<Species> fishList = [fishOmnivore, fishCarnivore, fishHerbivore];
 
     //expectation
     expect(
@@ -676,11 +688,11 @@ void testDetermineRecommendationFood() {
 }
 
 void testDetermineFishOverMinTankSize() {
-  final Fish fish10 = Fish();
+  final Species fish10 = Species();
   fish10.name = '10 inch fish';
   fish10.minTankSize = 10;
 
-  final Fish fish55 = Fish();
+  final Species fish55 = Species();
   fish55.name = '55 inch fish';
   fish55.minTankSize = 55;
 
@@ -688,7 +700,7 @@ void testDetermineFishOverMinTankSize() {
       'determineFishOverMinTankSize returns an empty list when passed an empty fish list',
       () {
     //setup of test case
-    final List<Fish> fishList = [];
+    final List<Species> fishList = [];
     final int tankSize = 20;
 
     //expectation
@@ -699,7 +711,7 @@ void testDetermineFishOverMinTankSize() {
       'determineFishOverMinTankSize returns an empty list when passed an all fish under the tank size',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish10, fish10];
+    final List<Species> fishList = [fish10, fish10];
     final int tankSize = 20;
 
     //expectation
@@ -710,7 +722,7 @@ void testDetermineFishOverMinTankSize() {
       'determineFishOverMinTankSize returns the name of a fish over size when passed it',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish10, fish55];
+    final List<Species> fishList = [fish10, fish55];
     final int tankSize = 20;
 
     //expectation
@@ -722,7 +734,7 @@ void testDetermineFishOverMinTankSize() {
       'determineFishOverMinTankSize returns only a single item for name of a fish over size when passed multiple versions of it',
       () {
     //setup of test case
-    final List<Fish> fishList = [fish55, fish55];
+    final List<Species> fishList = [fish55, fish55];
     final int tankSize = 20;
 
     //expectation

@@ -1,11 +1,11 @@
-import 'package:tank_mates/models/fish.dart';
 import 'package:tank_mates/models/fish_json_podo.dart';
+import 'package:tank_mates/models/species.dart';
 
 class FishPodoParser {
   FishPodoParser() {}
 
-  Fish outputValidatedFish(FishJsonPodo fishPodo) {
-    Fish newFishObj = new Fish();
+  Species outputValidatedFish(FishJsonPodo fishPodo) {
+    Species newFishObj = new Species();
 
     try {
       newFishObj.name = fishPodo.name;
@@ -25,7 +25,7 @@ class FishPodoParser {
       newFishObj.hardnessMax = parseHardnessMaxFromRange(fishPodo.hardness);
 
       newFishObj.careLevel = parseCareLevelFromString(fishPodo.careLevel);
-      newFishObj.maximumaAdultSize = parseMaxSize(fishPodo.maximumaAdultSize);
+      newFishObj.maximumAdultSize = parseMaxSize(fishPodo.maximumaAdultSize);
       newFishObj.diet = parseDietFromString(fishPodo.diet);
       newFishObj.minTankSize = parseMinTankSize(fishPodo.minTankSize);
     } catch (e) {}
