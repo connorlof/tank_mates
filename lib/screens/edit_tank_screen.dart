@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:moor/moor.dart' show Value;
 import 'package:provider/provider.dart';
 import 'package:tank_mates/models/species.dart';
 import 'package:tank_mates/models/tank.dart';
@@ -351,36 +350,30 @@ class _EditTankScreenState extends State<EditTankScreen> {
 
                                   final tank = Tank(
                                     currentId,
-                                    Value(Provider.of<ActiveTankData>(context,
-                                                listen: false)
-                                            .tank
-                                            .tankName)
-                                        .value,
-                                    Value(Provider.of<ActiveTankData>(context,
-                                                listen: false)
-                                            .tank
-                                            .gallons)
-                                        .value,
-                                    Value(Provider.of<ActiveTankData>(context,
-                                                listen: false)
-                                            .tank
-                                            .status
-                                            .toString())
-                                        .value,
-                                    Value(Provider.of<ActiveTankData>(context,
-                                                listen: false)
-                                            .tank
-                                            .percentFilled)
-                                        .value,
-                                    Value(Provider.of<ActiveTankData>(context,
-                                                listen: false)
-                                            .tank
-                                            .recommendationList)
-                                        .value,
-                                    Value(Provider.of<ActiveTankData>(context,
-                                                listen: false)
-                                            .addedFishNames)
-                                        .value,
+                                    Provider.of<ActiveTankData>(context,
+                                            listen: false)
+                                        .tank
+                                        .tankName,
+                                    Provider.of<ActiveTankData>(context,
+                                            listen: false)
+                                        .tank
+                                        .gallons,
+                                    Provider.of<ActiveTankData>(context,
+                                            listen: false)
+                                        .tank
+                                        .status
+                                        .toString(),
+                                    Provider.of<ActiveTankData>(context,
+                                            listen: false)
+                                        .tank
+                                        .percentFilled,
+                                    Provider.of<ActiveTankData>(context,
+                                            listen: false)
+                                        .tank
+                                        .recommendationList,
+                                    Provider.of<ActiveTankData>(context,
+                                            listen: false)
+                                        .addedFishNames,
                                   );
 
                                   database.put(tank.id, tank);

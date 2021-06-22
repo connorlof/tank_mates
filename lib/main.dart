@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:tank_mates/persistence/hive/SettingsRecord.dart';
 import 'package:tank_mates/persistence/hive/SpeciesRecord.dart';
 import 'package:tank_mates/persistence/hive/TankRecord.dart';
-import 'package:tank_mates/persistence/tank_database.dart';
 import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/edit_tank_screen.dart';
@@ -44,7 +43,6 @@ class TankMatesApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ActiveTankData()),
-        Provider(create: (context) => AppDatabase()),
       ],
       child: MaterialApp(
         theme: ThemeData(
