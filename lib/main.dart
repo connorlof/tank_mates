@@ -29,6 +29,9 @@ void _initializeHiveDatabase() async {
   Hive.registerAdapter(SettingsRecordAdapter());
   Hive.registerAdapter(SpeciesRecordAdapter());
   Hive.registerAdapter(TankRecordAdapter());
+
+  // TODO: Find better spot for this, ensure it is closed when app closes
+  Hive.openBox('tanks');
 }
 
 class TankMatesApp extends StatelessWidget {
