@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:moor/moor.dart' show Value;
 import 'package:provider/provider.dart';
 import 'package:tank_mates/models/species.dart';
-import 'package:tank_mates/persistence/tank_database.dart';
+import 'package:tank_mates/models/tank.dart';
 import 'package:tank_mates/provider/active_tank_data.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/screens/add_fish_screen.dart';
@@ -340,83 +341,49 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 leftMargin: 15.0,
                                 rightMargin: 5.0,
                                 onTap: () async {
-                                  final database = Provider.of<AppDatabase>(
-                                      context,
-                                      listen: false);
+                                  final database = Hive.box("tanks");
 
-                                  List<Tank> tanksInDb =
-                                      await database.getAllTanks();
+                                  List<Tank> tanksInDb = database.values;
                                   int currentId = Provider.of<ActiveTankData>(
                                           context,
                                           listen: false)
                                       .id;
 
-                                  final tank = TanksCompanion(
-                                    name: Value(Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .tankName),
-                                    gallons: Value(Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .gallons),
-                                    status: Value(Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .tank
-                                        .status
-                                        .toString()),
-                                    percentFilled: Value(
-                                        Provider.of<ActiveTankData>(context,
+                                  final tank = Tank(
+                                    currentId,
+                                    Value(Provider.of<ActiveTankData>(context,
                                                 listen: false)
                                             .tank
-                                            .percentFilled),
-                                    recommendationList: Value(
-                                        Provider.of<ActiveTankData>(context,
+                                            .tankName)
+                                        .value,
+                                    Value(Provider.of<ActiveTankData>(context,
                                                 listen: false)
                                             .tank
-                                            .recommendationList),
-                                    fishList: Value(Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .addedFishConsolidated
-                                        .toString()),
-                                    fishJson: Value(Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .addedFishNames),
-                                    numFish: Value(Provider.of<ActiveTankData>(
-                                            context,
-                                            listen: false)
-                                        .numFish),
+                                            .gallons)
+                                        .value,
+                                    Value(Provider.of<ActiveTankData>(context,
+                                                listen: false)
+                                            .tank
+                                            .status
+                                            .toString())
+                                        .value,
+                                    Value(Provider.of<ActiveTankData>(context,
+                                                listen: false)
+                                            .tank
+                                            .percentFilled)
+                                        .value,
+                                    Value(Provider.of<ActiveTankData>(context,
+                                                listen: false)
+                                            .tank
+                                            .recommendationList)
+                                        .value,
+                                    Value(Provider.of<ActiveTankData>(context,
+                                                listen: false)
+                                            .addedFishNames)
+                                        .value,
                                   );
 
-                                  for (Tank currentTank in tanksInDb) {
-                                    print('saving currentTank.id: ' +
-                                        currentTank.id.toString() +
-                                        ' - currentId: ' +
-                                        currentId.toString());
-
-                                    if (currentTank.id == currentId) {
-                                      database.updateTank(currentTank.copyWith(
-                                        name: tank.name.value,
-                                        gallons: tank.gallons.value,
-                                        status: tank.status.value,
-                                        percentFilled: tank.percentFilled.value,
-                                        recommendationList:
-                                            tank.recommendationList.value,
-                                        fishList: tank.fishList.value,
-                                        fishJson: tank.fishJson.value,
-                                        numFish: tank.numFish.value,
-                                      ));
-
-                                      return;
-                                    }
-                                  }
-
-                                  database.insertTank(tank);
+                                  database.put(tank.id, tank);
                                 },
                               ),
                             ),
