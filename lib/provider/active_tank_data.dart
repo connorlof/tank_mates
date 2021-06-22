@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tank_mates/models/active_tank.dart';
 import 'package:tank_mates/models/species.dart';
-import 'package:tank_mates/persistence/tank_database.dart';
+import 'package:tank_mates/models/tank.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 import 'package:tank_mates/util/tank_validator.dart';
@@ -166,7 +166,7 @@ class ActiveTankData extends ChangeNotifier {
     _tank.gallons = tankDataToLoad.gallons;
 
     //TODO: move to method, TEST
-    List<String> addedFishNames = tankDataToLoad.fishJson;
+    List<String> addedFishNames = tankDataToLoad.species;
 
     for (String name in addedFishNames) {
       //find fish object by name
@@ -177,7 +177,7 @@ class ActiveTankData extends ChangeNotifier {
       }
     }
 
-    _tank.recommendationList = tankDataToLoad.recommendationList;
+    _tank.recommendationList = tankDataToLoad.recommendations;
 
     updateTankValues();
   }
