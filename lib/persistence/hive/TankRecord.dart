@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:tank_mates/models/tank.dart';
 
 part 'TankRecord.g.dart';
 
@@ -24,4 +25,14 @@ class TankRecord {
 
   TankRecord(this.name, this.gallons, this.status, this.percentFilled,
       this.recommendations, this.species);
+
+  Tank toModel() {
+    return Tank(0, this.name, this.gallons, this.status, this.percentFilled,
+        this.recommendations, this.species);
+  }
+
+  static TankRecord toRecord(Tank model) {
+    return TankRecord(model.name, model.gallons, model.status,
+        model.percentFilled, model.recommendations, model.species);
+  }
 }

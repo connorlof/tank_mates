@@ -1,9 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:tank_mates/models/species.dart';
 import 'package:tank_mates/persistence/hive/SpeciesRecord.dart';
-import 'package:tank_mates/persistence/repository/species_data_source.dart';
 
-class SpeciesHiveDataSource extends SpeciesDataSource {
+class SpeciesHiveDataSource {
   Box _box = Hive.box('species');
 
   Future insertOrUpdate(Species species) {

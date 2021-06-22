@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
-import 'package:tank_mates/persistence/tank_database.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:tank_mates/models/tank.dart';
+import 'package:tank_mates/persistence/hive/TankRecord.dart';
 import 'package:tank_mates/screens/about_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/widgets/menu_bar.dart';
@@ -88,27 +90,24 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
   }
 }
 
-StreamBuilder<List<Tank>> _buildTankList(BuildContext context) {
-  final database = Provider.of<AppDatabase>(context);
-  return StreamBuilder(
-    stream: database.watchAllTanks(),
-    builder: (context, AsyncSnapshot<List<Tank>> snapshot) {
-      final tanks = snapshot.data ?? List();
-
+Widget _buildTankList(BuildContext context) {
+  return WatchBoxBuilder(
+    box: Hive.box('tanks'),
+    builder: (context, tanksBox) {
       return ListView.builder(
-        itemCount: tanks.length,
+        itemCount: tanksBox.length,
         padding: const EdgeInsets.all(15.0),
-        itemBuilder: (_, index) {
-          final itemTask = tanks[index];
-          return _buildListItem(itemTask, database, context);
+        itemBuilder: (BuildContext context, int index) {
+          final tankRecord = tanksBox.getAt(index) as TankRecord;
+          final tankItem = tankRecord.toModel();
+          return _buildListItem(tankItem, tanksBox, context);
         },
       );
     },
   );
 }
 
-Widget _buildListItem(
-    Tank itemTank, AppDatabase database, BuildContext context) {
+Widget _buildListItem(Tank itemTank, Box database, BuildContext context) {
   return Slidable(
     actionPane: SlidableDrawerActionPane(),
     secondaryActions: <Widget>[
@@ -124,7 +123,7 @@ Widget _buildListItem(
           caption: 'Delete',
           color: kBackGroundColor,
           icon: Icons.delete,
-          onTap: () => database.deleteTank(itemTank),
+          onTap: () => database.deleteAt(itemTank.id),
         ),
       )
     ],
@@ -161,9 +160,9 @@ Widget _buildListItem(
                 ),
                 Text(
                   //TODO: test and into function
-                  itemTank.fishList.length < 25
-                      ? '${itemTank.numFish} fish - ${itemTank.fishList.substring(0, itemTank.fishList.length - 1).replaceAll('[', '').replaceAll(']', '')}'
-                      : '${itemTank.numFish} fish - ${itemTank.fishList.substring(0, 25).replaceAll('[', '').replaceAll(']', '')}...',
+                  itemTank.species.length < 25
+                      ? '${itemTank.species.length} fish - ${itemTank.species.join(",").substring(0, itemTank.species.length - 1).replaceAll('[', '').replaceAll(']', '')}'
+                      : '${itemTank.species.length} fish - ${itemTank.species.join(",").substring(0, 25).replaceAll('[', '').replaceAll(']', '')}...',
                   style: kTextStyleSmall,
                 ),
               ],
