@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:tank_mates/models/tank.dart';
-import 'package:tank_mates/persistence/hive/TankRecord.dart';
+import 'package:tank_mates/data/hive/TankRecord.dart';
+import 'package:tank_mates/data/models/tank.dart';
 
 class TankHiveDataSource {
   Box _box = Hive.box('tanks');

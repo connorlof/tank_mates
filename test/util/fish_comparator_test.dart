@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/models/species.dart';
+import 'package:tank_mates/data/models/species.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 

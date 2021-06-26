@@ -2,9 +2,9 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:tank_mates/models/active_tank.dart';
-import 'package:tank_mates/models/species.dart';
-import 'package:tank_mates/models/tank.dart';
+import 'package:tank_mates/data/models/active_tank.dart';
+import 'package:tank_mates/data/models/species.dart';
+import 'package:tank_mates/data/models/tank.dart';
 import 'package:tank_mates/util/constants.dart';
 import 'package:tank_mates/util/fish_comparator.dart';
 import 'package:tank_mates/util/tank_validator.dart';

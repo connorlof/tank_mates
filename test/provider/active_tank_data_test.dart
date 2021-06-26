@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/models/species.dart';
+import 'package:tank_mates/data/models/species.dart';
 import 'package:tank_mates/provider/active_tank_data.dart';
 
 void main() {
