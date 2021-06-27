@@ -9,7 +9,7 @@ import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank.dart';
 import 'package:tank_mates/util/constants.dart';
 
-class ActiveTankData extends ChangeNotifier {
+class EditTankViewModel extends ChangeNotifier {
   List<Species> _fish = [];
   ActiveTank _tank = ActiveTank();
   int id = -1;

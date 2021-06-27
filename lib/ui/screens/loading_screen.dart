@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/json/fish_json_podo.dart';
 import 'package:tank_mates/data/json/fish_podo_parser.dart';
 import 'package:tank_mates/data/model/species.dart';
@@ -61,7 +61,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       fishObjs.add(podoParser.outputValidatedFish(fishPodoObjs[i]));
     }
 
-    Provider.of<ActiveTankData>(
+    Provider.of<EditTankViewModel>(
       context,
       listen: false,
     ).setAvailableFish(fishObjs);

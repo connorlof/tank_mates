@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/ui/widgets/parameter_tile.dart';
 import 'package:tank_mates/ui/widgets/round_icon_button.dart';
 import 'package:tank_mates/util/constants.dart';
@@ -46,13 +46,13 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                   TextField(
                     controller: TextEditingController(
                       text:
-                          '${Provider.of<ActiveTankData>(context).tank.tankName}',
+                          '${Provider.of<EditTankViewModel>(context).tank.tankName}',
                     ),
                     style: kTextStyleLarge,
                     autofocus: false,
                     textAlign: TextAlign.start,
                     onChanged: (newText) {
-                      Provider.of<ActiveTankData>(context, listen: false)
+                      Provider.of<EditTankViewModel>(context, listen: false)
                           .setTankName(newText);
                     },
                   ),
@@ -69,7 +69,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                   ParameterTile(
                     label: 'Gallons',
                     value:
-                        '${Provider.of<ActiveTankData>(context).tank.gallons}',
+                        '${Provider.of<EditTankViewModel>(context).tank.gallons}',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +77,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                       RoundIconButton(
                         icon: Icons.remove,
                         onPressed: () {
-                          Provider.of<ActiveTankData>(context, listen: false)
+                          Provider.of<EditTankViewModel>(context, listen: false)
                               .decrementTankGallons();
                         },
                       ),
@@ -87,7 +87,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                       RoundIconButton(
                         icon: Icons.add,
                         onPressed: () {
-                          Provider.of<ActiveTankData>(context, listen: false)
+                          Provider.of<EditTankViewModel>(context, listen: false)
                               .incrementTankGallons();
                         },
                       ),

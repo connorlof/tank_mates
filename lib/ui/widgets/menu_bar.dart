@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/ui/screens/saved_tanks_screen.dart';
 import 'package:tank_mates/ui/widgets/round_button.dart';
 import 'package:tank_mates/util/constants.dart';
@@ -33,7 +33,7 @@ class MenuBar extends StatelessWidget {
                             builder: (context) => SavedTanksScreen()));
 
                     if (loadedTank != null) {
-                      Provider.of<ActiveTankData>(context, listen: false)
+                      Provider.of<EditTankViewModel>(context, listen: false)
                           .loadSavedTank(loadedTank);
                     }
                   },

@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/bloc/fish_comparator.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank.dart';
@@ -118,65 +118,68 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 ParameterTile(
                                   label: 'Temperature',
                                   value: isValueValid(
-                                              Provider.of<ActiveTankData>(
+                                              Provider.of<EditTankViewModel>(
                                                       context)
                                                   .tank
                                                   .tempMin
                                                   .toDouble(),
-                                              Provider.of<ActiveTankData>(
+                                              Provider.of<EditTankViewModel>(
                                                       context)
                                                   .tank
                                                   .tempMax
                                                   .toDouble()) &&
-                                          Provider.of<ActiveTankData>(context)
+                                          Provider.of<EditTankViewModel>(
+                                                      context)
                                                   .numFish >
                                               0
-                                      ? '${Provider.of<ActiveTankData>(context).tank.tempMin} - '
-                                          '${Provider.of<ActiveTankData>(context).tank.tempMax}°F'
+                                      ? '${Provider.of<EditTankViewModel>(context).tank.tempMin} - '
+                                          '${Provider.of<EditTankViewModel>(context).tank.tempMax}°F'
                                       : '?? - ??',
                                 ),
                                 ParameterTile(
                                   label: 'pH',
                                   value: isValueValid(
-                                              Provider.of<ActiveTankData>(
+                                              Provider.of<EditTankViewModel>(
                                                       context)
                                                   .tank
                                                   .phMin,
-                                              Provider.of<ActiveTankData>(
+                                              Provider.of<EditTankViewModel>(
                                                       context)
                                                   .tank
                                                   .phMax) &&
-                                          Provider.of<ActiveTankData>(context)
+                                          Provider.of<EditTankViewModel>(
+                                                      context)
                                                   .numFish >
                                               0
-                                      ? '${Provider.of<ActiveTankData>(context).tank.phMin} - '
-                                          '${Provider.of<ActiveTankData>(context).tank.phMax}°F'
+                                      ? '${Provider.of<EditTankViewModel>(context).tank.phMin} - '
+                                          '${Provider.of<EditTankViewModel>(context).tank.phMax}°F'
                                       : '?? - ??',
                                 ),
                                 ParameterTile(
                                   label: 'Hardness',
                                   value: isValueValid(
-                                              Provider.of<ActiveTankData>(
+                                              Provider.of<EditTankViewModel>(
                                                       context)
                                                   .tank
                                                   .hardnessMin
                                                   .toDouble(),
-                                              Provider.of<ActiveTankData>(
+                                              Provider.of<EditTankViewModel>(
                                                       context)
                                                   .tank
                                                   .hardnessMax
                                                   .toDouble()) &&
-                                          Provider.of<ActiveTankData>(context)
+                                          Provider.of<EditTankViewModel>(
+                                                      context)
                                                   .numFish >
                                               0
-                                      ? '${Provider.of<ActiveTankData>(context).tank.hardnessMin} - '
-                                          '${Provider.of<ActiveTankData>(context).tank.hardnessMax} dKH'
+                                      ? '${Provider.of<EditTankViewModel>(context).tank.hardnessMin} - '
+                                          '${Provider.of<EditTankViewModel>(context).tank.hardnessMax} dKH'
                                       : '?? - ??',
                                 ),
                                 ParameterTile(
                                   label: 'Care Level',
                                   value:
-                                      '${toBeginningOfSentenceCase(Provider.of<ActiveTankData>(context).tank.careLevel.toString().split('.').last)}',
+                                      '${toBeginningOfSentenceCase(Provider.of<EditTankViewModel>(context).tank.careLevel.toString().split('.').last)}',
                                 ),
                               ],
                             ),
@@ -221,12 +224,12 @@ class _EditTankScreenState extends State<EditTankScreen> {
                               children: <Widget>[
                                 ParameterTile(
                                   label: 'Tank Status: '
-                                      '${toBeginningOfSentenceCase(Provider.of<ActiveTankData>(context).tank.status.toString().split('.').last)}',
+                                      '${toBeginningOfSentenceCase(Provider.of<EditTankViewModel>(context).tank.status.toString().split('.').last)}',
                                   value:
-                                      '${Provider.of<ActiveTankData>(context).tank.percentFilled} %',
+                                      '${Provider.of<EditTankViewModel>(context).tank.percentFilled} %',
                                 ),
                                 Text(
-                                  '${Provider.of<ActiveTankData>(context).tank.gallons} gallon aquarium',
+                                  '${Provider.of<EditTankViewModel>(context).tank.gallons} gallon aquarium',
                                   style: kTextStyleSmall,
                                 ),
                               ],
@@ -239,14 +242,14 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                '${Provider.of<ActiveTankData>(context).numFish} fish added',
+                                '${Provider.of<EditTankViewModel>(context).numFish} fish added',
                                 style: kTextStyleHeader,
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          child: Consumer<ActiveTankData>(
+                          child: Consumer<EditTankViewModel>(
                               builder: (context, addedFishData, child) {
                             if (addedFishData.addedFishConsolidated.length >
                                 0) {
@@ -270,7 +273,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             color: kBackGroundColor,
                                             icon: Icons.delete,
                                             onTap: () =>
-                                                Provider.of<ActiveTankData>(
+                                                Provider.of<EditTankViewModel>(
                                                         context,
                                                         listen: false)
                                                     .removeFish(fish),
@@ -343,35 +346,35 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   final database = Hive.box("tanks");
 
                                   List<Tank> tanksInDb = database.values;
-                                  int currentId = Provider.of<ActiveTankData>(
-                                          context,
-                                          listen: false)
-                                      .id;
+                                  int currentId =
+                                      Provider.of<EditTankViewModel>(context,
+                                              listen: false)
+                                          .id;
 
                                   final tank = Tank(
                                     currentId,
-                                    Provider.of<ActiveTankData>(context,
+                                    Provider.of<EditTankViewModel>(context,
                                             listen: false)
                                         .tank
                                         .tankName,
-                                    Provider.of<ActiveTankData>(context,
+                                    Provider.of<EditTankViewModel>(context,
                                             listen: false)
                                         .tank
                                         .gallons,
-                                    Provider.of<ActiveTankData>(context,
+                                    Provider.of<EditTankViewModel>(context,
                                             listen: false)
                                         .tank
                                         .status
                                         .toString(),
-                                    Provider.of<ActiveTankData>(context,
+                                    Provider.of<EditTankViewModel>(context,
                                             listen: false)
                                         .tank
                                         .percentFilled,
-                                    Provider.of<ActiveTankData>(context,
+                                    Provider.of<EditTankViewModel>(context,
                                             listen: false)
                                         .tank
                                         .recommendationList,
-                                    Provider.of<ActiveTankData>(context,
+                                    Provider.of<EditTankViewModel>(context,
                                             listen: false)
                                         .addedFishNames,
                                   );
@@ -386,7 +389,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 leftMargin: 5.0,
                                 rightMargin: 15.0,
                                 onTap: () {
-                                  Provider.of<ActiveTankData>(context,
+                                  Provider.of<EditTankViewModel>(context,
                                           listen: false)
                                       .resetTank();
                                 },

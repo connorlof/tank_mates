@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/model/species.dart';
 
 void main() {
@@ -7,7 +7,7 @@ void main() {
 }
 
 void testAddFish() {
-  final ActiveTankData tankData = ActiveTankData();
+  final EditTankViewModel tankData = EditTankViewModel();
   final Species fish1 = Species();
 
   test(
