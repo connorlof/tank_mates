@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/models/species.dart';
-import 'package:tank_mates/provider/active_tank_data.dart';
+import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/data/model/species.dart';
 
 void main() {
   testAddFish();

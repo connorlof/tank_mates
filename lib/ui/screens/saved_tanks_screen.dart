@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:tank_mates/models/tank.dart';
-import 'package:tank_mates/persistence/hive/TankRecord.dart';
-import 'package:tank_mates/screens/about_screen.dart';
+import 'package:tank_mates/data/model/tank.dart';
+import 'package:tank_mates/data/persistence/hive/TankRecord.dart';
+import 'package:tank_mates/ui/screens/about_screen.dart';
+import 'package:tank_mates/ui/widgets/menu_bar.dart';
 import 'package:tank_mates/util/constants.dart';
-import 'package:tank_mates/widgets/menu_bar.dart';
 
 class SavedTanksScreen extends StatefulWidget {
   static String id = kIdSavedTanksScreen;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/models/species.dart';
-import 'package:tank_mates/provider/active_tank_data.dart';
+import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class AddFishScreen extends StatelessWidget {

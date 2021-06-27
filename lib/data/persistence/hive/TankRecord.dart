@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tank_mates/models/tank.dart';
+import 'package:tank_mates/data/model/tank.dart';
 
 part 'TankRecord.g.dart';
 

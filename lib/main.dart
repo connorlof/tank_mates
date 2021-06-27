@@ -3,15 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:provider/provider.dart';
-import 'package:tank_mates/persistence/hive/SettingsRecord.dart';
-import 'package:tank_mates/persistence/hive/SpeciesRecord.dart';
-import 'package:tank_mates/persistence/hive/TankRecord.dart';
-import 'package:tank_mates/provider/active_tank_data.dart';
-import 'package:tank_mates/screens/about_screen.dart';
-import 'package:tank_mates/screens/edit_tank_screen.dart';
-import 'package:tank_mates/screens/loading_screen.dart';
-import 'package:tank_mates/screens/saved_tanks_screen.dart';
-import 'package:tank_mates/screens/settings_screen.dart';
+import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/data/persistence/hive/SettingsRecord.dart';
+import 'package:tank_mates/data/persistence/hive/SpeciesRecord.dart';
+import 'package:tank_mates/data/persistence/hive/TankRecord.dart';
+import 'package:tank_mates/ui/screens/about_screen.dart';
+import 'package:tank_mates/ui/screens/edit_tank_screen.dart';
+import 'package:tank_mates/ui/screens/loading_screen.dart';
+import 'package:tank_mates/ui/screens/saved_tanks_screen.dart';
+import 'package:tank_mates/ui/screens/settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 
 void main() async {

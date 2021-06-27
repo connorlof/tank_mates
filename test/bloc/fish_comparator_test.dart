@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/models/species.dart';
+import 'package:tank_mates/bloc/fish_comparator.dart';
+import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/util/constants.dart';
-import 'package:tank_mates/util/fish_comparator.dart';
 
 void main() {
   testDetermineAggressiveness();

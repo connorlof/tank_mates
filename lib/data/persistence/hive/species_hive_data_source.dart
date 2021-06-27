@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:tank_mates/models/species.dart';
-import 'package:tank_mates/persistence/hive/SpeciesRecord.dart';
+import 'package:tank_mates/data/model/species.dart';
+import 'package:tank_mates/data/persistence/hive/SpeciesRecord.dart';
 
 class SpeciesHiveDataSource {
   Box _box = Hive.box('species');

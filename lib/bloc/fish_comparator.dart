@@ -1,4 +1,4 @@
-import 'package:tank_mates/models/species.dart';
+import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class FishComparator {

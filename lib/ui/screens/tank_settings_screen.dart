@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/provider/active_tank_data.dart';
+import 'package:tank_mates/bloc/active_tank_data.dart';
+import 'package:tank_mates/ui/widgets/parameter_tile.dart';
+import 'package:tank_mates/ui/widgets/round_icon_button.dart';
 import 'package:tank_mates/util/constants.dart';
-import 'package:tank_mates/widgets/parameter_tile.dart';
-import 'package:tank_mates/widgets/round_icon_button.dart';
 
 class TankSettingsScreen extends StatefulWidget {
   @override

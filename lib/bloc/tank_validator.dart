@@ -1,4 +1,4 @@
-import 'package:tank_mates/models/active_tank.dart';
+import 'package:tank_mates/data/model/active_tank.dart';
 
 class TankValidator {
   bool isValidTank(ActiveTank tank) {

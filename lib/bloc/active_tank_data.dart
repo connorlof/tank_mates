@@ -2,12 +2,12 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:tank_mates/models/active_tank.dart';
-import 'package:tank_mates/models/species.dart';
-import 'package:tank_mates/models/tank.dart';
+import 'package:tank_mates/bloc/fish_comparator.dart';
+import 'package:tank_mates/bloc/tank_validator.dart';
+import 'package:tank_mates/data/model/active_tank.dart';
+import 'package:tank_mates/data/model/species.dart';
+import 'package:tank_mates/data/model/tank.dart';
 import 'package:tank_mates/util/constants.dart';
-import 'package:tank_mates/util/fish_comparator.dart';
-import 'package:tank_mates/util/tank_validator.dart';
 
 class ActiveTankData extends ChangeNotifier {
   List<Species> _fish = [];

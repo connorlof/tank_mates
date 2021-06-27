@@ -1,5 +1,5 @@
-import 'package:tank_mates/models/fish_json_podo.dart';
-import 'package:tank_mates/models/species.dart';
+import 'package:tank_mates/data/json/fish_json_podo.dart';
+import 'package:tank_mates/data/model/species.dart';
 
 class FishPodoParser {
   FishPodoParser() {}
