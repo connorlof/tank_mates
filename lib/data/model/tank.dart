@@ -1,12 +1,10 @@
+import 'package:tank_mates/data/model/species.dart';
+
 class Tank {
   int id;
   String name;
   int gallons;
-  String status;
-  int percentFilled;
-  List<String> recommendations;
-  List<String> species;
+  List<Species> species;
 
-  Tank(this.id, this.name, this.gallons, this.status, this.percentFilled,
-      this.recommendations, this.species);
+  Tank(this.id, this.name, this.gallons, this.species);
 }

@@ -30,12 +30,12 @@ void testAddFish() {
     fish1.minTankSize = 20;
 
     expect(tankData.addedFish.length, 0);
-    expect(tankData.tank.aggressiveness, Aggressiveness.peaceful);
+    expect(tankData.tankState.aggressiveness, Aggressiveness.peaceful);
 
     //add fish
     tankData.addFish(fish1);
 
     expect(tankData.addedFish.length, 1);
-    expect(tankData.tank.aggressiveness, Aggressiveness.aggressive);
+    expect(tankData.tankState.aggressiveness, Aggressiveness.aggressive);
   });
 }

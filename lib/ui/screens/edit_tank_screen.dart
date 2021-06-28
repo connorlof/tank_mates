@@ -120,20 +120,20 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   value: isValueValid(
                                               Provider.of<EditTankViewModel>(
                                                       context)
-                                                  .tank
+                                                  .tankState
                                                   .tempMin
                                                   .toDouble(),
                                               Provider.of<EditTankViewModel>(
                                                       context)
-                                                  .tank
+                                                  .tankState
                                                   .tempMax
                                                   .toDouble()) &&
                                           Provider.of<EditTankViewModel>(
                                                       context)
                                                   .numFish >
                                               0
-                                      ? '${Provider.of<EditTankViewModel>(context).tank.tempMin} - '
-                                          '${Provider.of<EditTankViewModel>(context).tank.tempMax}°F'
+                                      ? '${Provider.of<EditTankViewModel>(context).tankState.tempMin} - '
+                                          '${Provider.of<EditTankViewModel>(context).tankState.tempMax}°F'
                                       : '?? - ??',
                                 ),
                                 ParameterTile(
@@ -141,18 +141,18 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   value: isValueValid(
                                               Provider.of<EditTankViewModel>(
                                                       context)
-                                                  .tank
+                                                  .tankState
                                                   .phMin,
                                               Provider.of<EditTankViewModel>(
                                                       context)
-                                                  .tank
+                                                  .tankState
                                                   .phMax) &&
                                           Provider.of<EditTankViewModel>(
                                                       context)
                                                   .numFish >
                                               0
-                                      ? '${Provider.of<EditTankViewModel>(context).tank.phMin} - '
-                                          '${Provider.of<EditTankViewModel>(context).tank.phMax}°F'
+                                      ? '${Provider.of<EditTankViewModel>(context).tankState.phMin} - '
+                                          '${Provider.of<EditTankViewModel>(context).tankState.phMax}°F'
                                       : '?? - ??',
                                 ),
                                 ParameterTile(
@@ -160,26 +160,26 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   value: isValueValid(
                                               Provider.of<EditTankViewModel>(
                                                       context)
-                                                  .tank
+                                                  .tankState
                                                   .hardnessMin
                                                   .toDouble(),
                                               Provider.of<EditTankViewModel>(
                                                       context)
-                                                  .tank
+                                                  .tankState
                                                   .hardnessMax
                                                   .toDouble()) &&
                                           Provider.of<EditTankViewModel>(
                                                       context)
                                                   .numFish >
                                               0
-                                      ? '${Provider.of<EditTankViewModel>(context).tank.hardnessMin} - '
-                                          '${Provider.of<EditTankViewModel>(context).tank.hardnessMax} dKH'
+                                      ? '${Provider.of<EditTankViewModel>(context).tankState.hardnessMin} - '
+                                          '${Provider.of<EditTankViewModel>(context).tankState.hardnessMax} dKH'
                                       : '?? - ??',
                                 ),
                                 ParameterTile(
                                   label: 'Care Level',
                                   value:
-                                      '${toBeginningOfSentenceCase(Provider.of<EditTankViewModel>(context).tank.careLevel.toString().split('.').last)}',
+                                      '${toBeginningOfSentenceCase(Provider.of<EditTankViewModel>(context).tankState.careLevel.toString().split('.').last)}',
                                 ),
                               ],
                             ),
@@ -224,12 +224,12 @@ class _EditTankScreenState extends State<EditTankScreen> {
                               children: <Widget>[
                                 ParameterTile(
                                   label: 'Tank Status: '
-                                      '${toBeginningOfSentenceCase(Provider.of<EditTankViewModel>(context).tank.status.toString().split('.').last)}',
+                                      '${toBeginningOfSentenceCase(Provider.of<EditTankViewModel>(context).tankState.status.toString().split('.').last)}',
                                   value:
-                                      '${Provider.of<EditTankViewModel>(context).tank.percentFilled} %',
+                                      '${Provider.of<EditTankViewModel>(context).tankState.percentFilled} %',
                                 ),
                                 Text(
-                                  '${Provider.of<EditTankViewModel>(context).tank.gallons} gallon aquarium',
+                                  '${Provider.of<EditTankViewModel>(context).tankState.gallons} gallon aquarium',
                                   style: kTextStyleSmall,
                                 ),
                               ],
@@ -352,32 +352,21 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                           .id;
 
                                   final tank = Tank(
-                                    currentId,
-                                    Provider.of<EditTankViewModel>(context,
-                                            listen: false)
-                                        .tank
-                                        .tankName,
-                                    Provider.of<EditTankViewModel>(context,
-                                            listen: false)
-                                        .tank
-                                        .gallons,
-                                    Provider.of<EditTankViewModel>(context,
-                                            listen: false)
-                                        .tank
-                                        .status
-                                        .toString(),
-                                    Provider.of<EditTankViewModel>(context,
-                                            listen: false)
-                                        .tank
-                                        .percentFilled,
-                                    Provider.of<EditTankViewModel>(context,
-                                            listen: false)
-                                        .tank
-                                        .recommendationList,
-                                    Provider.of<EditTankViewModel>(context,
-                                            listen: false)
-                                        .addedFishNames,
-                                  );
+                                      currentId,
+                                      Provider.of<EditTankViewModel>(context,
+                                              listen: false)
+                                          .tankState
+                                          .tankName,
+                                      Provider.of<EditTankViewModel>(context,
+                                              listen: false)
+                                          .tankState
+                                          .gallons,
+                                      []
+                                      // TODO: Pass actual species
+                                      // Provider.of<EditTankViewModel>(context,
+                                      //         listen: false)
+                                      //     .addedFishNames,
+                                      );
 
                                   database.put(tank.id, tank);
                                 },

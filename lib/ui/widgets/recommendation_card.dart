@@ -11,7 +11,7 @@ class RecommendationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> recommendationList =
-        Provider.of<EditTankViewModel>(context).tank.recommendationList;
+        Provider.of<EditTankViewModel>(context).tankState.recommendationList;
 
     return Container(
       margin: EdgeInsets.all(15.0),

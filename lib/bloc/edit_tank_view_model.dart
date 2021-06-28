@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tank_mates/bloc/fish_comparator.dart';
 import 'package:tank_mates/bloc/tank_validator.dart';
-import 'package:tank_mates/data/model/active_tank.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank.dart';
+import 'package:tank_mates/data/model/tank_state.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class EditTankViewModel extends ChangeNotifier {
   List<Species> _fish = [];
-  ActiveTank _tank = ActiveTank();
+  TankState _tankState = TankState();
   int id = -1;
   Tank tankDbEntity;
 
@@ -22,8 +22,8 @@ class EditTankViewModel extends ChangeNotifier {
     return UnmodifiableListView(_fish);
   }
 
-  ActiveTank get tank {
-    return _tank;
+  TankState get tankState {
+    return _tankState;
   }
 
   int get numFish {
@@ -83,53 +83,53 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   void updateTankValues() {
-    _tank.aggressiveness = FishComparator.determineAggressiveness(_fish);
-    _tank.careLevel = FishComparator.determineCareLevel(_fish);
+    _tankState.aggressiveness = FishComparator.determineAggressiveness(_fish);
+    _tankState.careLevel = FishComparator.determineCareLevel(_fish);
 
-    _tank.percentFilled =
-        FishComparator.determineStockingPercent(_fish, _tank.gallons);
+    _tankState.percentFilled =
+        FishComparator.determineStockingPercent(_fish, _tankState.gallons);
 
-    _tank.tempMin = FishComparator.determineMinTemp(_fish);
-    _tank.tempMax = FishComparator.determineMaxTemp(_fish);
+    _tankState.tempMin = FishComparator.determineMinTemp(_fish);
+    _tankState.tempMax = FishComparator.determineMaxTemp(_fish);
 
-    _tank.phMin = FishComparator.determineMinPh(_fish);
-    _tank.phMax = FishComparator.determineMaxPh(_fish);
+    _tankState.phMin = FishComparator.determineMinPh(_fish);
+    _tankState.phMax = FishComparator.determineMaxPh(_fish);
 
-    _tank.hardnessMin = FishComparator.determineMinHardness(_fish);
-    _tank.hardnessMax = FishComparator.determineMaxHardness(_fish);
+    _tankState.hardnessMin = FishComparator.determineMinHardness(_fish);
+    _tankState.hardnessMax = FishComparator.determineMaxHardness(_fish);
 
-    _tank.recommendationList.clear();
-    _tank.recommendationList
+    _tankState.recommendationList.clear();
+    _tankState.recommendationList
         .add(FishComparator.determineRecommendationFood(_fish));
 
-    if (_tank.status == TankStatus.Overstocked) {
-      _tank.recommendationList.add(kRecUpgradeTank);
+    if (_tankState.status == TankStatus.Overstocked) {
+      _tankState.recommendationList.add(kRecUpgradeTank);
     }
 
     List<Species> oversizedFish =
-        FishComparator.determineFishOverMinTankSize(_fish, _tank.gallons);
+        FishComparator.determineFishOverMinTankSize(_fish, _tankState.gallons);
     if (oversizedFish.length > 0) {
       for (Species fish in oversizedFish) {
-        _tank.recommendationList.add(
+        _tankState.recommendationList.add(
             '${fish.name} needs at least a ${fish.minTankSize} gallon tank');
       }
     }
 
-    if (!tankValidator.isValidTank(_tank)) {
-      _tank.status = TankStatus.Incompatible;
-    } else if (_tank.percentFilled > 130) {
-      _tank.status = TankStatus.Overstocked;
+    if (!tankValidator.isValidTank(_tankState)) {
+      _tankState.status = TankStatus.Incompatible;
+    } else if (_tankState.percentFilled > 130) {
+      _tankState.status = TankStatus.Overstocked;
     } else {
-      _tank.status = TankStatus.Good;
+      _tankState.status = TankStatus.Good;
     }
   }
 
   void setTankName(String name) {
-    _tank.tankName = name;
+    _tankState.tankName = name;
   }
 
   void setTankGallons(int newGallons) {
-    _tank.gallons = newGallons;
+    _tankState.gallons = newGallons;
   }
 
   void setAvailableFish(List<Species> fish) {
@@ -137,7 +137,7 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   void resetTank() async {
-    _tank = ActiveTank();
+    _tankState = TankState();
     _fish = [];
     id = -1;
 
@@ -145,28 +145,29 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   void incrementTankGallons() {
-    _tank.gallons++;
+    _tankState.gallons++;
     updateTankValues();
     notifyListeners();
   }
 
   void decrementTankGallons() {
-    _tank.gallons--;
+    _tankState.gallons--;
     updateTankValues();
     notifyListeners();
   }
 
   void loadSavedTank(Tank tankDataToLoad) {
-    _tank = ActiveTank();
+    _tankState = TankState();
     _fish = [];
     tankDbEntity = tankDataToLoad;
 
     id = tankDataToLoad.id;
-    _tank.tankName = tankDataToLoad.name;
-    _tank.gallons = tankDataToLoad.gallons;
+    _tankState.tankName = tankDataToLoad.name;
+    _tankState.gallons = tankDataToLoad.gallons;
 
     //TODO: move to method, TEST
-    List<String> addedFishNames = tankDataToLoad.species;
+    List<String> addedFishNames =
+        tankDataToLoad.species.map((species) => species.name);
 
     for (String name in addedFishNames) {
       //find fish object by name
@@ -177,7 +178,8 @@ class EditTankViewModel extends ChangeNotifier {
       }
     }
 
-    _tank.recommendationList = tankDataToLoad.recommendations;
+    // TODO: This should be calculated from the species included
+    //_tank.recommendationList = tankDataToLoad.recommendations;
 
     updateTankValues();
   }

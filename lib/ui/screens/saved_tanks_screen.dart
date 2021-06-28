@@ -171,7 +171,9 @@ Widget _buildListItem(Tank itemTank, Box database, BuildContext context) {
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
-                  '${itemTank.status.toString().split('.').last} (${itemTank.percentFilled} %)',
+                  // TODO: Use TankState
+                  '',
+                  //'${itemTank.status.toString().split('.').last} (${itemTank.percentFilled} %)',
                   style: kTextStyleSmall,
                 ),
               ),

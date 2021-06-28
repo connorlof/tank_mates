@@ -46,7 +46,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                   TextField(
                     controller: TextEditingController(
                       text:
-                          '${Provider.of<EditTankViewModel>(context).tank.tankName}',
+                          '${Provider.of<EditTankViewModel>(context).tankState.tankName}',
                     ),
                     style: kTextStyleLarge,
                     autofocus: false,
@@ -69,7 +69,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                   ParameterTile(
                     label: 'Gallons',
                     value:
-                        '${Provider.of<EditTankViewModel>(context).tank.gallons}',
+                        '${Provider.of<EditTankViewModel>(context).tankState.gallons}',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
