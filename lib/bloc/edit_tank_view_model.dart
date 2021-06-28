@@ -18,66 +18,7 @@ class EditTankViewModel extends ChangeNotifier {
   List<Species> availableFish = [];
   TankValidator tankValidator = TankValidator();
 
-  UnmodifiableListView<Species> get addedFish {
-    return UnmodifiableListView(_fish);
-  }
-
-  TankState get tankState {
-    return _tankState;
-  }
-
-  int get numFish {
-    return _fish.length;
-  }
-
-  UnmodifiableListView<String> get addedFishConsolidated {
-    List<Species> distinctFish = LinkedHashSet<Species>.from(_fish).toList();
-    List<int> numFish = List.filled(distinctFish.length, 0);
-    List<String> consolidatedList = [];
-
-    for (int i = 0; i < distinctFish.length; i++) {
-      for (Species fish in _fish) {
-        if (distinctFish[i] == fish) {
-          numFish[i]++;
-        }
-      }
-
-      consolidatedList.add('x${numFish[i]} ${distinctFish[i].name}');
-    }
-
-    return UnmodifiableListView(consolidatedList);
-  }
-
-  List<String> get addedFishNames {
-    List<String> fishNames = [];
-
-    for (Species fish in _fish) {
-      fishNames.add(fish.name);
-    }
-
-    return fishNames;
-  }
-
-  void addFish(Species fish) {
-    _fish.add(fish);
-    updateTankValues();
-    notifyListeners();
-  }
-
-  void removeFish(String fishName) {
-    List<String> nameParts = fishName.split(' ');
-    String trimmedName = '';
-
-    for (int j = 1; j < nameParts.length; j++) {
-      if (j > 1) {
-        trimmedName = trimmedName + ' ';
-      }
-
-      trimmedName = trimmedName + nameParts[j];
-    }
-
-    _fish.removeWhere((item) => item.name == trimmedName);
-
+  void updateTankState() {
     updateTankValues();
     notifyListeners();
   }
@@ -124,6 +65,68 @@ class EditTankViewModel extends ChangeNotifier {
     }
   }
 
+  UnmodifiableListView<Species> get addedFish {
+    return UnmodifiableListView(_fish);
+  }
+
+  TankState get tankState {
+    return _tankState;
+  }
+
+  int get numFish {
+    return _fish.length;
+  }
+
+  UnmodifiableListView<String> get addedFishConsolidated {
+    List<Species> distinctFish = LinkedHashSet<Species>.from(_fish).toList();
+    List<int> numFish = List.filled(distinctFish.length, 0);
+    List<String> consolidatedList = [];
+
+    for (int i = 0; i < distinctFish.length; i++) {
+      for (Species fish in _fish) {
+        if (distinctFish[i] == fish) {
+          numFish[i]++;
+        }
+      }
+
+      consolidatedList.add('x${numFish[i]} ${distinctFish[i].name}');
+    }
+
+    return UnmodifiableListView(consolidatedList);
+  }
+
+  List<String> get addedFishNames {
+    List<String> fishNames = [];
+
+    for (Species fish in _fish) {
+      fishNames.add(fish.name);
+    }
+
+    return fishNames;
+  }
+
+  void addFish(Species fish) {
+    _fish.add(fish);
+    updateTankState();
+  }
+
+  void removeFish(String fishName) {
+    List<String> nameParts = fishName.split(' ');
+    String trimmedName = '';
+
+    for (int j = 1; j < nameParts.length; j++) {
+      if (j > 1) {
+        trimmedName = trimmedName + ' ';
+      }
+
+      trimmedName = trimmedName + nameParts[j];
+    }
+
+    _fish.removeWhere((item) => item.name == trimmedName);
+
+    updateTankState();
+  }
+
   void setTankName(String name) {
     _tankState.tankName = name;
   }
@@ -136,24 +139,14 @@ class EditTankViewModel extends ChangeNotifier {
     availableFish = fish;
   }
 
-  void resetTank() async {
-    _tankState = TankState();
-    _fish = [];
-    id = -1;
-
-    notifyListeners();
-  }
-
   void incrementTankGallons() {
     _tankState.gallons++;
-    updateTankValues();
-    notifyListeners();
+    updateTankState();
   }
 
   void decrementTankGallons() {
     _tankState.gallons--;
-    updateTankValues();
-    notifyListeners();
+    updateTankState();
   }
 
   void loadSavedTank(Tank tankDataToLoad) {
@@ -181,6 +174,14 @@ class EditTankViewModel extends ChangeNotifier {
     // TODO: This should be calculated from the species included
     //_tank.recommendationList = tankDataToLoad.recommendations;
 
-    updateTankValues();
+    updateTankState();
+  }
+
+  void resetTank() async {
+    _tankState = TankState();
+    _fish = [];
+    id = -1;
+
+    updateTankState();
   }
 }
