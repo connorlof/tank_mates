@@ -91,6 +91,7 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
 }
 
 Widget _buildTankList(BuildContext context) {
+  // TODO: Update this to run through VM, replace deprecated widget
   return WatchBoxBuilder(
     box: Hive.box('tanks'),
     builder: (context, tanksBox) {

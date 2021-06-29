@@ -368,7 +368,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       //     .addedFishNames,
                                       );
 
-                                  database.put(tank.id, tank);
+                                  // TODO: Call into VM to save this tank
+                                  //database.put(tank.id, tank);
                                 },
                               ),
                             ),

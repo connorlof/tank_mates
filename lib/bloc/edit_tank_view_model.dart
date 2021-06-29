@@ -13,17 +13,16 @@ class EditTankViewModel extends ChangeNotifier {
   List<Species> _fish = [];
   TankState _tankState = TankState();
   int id = -1;
-  Tank tankDbEntity;
 
   List<Species> availableFish = [];
   TankValidator tankValidator = TankValidator();
 
-  void updateTankState() {
-    updateTankValues();
+  void _updateTankState() {
+    _updateTankValues();
     notifyListeners();
   }
 
-  void updateTankValues() {
+  void _updateTankValues() {
     _tankState.aggressiveness = FishComparator.determineAggressiveness(_fish);
     _tankState.careLevel = FishComparator.determineCareLevel(_fish);
 
@@ -107,7 +106,7 @@ class EditTankViewModel extends ChangeNotifier {
 
   void addFish(Species fish) {
     _fish.add(fish);
-    updateTankState();
+    _updateTankState();
   }
 
   void removeFish(String fishName) {
@@ -124,7 +123,7 @@ class EditTankViewModel extends ChangeNotifier {
 
     _fish.removeWhere((item) => item.name == trimmedName);
 
-    updateTankState();
+    _updateTankState();
   }
 
   void setTankName(String name) {
@@ -141,24 +140,22 @@ class EditTankViewModel extends ChangeNotifier {
 
   void incrementTankGallons() {
     _tankState.gallons++;
-    updateTankState();
+    _updateTankState();
   }
 
   void decrementTankGallons() {
     _tankState.gallons--;
-    updateTankState();
+    _updateTankState();
   }
 
   void loadSavedTank(Tank tankDataToLoad) {
     _tankState = TankState();
     _fish = [];
-    tankDbEntity = tankDataToLoad;
 
     id = tankDataToLoad.id;
     _tankState.tankName = tankDataToLoad.name;
     _tankState.gallons = tankDataToLoad.gallons;
 
-    //TODO: move to method, TEST
     List<String> addedFishNames =
         tankDataToLoad.species.map((species) => species.name);
 
@@ -174,7 +171,7 @@ class EditTankViewModel extends ChangeNotifier {
     // TODO: This should be calculated from the species included
     //_tank.recommendationList = tankDataToLoad.recommendations;
 
-    updateTankState();
+    _updateTankState();
   }
 
   void resetTank() async {
@@ -182,6 +179,6 @@ class EditTankViewModel extends ChangeNotifier {
     _fish = [];
     id = -1;
 
-    updateTankState();
+    _updateTankState();
   }
 }
