@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tank_mates/data/model/tank.dart';
+import 'package:tank_mates/data/persistence/dao/tank_dao.dart';
 import 'package:tank_mates/data/persistence/hive/TankRecord.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
 import 'package:tank_mates/ui/widgets/menu_bar.dart';
@@ -100,7 +101,7 @@ Widget _buildTankList(BuildContext context) {
         padding: const EdgeInsets.all(15.0),
         itemBuilder: (BuildContext context, int index) {
           final tankRecord = tanksBox.getAt(index) as TankRecord;
-          final tankItem = tankRecord.toModel();
+          final tankItem = TankDao.toModel(tankRecord);
           return _buildListItem(tankItem, tanksBox, context);
         },
       );

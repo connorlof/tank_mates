@@ -5,48 +5,52 @@ part 'SpeciesRecord.g.dart';
 @HiveType(typeId: 1)
 class SpeciesRecord {
   @HiveField(0)
-  final String name;
+  final String key;
 
   @HiveField(1)
-  final String scientificName;
+  final String name;
 
   @HiveField(2)
-  final String speciesGroup;
+  final String scientificName;
 
   @HiveField(3)
-  final int aggressiveness;
+  final String speciesGroup;
 
   @HiveField(4)
-  final double phMin;
+  final int aggressiveness;
 
   @HiveField(5)
-  final double phMax;
+  final double phMin;
 
   @HiveField(6)
-  final int tempMin;
+  final double phMax;
 
   @HiveField(7)
-  final int tempMax;
+  final int tempMin;
 
   @HiveField(8)
-  final int hardnessMin;
+  final int tempMax;
 
   @HiveField(9)
-  final int hardnessMax;
+  final int hardnessMin;
 
   @HiveField(10)
-  final int careLevel;
+  final int hardnessMax;
 
   @HiveField(11)
-  final double maximumAdultSize;
+  final int careLevel;
 
   @HiveField(12)
-  final int diet;
+  final double maximumAdultSize;
 
   @HiveField(13)
+  final int diet;
+
+  @HiveField(14)
   final int minTankSize;
 
   SpeciesRecord(
+      this.key,
       this.name,
       this.scientificName,
       this.speciesGroup,

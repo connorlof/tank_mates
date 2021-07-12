@@ -1,30 +1,20 @@
 import 'package:hive/hive.dart';
-import 'package:tank_mates/data/model/tank.dart';
 
 part 'TankRecord.g.dart';
 
 @HiveType(typeId: 2)
 class TankRecord {
   @HiveField(0)
-  final String name;
+  final int id;
 
   @HiveField(1)
-  final int gallons;
+  final String name;
 
   @HiveField(2)
-  final List<String> species;
+  final int gallons;
 
-  TankRecord(this.name, this.gallons, this.species);
+  @HiveField(3)
+  final List<String> speciesKeys;
 
-  Tank toModel() {
-    // TODO: Convert to species (this should be in DAO, not here)
-    return Tank(0, this.name, this.gallons, []);
-  }
-
-  static TankRecord toRecord(Tank model) {
-    List<String> species =
-        model.species.map((species) => species.scientificName);
-
-    return TankRecord(model.name, model.gallons, species);
-  }
+  TankRecord(this.id, this.name, this.gallons, this.speciesKeys);
 }

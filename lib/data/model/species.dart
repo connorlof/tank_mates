@@ -1,4 +1,5 @@
 class Species {
+  String key;
   String name;
   String scientificName;
   String speciesGroup;
