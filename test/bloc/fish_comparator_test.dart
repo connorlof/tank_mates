@@ -19,16 +19,16 @@ void main() {
 }
 
 void testDetermineAggressiveness() {
-  final Species peacefulFish = Species();
+  final Species peacefulFish = Species.empty();
   peacefulFish.aggressiveness = Aggressiveness.peaceful;
 
-  final Species moderateFish = Species();
+  final Species moderateFish = Species.empty();
   moderateFish.aggressiveness = Aggressiveness.moderate;
 
-  final Species semiAggressiveFish = Species();
+  final Species semiAggressiveFish = Species.empty();
   semiAggressiveFish.aggressiveness = Aggressiveness.semi_aggressive;
 
-  final Species aggressiveFish = Species();
+  final Species aggressiveFish = Species.empty();
   aggressiveFish.aggressiveness = Aggressiveness.aggressive;
 
   test('determineAggressiveness returns peaceful for empty list', () {
@@ -115,16 +115,16 @@ void testDetermineAggressiveness() {
 }
 
 void testDetermineCareLevel() {
-  final Species easyFish = Species();
+  final Species easyFish = Species.empty();
   easyFish.careLevel = CareLevel.easy;
 
-  final Species moderateFish = Species();
+  final Species moderateFish = Species.empty();
   moderateFish.careLevel = CareLevel.moderate;
 
-  final Species difficultFish = Species();
+  final Species difficultFish = Species.empty();
   difficultFish.careLevel = CareLevel.difficult;
 
-  final Species expertFish = Species();
+  final Species expertFish = Species.empty();
   expertFish.careLevel = CareLevel.expert;
 
   test('determineCareLevel returns easy for empty list', () {
@@ -192,10 +192,10 @@ void testDetermineCareLevel() {
 }
 
 void testDetermineMinTankSize() {
-  final Species fishSize1 = Species();
+  final Species fishSize1 = Species.empty();
   fishSize1.minTankSize = 1;
 
-  final Species fishSize2 = Species();
+  final Species fishSize2 = Species.empty();
   fishSize2.minTankSize = 2;
 
   test('determineMinTankSize returns 0 for empty list', () {
@@ -234,7 +234,7 @@ void testDetermineMinTankSize() {
 }
 
 void testDetermineStockingPercent() {
-  final Species fishSize1 = Species();
+  final Species fishSize1 = Species.empty();
   fishSize1.maximumAdultSize = 1;
 
   test(
@@ -308,15 +308,15 @@ void testDetermineStockingPercent() {
 }
 
 void testDetermineMinTemp() {
-  final Species fish1 = Species();
+  final Species fish1 = Species.empty();
   fish1.tempMin = 70;
   fish1.tempMax = 80;
 
-  final Species fish2 = Species();
+  final Species fish2 = Species.empty();
   fish2.tempMin = 65;
   fish2.tempMax = 80;
 
-  final Species fish3 = Species();
+  final Species fish3 = Species.empty();
   fish3.tempMin = 40;
   fish3.tempMax = 80;
 
@@ -356,15 +356,15 @@ void testDetermineMinTemp() {
 }
 
 void testDetermineMaxTemp() {
-  final Species fish1 = Species();
+  final Species fish1 = Species.empty();
   fish1.tempMin = 50;
   fish1.tempMax = 60;
 
-  final Species fish2 = Species();
+  final Species fish2 = Species.empty();
   fish2.tempMin = 65;
   fish2.tempMax = 70;
 
-  final Species fish3 = Species();
+  final Species fish3 = Species.empty();
   fish3.tempMin = 40;
   fish3.tempMax = 80;
 
@@ -404,15 +404,15 @@ void testDetermineMaxTemp() {
 }
 
 void testDetermineMinPh() {
-  final Species fish1 = Species();
+  final Species fish1 = Species.empty();
   fish1.phMin = 6.0;
   fish1.phMax = 8.0;
 
-  final Species fish2 = Species();
+  final Species fish2 = Species.empty();
   fish2.phMin = 7.0;
   fish2.phMax = 8.0;
 
-  final Species fish3 = Species();
+  final Species fish3 = Species.empty();
   fish3.phMin = 8.0;
   fish3.phMax = 9.0;
 
@@ -453,15 +453,15 @@ void testDetermineMinPh() {
 }
 
 void testDetermineMaxPh() {
-  final Species fish1 = Species();
+  final Species fish1 = Species.empty();
   fish1.phMin = 6.0;
   fish1.phMax = 7.0;
 
-  final Species fish2 = Species();
+  final Species fish2 = Species.empty();
   fish2.phMin = 7.0;
   fish2.phMax = 8.0;
 
-  final Species fish3 = Species();
+  final Species fish3 = Species.empty();
   fish3.phMin = 8.0;
   fish3.phMax = 9.0;
 
@@ -502,15 +502,15 @@ void testDetermineMaxPh() {
 }
 
 void testDetermineMinHardness() {
-  final Species fish1 = Species();
+  final Species fish1 = Species.empty();
   fish1.hardnessMin = 5;
   fish1.hardnessMax = 20;
 
-  final Species fish2 = Species();
+  final Species fish2 = Species.empty();
   fish2.hardnessMin = 10;
   fish2.hardnessMax = 20;
 
-  final Species fish3 = Species();
+  final Species fish3 = Species.empty();
   fish3.hardnessMin = 15;
   fish3.hardnessMax = 20;
 
@@ -551,15 +551,15 @@ void testDetermineMinHardness() {
 }
 
 void testDetermineMaxHardness() {
-  final Species fish1 = Species();
+  final Species fish1 = Species.empty();
   fish1.hardnessMin = 5;
   fish1.hardnessMax = 10;
 
-  final Species fish2 = Species();
+  final Species fish2 = Species.empty();
   fish2.hardnessMin = 10;
   fish2.hardnessMax = 15;
 
-  final Species fish3 = Species();
+  final Species fish3 = Species.empty();
   fish3.hardnessMin = 15;
   fish3.hardnessMax = 20;
 
@@ -600,13 +600,13 @@ void testDetermineMaxHardness() {
 }
 
 void testDetermineRecommendationFood() {
-  final Species fishCarnivore = Species();
+  final Species fishCarnivore = Species.empty();
   fishCarnivore.diet = Diet.carnivore;
 
-  final Species fishHerbivore = Species();
+  final Species fishHerbivore = Species.empty();
   fishHerbivore.diet = Diet.herbivore;
 
-  final Species fishOmnivore = Species();
+  final Species fishOmnivore = Species.empty();
   fishOmnivore.diet = Diet.omnivore;
 
   test(
@@ -688,11 +688,11 @@ void testDetermineRecommendationFood() {
 }
 
 void testDetermineFishOverMinTankSize() {
-  final Species fish10 = Species();
+  final Species fish10 = Species.empty();
   fish10.name = '10 inch fish';
   fish10.minTankSize = 10;
 
-  final Species fish55 = Species();
+  final Species fish55 = Species.empty();
   fish55.name = '55 inch fish';
   fish55.minTankSize = 55;
 

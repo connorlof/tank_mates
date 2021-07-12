@@ -8,7 +8,7 @@ void main() {
 
 void testAddFish() {
   final EditTankViewModel tankData = EditTankViewModel();
-  final Species fish1 = Species();
+  final Species fish1 = Species.empty();
 
   test(
       '_fish is empty after creation, 1 after adding a fish, _tank reflects aggressiveness level of fish',

@@ -31,6 +31,8 @@ class Species {
       this.maximumAdultSize,
       this.diet,
       this.minTankSize);
+
+  Species.empty();
 }
 
 enum Aggressiveness { aggressive, peaceful, semi_aggressive, moderate }

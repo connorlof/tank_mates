@@ -5,7 +5,7 @@ class FishPodoParser {
   FishPodoParser() {}
 
   Species outputValidatedFish(FishJsonPodo fishPodo) {
-    Species newFishObj = new Species();
+    Species newFishObj = new Species.empty();
 
     try {
       newFishObj.name = fishPodo.name;
