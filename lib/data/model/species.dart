@@ -14,6 +14,23 @@ class Species {
   double maximumAdultSize;
   Diet diet;
   int minTankSize;
+
+  Species(
+      this.key,
+      this.name,
+      this.scientificName,
+      this.speciesGroup,
+      this.aggressiveness,
+      this.phMin,
+      this.phMax,
+      this.tempMin,
+      this.tempMax,
+      this.hardnessMin,
+      this.hardnessMax,
+      this.careLevel,
+      this.maximumAdultSize,
+      this.diet,
+      this.minTankSize);
 }
 
 enum Aggressiveness { aggressive, peaceful, semi_aggressive, moderate }
