@@ -10,7 +10,6 @@ import 'package:tank_mates/data/model/tank_state.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class EditTankViewModel extends ChangeNotifier {
-  List<Species> _fish = [];
   TankState _tankState = TankState();
   int id = -1;
 
@@ -23,31 +22,35 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   void _updateTankValues() {
-    _tankState.aggressiveness = FishComparator.determineAggressiveness(_fish);
-    _tankState.careLevel = FishComparator.determineCareLevel(_fish);
+    _tankState.aggressiveness =
+        FishComparator.determineAggressiveness(_tankState.fishAdded);
+    _tankState.careLevel =
+        FishComparator.determineCareLevel(_tankState.fishAdded);
 
-    _tankState.percentFilled =
-        FishComparator.determineStockingPercent(_fish, _tankState.gallons);
+    _tankState.percentFilled = FishComparator.determineStockingPercent(
+        _tankState.fishAdded, _tankState.gallons);
 
-    _tankState.tempMin = FishComparator.determineMinTemp(_fish);
-    _tankState.tempMax = FishComparator.determineMaxTemp(_fish);
+    _tankState.tempMin = FishComparator.determineMinTemp(_tankState.fishAdded);
+    _tankState.tempMax = FishComparator.determineMaxTemp(_tankState.fishAdded);
 
-    _tankState.phMin = FishComparator.determineMinPh(_fish);
-    _tankState.phMax = FishComparator.determineMaxPh(_fish);
+    _tankState.phMin = FishComparator.determineMinPh(_tankState.fishAdded);
+    _tankState.phMax = FishComparator.determineMaxPh(_tankState.fishAdded);
 
-    _tankState.hardnessMin = FishComparator.determineMinHardness(_fish);
-    _tankState.hardnessMax = FishComparator.determineMaxHardness(_fish);
+    _tankState.hardnessMin =
+        FishComparator.determineMinHardness(_tankState.fishAdded);
+    _tankState.hardnessMax =
+        FishComparator.determineMaxHardness(_tankState.fishAdded);
 
     _tankState.recommendationList.clear();
     _tankState.recommendationList
-        .add(FishComparator.determineRecommendationFood(_fish));
+        .add(FishComparator.determineRecommendationFood(_tankState.fishAdded));
 
     if (_tankState.status == TankStatus.Overstocked) {
       _tankState.recommendationList.add(kRecUpgradeTank);
     }
 
-    List<Species> oversizedFish =
-        FishComparator.determineFishOverMinTankSize(_fish, _tankState.gallons);
+    List<Species> oversizedFish = FishComparator.determineFishOverMinTankSize(
+        _tankState.fishAdded, _tankState.gallons);
     if (oversizedFish.length > 0) {
       for (Species fish in oversizedFish) {
         _tankState.recommendationList.add(
@@ -65,24 +68,21 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   UnmodifiableListView<Species> get addedFish {
-    return UnmodifiableListView(_fish);
+    return UnmodifiableListView(_tankState.fishAdded);
   }
 
   TankState get tankState {
     return _tankState;
   }
 
-  int get numFish {
-    return _fish.length;
-  }
-
   UnmodifiableListView<String> get addedFishConsolidated {
-    List<Species> distinctFish = LinkedHashSet<Species>.from(_fish).toList();
+    List<Species> distinctFish =
+        LinkedHashSet<Species>.from(_tankState.fishAdded).toList();
     List<int> numFish = List.filled(distinctFish.length, 0);
     List<String> consolidatedList = [];
 
     for (int i = 0; i < distinctFish.length; i++) {
-      for (Species fish in _fish) {
+      for (Species fish in _tankState.fishAdded) {
         if (distinctFish[i] == fish) {
           numFish[i]++;
         }
@@ -97,7 +97,7 @@ class EditTankViewModel extends ChangeNotifier {
   List<String> get addedFishNames {
     List<String> fishNames = [];
 
-    for (Species fish in _fish) {
+    for (Species fish in _tankState.fishAdded) {
       fishNames.add(fish.name);
     }
 
@@ -105,7 +105,7 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   void addFish(Species fish) {
-    _fish.add(fish);
+    _tankState.fishAdded.add(fish);
     _updateTankState();
   }
 
@@ -121,7 +121,7 @@ class EditTankViewModel extends ChangeNotifier {
       trimmedName = trimmedName + nameParts[j];
     }
 
-    _fish.removeWhere((item) => item.name == trimmedName);
+    _tankState.fishAdded.removeWhere((item) => item.name == trimmedName);
 
     _updateTankState();
   }
@@ -150,7 +150,7 @@ class EditTankViewModel extends ChangeNotifier {
 
   void loadSavedTank(Tank tankDataToLoad) {
     _tankState = TankState();
-    _fish = [];
+    _tankState.fishAdded = [];
 
     id = tankDataToLoad.id;
     _tankState.tankName = tankDataToLoad.name;
@@ -163,7 +163,7 @@ class EditTankViewModel extends ChangeNotifier {
       //find fish object by name
       for (Species fish in availableFish) {
         if (fish.name == name) {
-          _fish.add(fish);
+          _tankState.fishAdded.add(fish);
         }
       }
     }
@@ -176,7 +176,6 @@ class EditTankViewModel extends ChangeNotifier {
 
   void resetTank() async {
     _tankState = TankState();
-    _fish = [];
     id = -1;
 
     _updateTankState();

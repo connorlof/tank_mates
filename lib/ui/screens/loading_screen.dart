@@ -46,6 +46,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getFishData() async {
+    final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
     var fishData = await rootBundle.loadString('assets/freshwater_data.json');
 
     FishPodoParser podoParser = FishPodoParser();
@@ -61,10 +62,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
       fishObjs.add(podoParser.outputValidatedFish(fishPodoObjs[i]));
     }
 
-    Provider.of<EditTankViewModel>(
-      context,
-      listen: false,
-    ).setAvailableFish(fishObjs);
+    // TODO: Load into database
+    viewModel.setAvailableFish(fishObjs);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return EditTankScreen(

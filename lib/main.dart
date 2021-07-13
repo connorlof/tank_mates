@@ -48,7 +48,7 @@ class TankMatesApp extends StatelessWidget {
             accentColor: kPrimaryColor,
             scaffoldBackgroundColor: kBackGroundColor,
             primaryTextTheme: TextTheme(
-                title: TextStyle(
+                headline6: TextStyle(
               color: kPrimaryColor,
             ))),
         initialRoute: LoadingScreen.id,
