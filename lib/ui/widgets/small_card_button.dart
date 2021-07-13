@@ -7,8 +7,8 @@ class SmallCardButton extends StatelessWidget {
 
   final Function onTap;
   final IconData icon;
-  double leftMargin = 15.0;
-  double rightMargin = 15.0;
+  final double leftMargin;
+  final double rightMargin;
 
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,8 @@ class MenuBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
+
     return isNewTank
         ? Container(
             color: kPrimaryColor,
@@ -33,8 +35,7 @@ class MenuBar extends StatelessWidget {
                             builder: (context) => SavedTanksScreen()));
 
                     if (loadedTank != null) {
-                      Provider.of<EditTankViewModel>(context, listen: false)
-                          .loadSavedTank(loadedTank);
+                      viewModel.loadSavedTank(loadedTank);
                     }
                   },
                 ),

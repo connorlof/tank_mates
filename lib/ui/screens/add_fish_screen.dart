@@ -11,6 +11,8 @@ class AddFishScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
+
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -37,11 +39,7 @@ class AddFishScreen extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      print('adding ${data[index].name}');
-
-                      Provider.of<EditTankViewModel>(context, listen: false)
-                          .addFish(data[index]);
-
+                      viewModel.addFish(data[index]);
                       Navigator.pop(context);
                     },
                     child: Column(

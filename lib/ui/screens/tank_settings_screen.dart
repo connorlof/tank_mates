@@ -13,6 +13,9 @@ class TankSettingsScreen extends StatefulWidget {
 class _TankSettingsScreenState extends State<TankSettingsScreen> {
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<EditTankViewModel>(context).tankState;
+    final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
+
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -45,15 +48,13 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                   ),
                   TextField(
                     controller: TextEditingController(
-                      text:
-                          '${Provider.of<EditTankViewModel>(context).tankState.tankName}',
+                      text: '${state.tankName}',
                     ),
                     style: kTextStyleLarge,
                     autofocus: false,
                     textAlign: TextAlign.start,
                     onChanged: (newText) {
-                      Provider.of<EditTankViewModel>(context, listen: false)
-                          .setTankName(newText);
+                      viewModel.setTankName(newText);
                     },
                   ),
                 ],
@@ -68,8 +69,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                 children: <Widget>[
                   ParameterTile(
                     label: 'Gallons',
-                    value:
-                        '${Provider.of<EditTankViewModel>(context).tankState.gallons}',
+                    value: '${state.gallons}',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -77,8 +77,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                       RoundIconButton(
                         icon: Icons.remove,
                         onPressed: () {
-                          Provider.of<EditTankViewModel>(context, listen: false)
-                              .decrementTankGallons();
+                          viewModel.decrementTankGallons();
                         },
                       ),
                       SizedBox(
@@ -87,8 +86,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                       RoundIconButton(
                         icon: Icons.add,
                         onPressed: () {
-                          Provider.of<EditTankViewModel>(context, listen: false)
-                              .incrementTankGallons();
+                          viewModel.incrementTankGallons();
                         },
                       ),
                     ],
@@ -96,31 +94,6 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                 ],
               ),
             ),
-//            Divider(),
-//            Padding(
-//              padding: const EdgeInsets.symmetric(
-//                horizontal: 8.0,
-//                vertical: 16.0,
-//              ),
-//              child: Row(
-//                crossAxisAlignment: CrossAxisAlignment.start,
-//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                children: <Widget>[
-//                  Text(
-//                    'Auto-save changes to tank',
-//                    style: kTextStyleSmall,
-//                  ),
-//                  SizedBox(
-//                    width: 24.0,
-//                    height: 24.0,
-//                    child: Checkbox(
-//                      value: false,
-//                      onChanged: (bool value) {},
-//                    ),
-//                  ),
-//                ],
-//              ),
-//            ),
             FlatButton(
               child: Text(
                 'Return To Edit Tank',
