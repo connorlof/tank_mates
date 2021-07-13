@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/bloc/fish_comparator.dart';
 import 'package:tank_mates/data/model/species.dart';
-import 'package:tank_mates/data/model/tank.dart';
 import 'package:tank_mates/data/model/tank_state.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
 import 'package:tank_mates/ui/screens/add_fish_screen.dart';
@@ -313,24 +311,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                 leftMargin: 15.0,
                                 rightMargin: 5.0,
                                 onTap: () async {
-                                  final database = Hive.box("tanks");
-
-                                  // TODO: Call from VM
-                                  List<Tank> tanksInDb = database.values;
-                                  int currentId = viewModel.id;
-
-                                  final tank = Tank(
-                                      currentId,
-                                      viewModel.tankState.tankName,
-                                      viewModel.tankState.gallons, []
-                                      // TODO: Pass actual species
-                                      // Provider.of<EditTankViewModel>(context,
-                                      //         listen: false)
-                                      //     .addedFishNames,
-                                      );
-
-                                  // TODO: Call into VM to save this tank
-                                  //database.put(tank.id, tank);
+                                  viewModel.saveTank();
                                 },
                               ),
                             ),

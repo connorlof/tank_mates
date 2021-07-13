@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank.dart';
 import 'package:tank_mates/data/persistence/hive/TankRecord.dart';
 import 'package:tank_mates/data/persistence/hive/hive_constants.dart';
@@ -6,14 +7,15 @@ import 'package:tank_mates/data/persistence/hive/hive_constants.dart';
 class TankDao {
   Future<Tank> updateOrInsert(Tank tank) async {
     final box = await Hive.openBox(kTankTableKey);
+    final record = toRecord(tank);
 
-    if (tank.id == kDefaultTankId) {
+    if (record.id == kDefaultTankId) {
       // Insert new tank
-      final int id = await box.add(tank);
+      final int id = await box.add(record);
       return Tank(id, tank.name, tank.gallons, tank.species);
     } else {
       // Update existing tank
-      box.putAt(tank.id, tank);
+      box.putAt(record.id, record);
       return tank;
     }
   }
@@ -23,6 +25,7 @@ class TankDao {
     return box.getAt(id);
   }
 
+  // TODO: Map from record to model
   Future<List<Tank>> getAllTanks() async {
     final box = await Hive.openBox(kTankTableKey);
     return box.values.toList();
@@ -33,16 +36,16 @@ class TankDao {
     box.deleteAt(id);
   }
 
-  // Load species (call into Species DAO)
-  // TODO: Perhaps belongs in the ViewModel for now (or repository)
+  static Tank toModel(TankRecord record, List<Species> availableSpecies) {
+    final speciesList = record.speciesKeys.map(
+        (key) => availableSpecies.firstWhere((species) => species.key == key));
 
-  static Tank toModel(TankRecord record) {
-    // TODO: Convert to species (this should be in DAO, not here)
-    return Tank(record.id, record.name, record.gallons, []);
+    return Tank(record.id, record.name, record.gallons, speciesList);
   }
 
   static TankRecord toRecord(Tank model) {
-    List<String> speciesKeys = model.species.map((species) => species.key);
+    List<String> speciesKeys =
+        model.species.map((species) => species.key).toList();
 
     return TankRecord(model.id, model.name, model.gallons, speciesKeys);
   }

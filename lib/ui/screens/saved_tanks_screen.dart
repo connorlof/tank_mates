@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/model/tank.dart';
 import 'package:tank_mates/data/persistence/dao/tank_dao.dart';
 import 'package:tank_mates/data/persistence/hive/TankRecord.dart';
@@ -92,6 +94,9 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
 }
 
 Widget _buildTankList(BuildContext context) {
+  final EditTankViewModel viewModel =
+      Provider.of<EditTankViewModel>(context, listen: false);
+
   // TODO: Update this to run through VM, replace deprecated widget
   return WatchBoxBuilder(
     box: Hive.box('tanks'),
@@ -101,7 +106,7 @@ Widget _buildTankList(BuildContext context) {
         padding: const EdgeInsets.all(15.0),
         itemBuilder: (BuildContext context, int index) {
           final tankRecord = tanksBox.getAt(index) as TankRecord;
-          final tankItem = TankDao.toModel(tankRecord);
+          final tankItem = TankDao.toModel(tankRecord, viewModel.availableFish);
           return _buildListItem(tankItem, tanksBox, context);
         },
       );

@@ -7,10 +7,12 @@ import 'package:tank_mates/bloc/tank_validator.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank.dart';
 import 'package:tank_mates/data/model/tank_state.dart';
+import 'package:tank_mates/data/persistence/dao/tank_dao.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class EditTankViewModel extends ChangeNotifier {
   TankState _tankState = TankState();
+  TankDao _tankDao = TankDao();
   int id = -1;
 
   List<Species> availableFish = [];
@@ -179,5 +181,13 @@ class EditTankViewModel extends ChangeNotifier {
     id = -1;
 
     _updateTankState();
+  }
+
+  void saveTank() async {
+    final currentTank =
+        Tank(id, _tankState.tankName, _tankState.gallons, _tankState.fishAdded);
+
+    final savedTank = await _tankDao.updateOrInsert(currentTank);
+    id = savedTank.id;
   }
 }
