@@ -25,10 +25,11 @@ class TankDao {
     return box.getAt(id);
   }
 
-  // TODO: Map from record to model
-  Future<List<Tank>> getAllTanks() async {
+  Future<List<Tank>> getAllTanks(List<Species> availableSpecies) async {
     final box = await Hive.openBox(kTankTableKey);
-    return box.values.toList();
+    return box.values
+        .map((record) => toModel(record, availableSpecies))
+        .toList();
   }
 
   void deleteTank(int id) async {
@@ -37,8 +38,10 @@ class TankDao {
   }
 
   static Tank toModel(TankRecord record, List<Species> availableSpecies) {
-    final speciesList = record.speciesKeys.map(
-        (key) => availableSpecies.firstWhere((species) => species.key == key));
+    final speciesList = record.speciesKeys
+        .map((key) =>
+            availableSpecies.firstWhere((species) => species.key == key))
+        .toList();
 
     return Tank(record.id, record.name, record.gallons, speciesList);
   }

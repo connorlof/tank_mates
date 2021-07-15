@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/model/tank.dart';
-import 'package:tank_mates/data/persistence/dao/tank_dao.dart';
-import 'package:tank_mates/data/persistence/hive/TankRecord.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
 import 'package:tank_mates/ui/widgets/menu_bar.dart';
 import 'package:tank_mates/util/constants.dart';
@@ -48,6 +44,8 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<EditTankViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -85,7 +83,29 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
         children: <Widget>[
           MenuBar(false),
           Expanded(
-            child: _buildTankList(context),
+            child: FutureBuilder<List<Tank>>(
+              future: viewModel.loadSavedTanks(),
+              initialData: List(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  // If we got an error
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        'Error loading saved tanks...',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    );
+                  } else if (snapshot.hasData) {
+                    return _buildTankList(context, snapshot.data);
+                  }
+                }
+                // Displaying LoadingSpinner to indicate waiting state
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -93,28 +113,22 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
   }
 }
 
-Widget _buildTankList(BuildContext context) {
-  final EditTankViewModel viewModel =
+ListView _buildTankList(BuildContext context, List<Tank> tanks) {
+  final viewModelNoListen =
       Provider.of<EditTankViewModel>(context, listen: false);
 
-  // TODO: Update this to run through VM, replace deprecated widget
-  return WatchBoxBuilder(
-    box: Hive.box('tanks'),
-    builder: (context, tanksBox) {
-      return ListView.builder(
-        itemCount: tanksBox.length,
-        padding: const EdgeInsets.all(15.0),
-        itemBuilder: (BuildContext context, int index) {
-          final tankRecord = tanksBox.getAt(index) as TankRecord;
-          final tankItem = TankDao.toModel(tankRecord, viewModel.availableFish);
-          return _buildListItem(tankItem, tanksBox, context);
-        },
-      );
+  return ListView.builder(
+    itemCount: tanks.length,
+    padding: const EdgeInsets.all(15.0),
+    itemBuilder: (_, index) {
+      final itemTask = tanks[index];
+      return _buildListItem(itemTask, viewModelNoListen, context);
     },
   );
 }
 
-Widget _buildListItem(Tank itemTank, Box database, BuildContext context) {
+Widget _buildListItem(
+    Tank itemTank, EditTankViewModel viewModel, BuildContext context) {
   return Slidable(
     actionPane: SlidableDrawerActionPane(),
     secondaryActions: <Widget>[
@@ -130,14 +144,14 @@ Widget _buildListItem(Tank itemTank, Box database, BuildContext context) {
           caption: 'Delete',
           color: kBackGroundColor,
           icon: Icons.delete,
-          onTap: () => database.deleteAt(itemTank.id),
+          onTap: () => viewModel.deleteTank(itemTank),
         ),
       )
     ],
     child: InkWell(
       onTap: () {
         Navigator.pop(context, itemTank);
-        //Provider.of<ActiveTankData>(context).loadSavedTank(itemTank);
+        viewModel.loadSavedTank(itemTank);
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -180,7 +194,7 @@ Widget _buildListItem(Tank itemTank, Box database, BuildContext context) {
                 child: Text(
                   // TODO: Use TankState
                   '',
-                  //'${itemTank.status.toString().split('.').last} (${itemTank.percentFilled} %)',
+                  //${itemTank.status.toString().split('.').last} (${itemTank.percentFilled} %)',
                   style: kTextStyleSmall,
                 ),
               ),

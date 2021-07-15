@@ -190,4 +190,12 @@ class EditTankViewModel extends ChangeNotifier {
     final savedTank = await _tankDao.updateOrInsert(currentTank);
     id = savedTank.id;
   }
+
+  void deleteTank(Tank tank) async {
+    _tankDao.deleteTank(tank.id);
+  }
+
+  Future<List<Tank>> loadSavedTanks() async {
+    return await _tankDao.getAllTanks(availableFish); //.asStream();
+  }
 }
