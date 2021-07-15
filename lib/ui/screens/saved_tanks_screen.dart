@@ -85,11 +85,12 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
           Expanded(
             child: FutureBuilder<List<Tank>>(
               future: viewModel.loadSavedTanks(),
-              initialData: List(),
+              initialData: [],
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   // If we got an error
                   if (snapshot.hasError) {
+                    print(snapshot.error);
                     return Center(
                       child: Text(
                         'Error loading saved tanks...',
@@ -114,15 +115,14 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
 }
 
 ListView _buildTankList(BuildContext context, List<Tank> tanks) {
-  final viewModelNoListen =
-      Provider.of<EditTankViewModel>(context, listen: false);
+  final viewModel = Provider.of<EditTankViewModel>(context);
 
   return ListView.builder(
     itemCount: tanks.length,
     padding: const EdgeInsets.all(15.0),
     itemBuilder: (_, index) {
       final itemTask = tanks[index];
-      return _buildListItem(itemTask, viewModelNoListen, context);
+      return _buildListItem(itemTask, viewModel, context);
     },
   );
 }

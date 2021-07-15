@@ -25,7 +25,7 @@ class FishPodoParser {
       newFishObj.hardnessMax = parseHardnessMaxFromRange(fishPodo.hardness);
 
       newFishObj.careLevel = parseCareLevelFromString(fishPodo.careLevel);
-      newFishObj.maximumAdultSize = parseMaxSize(fishPodo.maximumaAdultSize);
+      newFishObj.maximumAdultSize = parseMaxSize(fishPodo.maximumAdultSize);
       newFishObj.diet = parseDietFromString(fishPodo.diet);
       newFishObj.minTankSize = parseMinTankSize(fishPodo.minTankSize);
     } catch (e) {}

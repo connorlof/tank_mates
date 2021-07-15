@@ -158,20 +158,17 @@ class EditTankViewModel extends ChangeNotifier {
     _tankState.tankName = tankDataToLoad.name;
     _tankState.gallons = tankDataToLoad.gallons;
 
-    List<String> addedFishNames =
-        tankDataToLoad.species.map((species) => species.name);
+    List<String> addedSpeciesKeys =
+        tankDataToLoad.species.map((species) => species.key).toList();
 
-    for (String name in addedFishNames) {
-      //find fish object by name
+    for (String key in addedSpeciesKeys) {
+      //find fish object by key (scientific name)
       for (Species fish in availableFish) {
-        if (fish.name == name) {
+        if (fish.key == key) {
           _tankState.fishAdded.add(fish);
         }
       }
     }
-
-    // TODO: This should be calculated from the species included
-    //_tank.recommendationList = tankDataToLoad.recommendations;
 
     _updateTankState();
   }
@@ -189,13 +186,15 @@ class EditTankViewModel extends ChangeNotifier {
 
     final savedTank = await _tankDao.updateOrInsert(currentTank);
     id = savedTank.id;
+    print('Tank saved, current ID: $id');
   }
 
   void deleteTank(Tank tank) async {
     _tankDao.deleteTank(tank.id);
+    notifyListeners();
   }
 
   Future<List<Tank>> loadSavedTanks() async {
-    return await _tankDao.getAllTanks(availableFish); //.asStream();
+    return await _tankDao.getAllTanks(availableFish);
   }
 }

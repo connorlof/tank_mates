@@ -12,10 +12,12 @@ class TankDao {
     if (record.id == kDefaultTankId) {
       // Insert new tank
       final int id = await box.add(record);
+      print('Inserted tank ID: $id');
       return Tank(id, tank.name, tank.gallons, tank.species);
     } else {
       // Update existing tank
-      box.putAt(record.id, record);
+      box.put(record.id, record);
+      print('Updated tank ID: ${record.id}');
       return tank;
     }
   }
@@ -27,28 +29,38 @@ class TankDao {
 
   Future<List<Tank>> getAllTanks(List<Species> availableSpecies) async {
     final box = await Hive.openBox(kTankTableKey);
-    return box.values
-        .map((record) => toModel(record, availableSpecies))
-        .toList();
+    List<Tank> tankList = [];
+
+    box.toMap().forEach((key, record) {
+      tankList.add(toModel(key, record, availableSpecies));
+    });
+
+    return tankList;
   }
 
   void deleteTank(int id) async {
+    print('Deleting tank ID: $id');
     final box = await Hive.openBox(kTankTableKey);
-    box.deleteAt(id);
+    box.delete(id);
   }
 
-  static Tank toModel(TankRecord record, List<Species> availableSpecies) {
+  static Tank toModel(
+      int id, TankRecord record, List<Species> availableSpecies) {
     final speciesList = record.speciesKeys
         .map((key) =>
             availableSpecies.firstWhere((species) => species.key == key))
         .toList();
 
-    return Tank(record.id, record.name, record.gallons, speciesList);
+    print('toModel tank ID: ${id}');
+
+    return Tank(id, record.name, record.gallons, speciesList);
   }
 
   static TankRecord toRecord(Tank model) {
     List<String> speciesKeys =
         model.species.map((species) => species.key).toList();
+
+    print('toModel tank ID: ${model.id}');
 
     return TankRecord(model.id, model.name, model.gallons, speciesKeys);
   }

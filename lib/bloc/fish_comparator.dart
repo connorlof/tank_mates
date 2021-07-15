@@ -6,7 +6,7 @@ class FishComparator {
   //String temperatureRange = "75-86";
   //String hardness = "1-10";
 
-  //String maximumaAdultSize = "5";
+  //String maximumAdultSize = "5";
   //String diet = "Carnivore";
 
   static Aggressiveness determineAggressiveness(List<Species> fishList) {
@@ -86,7 +86,7 @@ class FishComparator {
 
     for (var fish in fishList) {
       print('totalInchesOfFish:' + totalInchesOfFish.toString());
-      print('fish.maximumaAdultSize:' + fish.maximumAdultSize.toString());
+      print('fish.maximumAdultSize:' + fish.maximumAdultSize.toString());
 
       totalInchesOfFish += fish.maximumAdultSize;
     }

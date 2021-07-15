@@ -7,7 +7,7 @@ class FishJsonPodo {
   String temperatureRange = "75-86";
   String hardness = "1-10";
   String careLevel = "Moderate";
-  String maximumaAdultSize = "5";
+  String maximumAdultSize = "5";
   String diet = "Carnivore";
   String minTankSize = "30";
 
@@ -20,7 +20,7 @@ class FishJsonPodo {
       this.temperatureRange,
       this.hardness,
       this.careLevel,
-      this.maximumaAdultSize,
+      this.maximumAdultSize,
       this.diet,
       this.minTankSize);
 
@@ -34,7 +34,7 @@ class FishJsonPodo {
       json['temperatureRange'] as String,
       json['hardness'] as String,
       json['careLevel'] as String,
-      json['maximumaAdultSize'] as String,
+      json['maximumAdultSize'] as String,
       json['diet'] as String,
       json['minTankSize'] as String,
     );
@@ -42,6 +42,6 @@ class FishJsonPodo {
 
   @override
   String toString() {
-    return 'Fish{name: $name, scientificName: $scientificName, speciesGroup: $speciesGroup, aggressiveness: $aggressiveness, phRange: $phRange, temperatureRange: $temperatureRange, hardness: $hardness, careLevel: $careLevel, maximumaAdultSize: $maximumaAdultSize, diet: $diet, minTankSize: $minTankSize}';
+    return 'Fish{name: $name, scientificName: $scientificName, speciesGroup: $speciesGroup, aggressiveness: $aggressiveness, phRange: $phRange, temperatureRange: $temperatureRange, hardness: $hardness, careLevel: $careLevel, maximumAdultSize: $maximumAdultSize, diet: $diet, minTankSize: $minTankSize}';
   }
 }
