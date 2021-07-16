@@ -60,6 +60,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     for (int i = 0; i < fishPodoObjs.length; i++) {
       fishObjs.add(podoParser.outputValidatedFish(fishPodoObjs[i]));
+      fishObjs[i].key = fishPodoObjs[i].scientificName;
     }
 
     // TODO: Load into database
