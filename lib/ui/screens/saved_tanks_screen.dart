@@ -181,23 +181,12 @@ Widget _buildListItem(
                 ),
                 Text(
                   //TODO: test and into function
-                  itemTank.species.length < 25
-                      ? '${itemTank.species.length} fish - ${itemTank.species.join(",").substring(0, itemTank.species.length - 1).replaceAll('[', '').replaceAll(']', '')}'
-                      : '${itemTank.species.length} fish - ${itemTank.species.join(",").substring(0, 25).replaceAll('[', '').replaceAll(']', '')}...',
+                  itemTank.speciesNames().join(", ").length < 50
+                      ? '${itemTank.species.length} fish - ${itemTank.speciesNames().join(", ").substring(0, itemTank.speciesNames().join(", ").length).replaceAll('[', '').replaceAll(']', '')}'
+                      : '${itemTank.species.length} fish - ${itemTank.speciesNames().join(", ").substring(0, 50).replaceAll('[', '').replaceAll(']', '')}...',
                   style: kTextStyleSmall,
                 ),
               ],
-            ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: Text(
-                  // TODO: Use TankState
-                  '',
-                  //${itemTank.status.toString().split('.').last} (${itemTank.percentFilled} %)',
-                  style: kTextStyleSmall,
-                ),
-              ),
             ),
           ],
         ),
