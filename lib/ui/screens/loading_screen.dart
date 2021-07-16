@@ -63,7 +63,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
       fishObjs[i].key = fishPodoObjs[i].scientificName;
     }
 
-    // TODO: Load into database
     viewModel.setAvailableFish(fishObjs);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {

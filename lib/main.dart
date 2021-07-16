@@ -7,6 +7,7 @@ import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/persistence/hive/SettingsRecord.dart';
 import 'package:tank_mates/data/persistence/hive/SpeciesRecord.dart';
 import 'package:tank_mates/data/persistence/hive/TankRecord.dart';
+import 'package:tank_mates/data/persistence/hive/hive_constants.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
 import 'package:tank_mates/ui/screens/edit_tank_screen.dart';
 import 'package:tank_mates/ui/screens/loading_screen.dart';
@@ -28,6 +29,8 @@ void _initializeHiveDatabase() async {
   Hive.registerAdapter(SettingsRecordAdapter());
   Hive.registerAdapter(SpeciesRecordAdapter());
   Hive.registerAdapter(TankRecordAdapter());
+
+  await Hive.openBox(kTankTableKey);
 }
 
 class TankMatesApp extends StatelessWidget {

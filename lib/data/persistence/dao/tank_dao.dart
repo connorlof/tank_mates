@@ -6,7 +6,7 @@ import 'package:tank_mates/data/persistence/hive/hive_constants.dart';
 
 class TankDao {
   Future<Tank> updateOrInsert(Tank tank) async {
-    final box = await Hive.openBox(kTankTableKey);
+    final box = Hive.box(kTankTableKey);
     final record = toRecord(tank);
 
     if (record.id == kDefaultTankId) {
@@ -23,12 +23,12 @@ class TankDao {
   }
 
   Future<Tank> getTank(int id) async {
-    final box = await Hive.openBox(kTankTableKey);
+    final box = Hive.box(kTankTableKey);
     return box.getAt(id);
   }
 
   Future<List<Tank>> getAllTanks(List<Species> availableSpecies) async {
-    final box = await Hive.openBox(kTankTableKey);
+    final box = Hive.box(kTankTableKey);
     List<Tank> tankList = [];
 
     box.toMap().forEach((key, record) {
@@ -39,8 +39,8 @@ class TankDao {
   }
 
   void deleteTank(int id) async {
+    final box = Hive.box(kTankTableKey);
     print('Deleting tank ID: $id');
-    final box = await Hive.openBox(kTankTableKey);
     box.delete(id);
   }
 
