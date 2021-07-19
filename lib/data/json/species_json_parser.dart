@@ -1,10 +1,10 @@
 import 'package:tank_mates/data/json/fish_json_podo.dart';
 import 'package:tank_mates/data/model/species.dart';
 
-class FishPodoParser {
-  FishPodoParser() {}
+class SpeciesJsonParser {
+  SpeciesJsonParser();
 
-  Species outputValidatedFish(FishJsonPodo fishPodo) {
+  Species outputValidatedFish(SpeciesJsonData fishPodo) {
     Species newFishObj = new Species.empty();
 
     try {

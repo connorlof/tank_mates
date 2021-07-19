@@ -6,7 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/json/fish_json_podo.dart';
-import 'package:tank_mates/data/json/fish_podo_parser.dart';
+import 'package:tank_mates/data/json/species_json_parser.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/ui/screens/edit_tank_screen.dart';
 import 'package:tank_mates/util/constants.dart';
@@ -49,25 +49,25 @@ class _LoadingScreenState extends State<LoadingScreen> {
     final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
     var fishData = await rootBundle.loadString('assets/freshwater_data.json');
 
-    FishPodoParser podoParser = FishPodoParser();
+    SpeciesJsonParser jsonParser = SpeciesJsonParser();
 
-    var fishObjsJson = jsonDecode(fishData)['freshwater_data'] as List;
+    var jsonData = jsonDecode(fishData)['freshwater_data'] as List;
 
-    List<FishJsonPodo> fishPodoObjs =
-        fishObjsJson.map((tagJson) => FishJsonPodo.fromJson(tagJson)).toList();
+    List<SpeciesJsonData> speciesJsonDataList =
+        jsonData.map((tagJson) => SpeciesJsonData.fromJson(tagJson)).toList();
 
-    var fishObjs = <Species>[];
+    var speciesList = <Species>[];
 
-    for (int i = 0; i < fishPodoObjs.length; i++) {
-      fishObjs.add(podoParser.outputValidatedFish(fishPodoObjs[i]));
-      fishObjs[i].key = fishPodoObjs[i].scientificName;
+    for (int i = 0; i < speciesJsonDataList.length; i++) {
+      speciesList.add(jsonParser.outputValidatedFish(speciesJsonDataList[i]));
+      speciesList[i].key = speciesJsonDataList[i].scientificName;
     }
 
-    viewModel.setAvailableFish(fishObjs);
+    viewModel.setAvailableFish(speciesList);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return EditTankScreen(
-        fishObjs: fishObjs,
+        fishObjs: speciesList,
       );
     }));
   }

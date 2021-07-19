@@ -1,17 +1,17 @@
-class FishJsonPodo {
-  String name = "African Butterfly Fish";
-  String scientificName = "Pantodon buchholzi";
-  String speciesGroup = "misc";
-  String aggressiveness = "aggressive";
-  String phRange = "6.9-7.1";
-  String temperatureRange = "75-86";
-  String hardness = "1-10";
-  String careLevel = "Moderate";
-  String maximumAdultSize = "5";
-  String diet = "Carnivore";
-  String minTankSize = "30";
+class SpeciesJsonData {
+  String name;
+  String scientificName;
+  String speciesGroup;
+  String aggressiveness;
+  String phRange;
+  String temperatureRange;
+  String hardness;
+  String careLevel;
+  String maximumAdultSize;
+  String diet;
+  String minTankSize;
 
-  FishJsonPodo(
+  SpeciesJsonData(
       this.name,
       this.scientificName,
       this.speciesGroup,
@@ -24,8 +24,8 @@ class FishJsonPodo {
       this.diet,
       this.minTankSize);
 
-  factory FishJsonPodo.fromJson(dynamic json) {
-    return FishJsonPodo(
+  factory SpeciesJsonData.fromJson(dynamic json) {
+    return SpeciesJsonData(
       json['name'] as String,
       json['scientificName'] as String,
       json['speciesGroup'] as String,

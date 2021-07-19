@@ -38,3 +38,4 @@ lib/generated_plugin_registrant.dart
 /lib/data/persistence/hive/SettingsRecord.g.dart
 /lib/data/persistence/hive/SpeciesRecord.g.dart
 /lib/data/persistence/hive/TankRecord.g.dart
+/assets/
