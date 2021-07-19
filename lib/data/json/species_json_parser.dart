@@ -1,4 +1,4 @@
-import 'package:tank_mates/data/json/fish_json_podo.dart';
+import 'package:tank_mates/data/json/species_json_data.dart';
 import 'package:tank_mates/data/model/species.dart';
 
 class SpeciesJsonParser {

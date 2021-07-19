@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
-import 'package:tank_mates/data/json/fish_json_podo.dart';
+import 'package:tank_mates/data/json/species_json_data.dart';
 import 'package:tank_mates/data/json/species_json_parser.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/ui/screens/edit_tank_screen.dart';
