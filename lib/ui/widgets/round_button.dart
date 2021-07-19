@@ -14,7 +14,7 @@ class RoundButton extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: ButtonTheme(
         minWidth: 160.0,
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: onPressed,
           child: Text(
             title,
@@ -24,11 +24,12 @@ class RoundButton extends StatelessWidget {
               fontFamily: 'Oswald',
             ),
           ),
-          color: isSelected ? kBackGroundColor : kPrimaryColor,
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: kBackGroundColor),
-            borderRadius: BorderRadius.circular(30.0),
-          ),
+          style: TextButton.styleFrom(
+              backgroundColor: isSelected ? kBackGroundColor : kPrimaryColor,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: kBackGroundColor),
+                borderRadius: BorderRadius.circular(30.0),
+              )),
         ),
       ),
     );
