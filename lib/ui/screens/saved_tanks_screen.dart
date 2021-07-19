@@ -180,10 +180,7 @@ Widget _buildListItem(
                   style: kTextStyleLarge,
                 ),
                 Text(
-                  //TODO: test and into function
-                  itemTank.speciesNames().join(", ").length < 50
-                      ? '${itemTank.species.length} fish - ${itemTank.speciesNames().join(", ").substring(0, itemTank.speciesNames().join(", ").length).replaceAll('[', '').replaceAll(']', '')}'
-                      : '${itemTank.species.length} fish - ${itemTank.speciesNames().join(", ").substring(0, 50).replaceAll('[', '').replaceAll(']', '')}...',
+                  itemTank.speciesNamesJoinedString(),
                   style: kTextStyleSmall,
                 ),
               ],

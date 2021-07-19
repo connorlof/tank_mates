@@ -27,5 +27,11 @@ class Tank {
     return consolidatedList;
   }
 
+  String speciesNamesJoinedString() {
+    return speciesNames().join(", ").length < 50
+        ? '${species.length} fish - ${speciesNames().join(", ").substring(0, speciesNames().join(", ").length).replaceAll('[', '').replaceAll(']', '')}'
+        : '${species.length} fish - ${speciesNames().join(", ").substring(0, 50).replaceAll('[', '').replaceAll(']', '')}...';
+  }
+
   Tank(this.id, this.name, this.gallons, this.species);
 }
