@@ -75,7 +75,7 @@ class _AboutScreenState extends State<AboutScreen> {
             Text(
               'In my free time I have combined my passion for writing user friendly and functional applications with my aquarium hobby.'
               ' I created this app as both a challenge to myself while learning Flutter and'
-              ' to create an aquarium compatibility tool that uses modern day design principles.'
+              ' to create an aquarium stocking calculator that uses modern day design principles.'
               ' I plan to continue to work on and release regular updates on Tank Mates.',
               style: kTextStyleSmall,
             ),

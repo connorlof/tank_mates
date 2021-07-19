@@ -61,7 +61,7 @@ class AddFishScreen extends StatelessWidget {
                 },
               ),
             ),
-            FlatButton(
+            TextButton(
               child: Text(
                 'Cancel',
                 style: TextStyle(
@@ -70,7 +70,7 @@ class AddFishScreen extends StatelessWidget {
                   fontSize: 18.0,
                 ),
               ),
-              color: kPrimaryColor,
+              style: TextButton.styleFrom(backgroundColor: kPrimaryColor),
               onPressed: () {
                 Navigator.pop(context);
               },
