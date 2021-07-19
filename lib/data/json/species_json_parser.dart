@@ -1,8 +1,27 @@
+import 'dart:convert';
+
 import 'package:tank_mates/data/json/species_json_data.dart';
 import 'package:tank_mates/data/model/species.dart';
 
 class SpeciesJsonParser {
   SpeciesJsonParser();
+
+  List<Species> parseJsonToSpecies(String jsonData) {
+    var jsonObjects = jsonDecode(jsonData)['freshwater_data'] as List;
+
+    List<SpeciesJsonData> speciesJsonDataList = jsonObjects
+        .map((tagJson) => SpeciesJsonData.fromJson(tagJson))
+        .toList();
+
+    var speciesList = <Species>[];
+
+    for (int i = 0; i < speciesJsonDataList.length; i++) {
+      speciesList.add(outputValidatedFish(speciesJsonDataList[i]));
+      speciesList[i].key = speciesJsonDataList[i].scientificName;
+    }
+
+    return speciesList;
+  }
 
   Species outputValidatedFish(SpeciesJsonData fishPodo) {
     Species newFishObj = new Species.empty();
@@ -28,7 +47,9 @@ class SpeciesJsonParser {
       newFishObj.maximumAdultSize = parseMaxSize(fishPodo.maximumAdultSize);
       newFishObj.diet = parseDietFromString(fishPodo.diet);
       newFishObj.minTankSize = parseMinTankSize(fishPodo.minTankSize);
-    } catch (e) {}
+    } catch (e) {
+      print('Error parsing JSON: ${e.toString()}');
+    }
 
     return newFishObj;
   }

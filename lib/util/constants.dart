@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// Assets
+const kFreshwaterSpeciesJson = 'assets/freshwater_data.json';
+
+// Screen IDs
 const kIdLoadingScreen = 'loading_screen';
 const kIdEditTankScreen = 'edit_tank_screen';
 const kIdSavedTanksScreen = 'saved_tanks_screen';
