@@ -51,7 +51,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return EditTankScreen(
-        fishObjs: speciesList,
+        speciesList: speciesList,
       );
     }));
   }

@@ -18,10 +18,10 @@ import 'package:tank_mates/ui/widgets/small_card_button.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class EditTankScreen extends StatefulWidget {
-  EditTankScreen({this.fishObjs});
+  EditTankScreen({this.speciesList});
 
   static String id = kIdEditTankScreen;
-  final List<Species> fishObjs;
+  final List<Species> speciesList;
 
   @override
   _EditTankScreenState createState() => _EditTankScreenState();
@@ -31,8 +31,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
   AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
 
   FishComparator fishComparator = FishComparator();
-  List<String> fishAvailableList = <String>[];
-  List<Species> addedFish = [];
+  List<String> speciesAvailable = <String>[];
+  List<Species> addedSpecies = [];
 
   @override
   void initState() {
@@ -41,13 +41,12 @@ class _EditTankScreenState extends State<EditTankScreen> {
       DeviceOrientation.portraitUp,
     ]);
 
-    // TODO: Load from database
     generateAvailableFishList();
   }
 
   void generateAvailableFishList() {
-    for (int i = 0; i < widget.fishObjs.length; i++) {
-      fishAvailableList.add(widget.fishObjs[i].name);
+    for (int i = 0; i < widget.speciesList.length; i++) {
+      speciesAvailable.add(widget.speciesList[i].name);
     }
   }
 
@@ -295,7 +294,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                           .viewInsets
                                           .bottom),
                                   child: AddFishScreen(
-                                    data: widget.fishObjs,
+                                    data: widget.speciesList,
                                   ),
                                 ),
                               ),
