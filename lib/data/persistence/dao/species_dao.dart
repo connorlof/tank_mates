@@ -3,6 +3,9 @@ import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/persistence/hive/SpeciesRecord.dart';
 import 'package:tank_mates/data/persistence/hive/hive_constants.dart';
 
+/*
+ * Note: For future use, not currently used.
+ */
 class SpeciesDao {
   void updateOrInsert(Species species) async {
     final box = await Hive.openBox(kSpeciesTableKey);

@@ -2,6 +2,9 @@ import 'package:hive/hive.dart';
 
 part 'SpeciesRecord.g.dart';
 
+/*
+ * Note: For future use, not currently used.
+ */
 @HiveType(typeId: 1)
 class SpeciesRecord {
   @HiveField(0)
