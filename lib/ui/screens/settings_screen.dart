@@ -89,7 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onChanged: (int) {},
                       ),
                       Text(
-                        'celcius',
+                        'celsius',
                         style: kTextStyleSmall,
                       ),
                     ],

@@ -94,7 +94,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                 ],
               ),
             ),
-            FlatButton(
+            TextButton(
               child: Text(
                 'Return To Edit Tank',
                 style: TextStyle(
@@ -103,7 +103,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                   fontSize: 18.0,
                 ),
               ),
-              color: kPrimaryColor,
+              style: TextButton.styleFrom(backgroundColor: kPrimaryColor),
               onPressed: () {
                 Navigator.pop(context);
               },
