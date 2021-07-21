@@ -111,20 +111,8 @@ class EditTankViewModel extends ChangeNotifier {
     _updateTankState();
   }
 
-  void removeFish(String fishName) {
-    List<String> nameParts = fishName.split(' ');
-    String trimmedName = '';
-
-    for (int j = 1; j < nameParts.length; j++) {
-      if (j > 1) {
-        trimmedName = trimmedName + ' ';
-      }
-
-      trimmedName = trimmedName + nameParts[j];
-    }
-
-    _tankState.fishAdded.removeWhere((item) => item.name == trimmedName);
-
+  void removeFish(Species species) {
+    _tankState.fishAdded.removeWhere((item) => item.key == species.key);
     _updateTankState();
   }
 
@@ -136,7 +124,7 @@ class EditTankViewModel extends ChangeNotifier {
     _tankState.gallons = newGallons;
   }
 
-  void setAvailableFish(List<Species> fish) {
+  void setAvailableSpecies(List<Species> fish) {
     availableFish = fish;
   }
 

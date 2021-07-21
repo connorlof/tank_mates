@@ -229,8 +229,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       .addedFishConsolidated.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    final String fish = addedFishData
-                                        .addedFishConsolidated[index];
+                                    final species =
+                                        addedFishData.addedFish[index];
                                     return Slidable(
                                       actionPane: SlidableDrawerActionPane(),
                                       secondaryActions: <Widget>[
@@ -243,7 +243,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             color: kBackGroundColor,
                                             icon: Icons.delete,
                                             onTap: () =>
-                                                viewModel.removeFish(fish),
+                                                viewModel.removeFish(species),
                                           ),
                                         )
                                       ],
@@ -256,7 +256,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             padding: const EdgeInsets.only(
                                                 left: 15.0),
                                             child: Text(
-                                              '$fish',
+                                              '${species.name}',
                                               style: kTextStyleSmall,
                                             ),
                                           ),

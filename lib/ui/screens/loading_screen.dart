@@ -47,7 +47,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     final json = await rootBundle.loadString(kFreshwaterSpeciesJson);
     final speciesList = jsonParser.parseJsonToSpecies(json);
 
-    viewModel.setAvailableFish(speciesList);
+    viewModel.setAvailableSpecies(speciesList);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return EditTankScreen(

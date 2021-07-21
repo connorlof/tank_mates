@@ -1,41 +1,153 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/model/species.dart';
+import 'package:tank_mates/data/model/tank.dart';
+import 'package:tank_mates/data/persistence/hive/hive_constants.dart';
+
+final Species exampleFish = Species(
+    "Tetraodon abei",
+    "Abei Puffer",
+    "Tetraodon abei",
+    "puffer",
+    Aggressiveness.aggressive,
+    6.0,
+    7.8,
+    73,
+    81,
+    3,
+    15,
+    CareLevel.moderate,
+    4,
+    Diet.carnivore,
+    20);
 
 void main() {
   testAddFish();
+  testRemoveFish();
+  testSetTankName();
+  testSetTankGallons();
+  testSetAvailableSpecies();
+  testIncrementTankGallons();
+  testDecrementTankGallons();
+  testLoadSavedTank();
+  testResetTank();
 }
 
 void testAddFish() {
-  final EditTankViewModel tankData = EditTankViewModel();
-  final Species fish1 = Species.empty();
+  final EditTankViewModel viewModel = EditTankViewModel();
 
-  test(
-      '_fish is empty after creation, 1 after adding a fish, _tank reflects aggressiveness level of fish',
-      () {
-    //setup of test case
-    fish1.aggressiveness = Aggressiveness.aggressive;
-    fish1.maximumAdultSize = 5;
-    fish1.name = 'example fish';
-    fish1.scientificName = 'science example';
-    fish1.speciesGroup = 'goldfish';
-    fish1.phMin = 7.0;
-    fish1.phMax = 8.0;
-    fish1.tempMin = 70;
-    fish1.tempMax = 80;
-    fish1.hardnessMin = 10;
-    fish1.hardnessMax = 20;
-    fish1.careLevel = CareLevel.easy;
-    fish1.diet = Diet.carnivore;
-    fish1.minTankSize = 20;
-
-    expect(tankData.addedFish.length, 0);
-    expect(tankData.tankState.aggressiveness, Aggressiveness.peaceful);
+  test('Adding fish updates state', () {
+    expect(viewModel.addedFish.length, 0);
+    expect(viewModel.tankState.aggressiveness, Aggressiveness.peaceful);
 
     //add fish
-    tankData.addFish(fish1);
+    viewModel.addFish(exampleFish);
 
-    expect(tankData.addedFish.length, 1);
-    expect(tankData.tankState.aggressiveness, Aggressiveness.aggressive);
+    expect(viewModel.addedFish.length, 1);
+    expect(viewModel.tankState.aggressiveness, Aggressiveness.aggressive);
+    expect(viewModel.tankState.fishAdded, [exampleFish]);
+  });
+}
+
+void testRemoveFish() {
+  final EditTankViewModel viewModel = EditTankViewModel();
+
+  test('Removing fish updates state', () {
+    expect(viewModel.addedFish.length, 0);
+
+    // Add species
+    viewModel.addFish(exampleFish);
+    expect(viewModel.addedFish.length, 1);
+
+    // Remove species
+    viewModel.removeFish(exampleFish);
+    expect(viewModel.addedFish.length, 0);
+  });
+}
+
+void testSetTankName() {
+  final EditTankViewModel viewModel = EditTankViewModel();
+
+  test('Set name updates state', () {
+    viewModel.setTankName('Name 1');
+    expect(viewModel.tankState.tankName, 'Name 1');
+
+    viewModel.setTankName('Name 2');
+    expect(viewModel.tankState.tankName, 'Name 2');
+  });
+}
+
+void testSetTankGallons() {
+  final EditTankViewModel viewModel = EditTankViewModel();
+
+  test('Set gallons updates state', () {
+    viewModel.setTankGallons(50);
+    expect(viewModel.tankState.gallons, 50);
+
+    viewModel.setTankGallons(100);
+    expect(viewModel.tankState.gallons, 100);
+  });
+}
+
+void testSetAvailableSpecies() {
+  final EditTankViewModel viewModel = EditTankViewModel();
+
+  test('Set available species updates state', () {
+    viewModel.setAvailableSpecies([exampleFish]);
+    expect(viewModel.availableFish.length, 1);
+
+    viewModel.setAvailableSpecies([]);
+    expect(viewModel.availableFish.length, 0);
+  });
+}
+
+void testIncrementTankGallons() {
+  final EditTankViewModel viewModel = EditTankViewModel();
+
+  test('incrementTankGallons updates state', () {
+    viewModel.setTankGallons(0);
+    viewModel.incrementTankGallons();
+    expect(viewModel.tankState.gallons, 1);
+
+    viewModel.incrementTankGallons();
+    expect(viewModel.tankState.gallons, 2);
+  });
+}
+
+void testDecrementTankGallons() {
+  final EditTankViewModel viewModel = EditTankViewModel();
+
+  test('decrementTankGallons updates state', () {
+    viewModel.setTankGallons(5);
+    viewModel.decrementTankGallons();
+    expect(viewModel.tankState.gallons, 4);
+
+    viewModel.decrementTankGallons();
+    expect(viewModel.tankState.gallons, 3);
+  });
+}
+
+void testLoadSavedTank() {
+  final EditTankViewModel viewModel = EditTankViewModel();
+
+  test('loadSavedTank reflects correct ID', () {
+    expect(viewModel.id, kDefaultTankId);
+
+    viewModel.loadSavedTank(Tank(123, '', 0, []));
+    expect(viewModel.id, 123);
+  });
+}
+
+void testResetTank() {
+  final EditTankViewModel viewModel = EditTankViewModel();
+
+  test('resetTank reflects correct ID', () {
+    expect(viewModel.id, kDefaultTankId);
+
+    viewModel.loadSavedTank(Tank(123, '', 0, []));
+    expect(viewModel.id, 123);
+
+    viewModel.resetTank();
+    expect(viewModel.id, kDefaultTankId);
   });
 }
