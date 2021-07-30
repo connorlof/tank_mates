@@ -5,45 +5,70 @@ import 'package:tank_mates/data/persistence/dao/settings_dao.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   SettingsDao _settingsDao = SettingsDao();
+  Settings _currentSettings = Settings.general();
 
-  Future<Settings> get settings async {
-    return _settingsDao.getSettings();
+  Future loadSettings() async {
+    Settings settings = await _settingsDao.getSettings();
+    _currentSettings = settings;
+  }
+
+  Settings get settings {
+    return _currentSettings;
   }
 
   void updateTemperatureUnit(TemperatureUnit newUnit) async {
     Settings settings = await _settingsDao.getSettings();
     settings.temperatureUnit = newUnit;
     _settingsDao.update(settings);
+    _currentSettings = settings;
   }
 
   void updateVolumeUnit(VolumeUnit newUnit) async {
     Settings settings = await _settingsDao.getSettings();
     settings.volumeUnit = newUnit;
     _settingsDao.update(settings);
+    _currentSettings = settings;
   }
 
-  Future<String> getVolumeString(int gallons) async {
-    Settings settings = await _settingsDao.getSettings();
-    VolumeUnit volumeUnit = settings.volumeUnit;
+  int volumeQuantity(int gallons) {
+    VolumeUnit volumeUnit = _currentSettings.volumeUnit;
 
     if (volumeUnit == VolumeUnit.gallons) {
-      return '$gallons gallons';
+      return gallons;
     } else {
       int liters = (gallons / 0.26417).round();
-      return '$liters liters';
+      return liters;
     }
   }
 
-  // Get Temperature
-  Future<String> getTemperatureString(int fahrenheit) async {
-    Settings settings = await _settingsDao.getSettings();
-    TemperatureUnit temperatureUnit = settings.temperatureUnit;
+  String volumeUnitString() {
+    VolumeUnit volumeUnit = _currentSettings.volumeUnit;
+
+    if (volumeUnit == VolumeUnit.gallons) {
+      return 'gallon';
+    } else {
+      return 'liter';
+    }
+  }
+
+  int temperatureQuantity(int fahrenheit) {
+    TemperatureUnit temperatureUnit = _currentSettings.temperatureUnit;
 
     if (temperatureUnit == TemperatureUnit.fahrenheit) {
-      return '$fahrenheit F';
+      return fahrenheit;
     } else {
       int celsius = ((5 / 9) * (fahrenheit - 32)).round();
-      return '$celsius C';
+      return celsius;
+    }
+  }
+
+  String temperatureUnitString() {
+    TemperatureUnit temperatureUnit = _currentSettings.temperatureUnit;
+
+    if (temperatureUnit == TemperatureUnit.fahrenheit) {
+      return '°F';
+    } else {
+      return '°C';
     }
   }
 }

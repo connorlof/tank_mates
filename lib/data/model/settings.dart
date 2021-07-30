@@ -4,7 +4,10 @@ class Settings {
 
   Settings(this.temperatureUnit, this.volumeUnit);
 
-  Settings.general(fahrenheit, liters);
+  Settings.general() {
+    this.temperatureUnit = TemperatureUnit.fahrenheit;
+    this.volumeUnit = VolumeUnit.gallons;
+  }
 }
 
 enum TemperatureUnit { fahrenheit, celsius }

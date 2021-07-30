@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
+import 'package:tank_mates/bloc/settings_view_model.dart';
 import 'package:tank_mates/data/json/species_json_parser.dart';
 import 'package:tank_mates/ui/screens/edit_tank_screen.dart';
 import 'package:tank_mates/util/constants.dart';
@@ -18,6 +19,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
+    loadSettings();
     getFishData();
   }
 
@@ -54,5 +56,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
         speciesList: speciesList,
       );
     }));
+  }
+
+  void loadSettings() async {
+    final viewModel = Provider.of<SettingsViewModel>(context);
+    await viewModel.loadSettings();
   }
 }

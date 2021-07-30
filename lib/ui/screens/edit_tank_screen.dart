@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/bloc/fish_comparator.dart';
+import 'package:tank_mates/bloc/settings_view_model.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank_state.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
@@ -66,6 +67,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
     final TankState state = Provider.of<EditTankViewModel>(context).tankState;
     final EditTankViewModel viewModel =
         Provider.of<EditTankViewModel>(context, listen: false);
+    final SettingsViewModel settingsViewModel =
+        Provider.of<SettingsViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -124,8 +127,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   value: isValueValid(state.tempMin.toDouble(),
                                               state.tempMax.toDouble()) &&
                                           state.fishAdded.length > 0
-                                      ? '${state.tempMin} - '
-                                          '${state.tempMax}°F'
+                                      ? '${settingsViewModel.temperatureQuantity(state.tempMin)} - '
+                                          '${settingsViewModel.temperatureQuantity(state.tempMax)} °${settingsViewModel.temperatureUnitString()}'
                                       : '?? - ??',
                                 ),
                                 ParameterTile(
@@ -134,7 +137,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       isValueValid(state.phMin, state.phMax) &&
                                               state.fishAdded.length > 0
                                           ? '${state.phMin} - '
-                                              '${state.phMax}°F'
+                                              '${state.phMax}'
                                           : '?? - ??',
                                 ),
                                 ParameterTile(
@@ -199,7 +202,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   value: '${state.percentFilled} %',
                                 ),
                                 Text(
-                                  '${state.gallons} gallon aquarium',
+                                  '${settingsViewModel.volumeQuantity(state.gallons)} ${settingsViewModel.volumeUnitString()} aquarium',
                                   style: kTextStyleSmall,
                                 ),
                               ],
