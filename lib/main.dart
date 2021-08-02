@@ -32,6 +32,7 @@ void _initializeHiveDatabase() async {
   Hive.registerAdapter(TankRecordAdapter());
 
   await Hive.openBox(kTankTableKey);
+  await Hive.openBox(kSettingsTableKey);
 }
 
 class TankMatesApp extends StatelessWidget {
@@ -63,6 +64,7 @@ class TankMatesApp extends StatelessWidget {
           SavedTanksScreen.id: (context) => SavedTanksScreen(),
           SettingsScreen.id: (context) => EditTankScreen(),
           AboutScreen.id: (context) => AboutScreen(),
+          SettingsScreen.id: (context) => SettingsScreen(),
         },
       ),
     );

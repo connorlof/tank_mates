@@ -13,7 +13,7 @@ class SettingsDao {
   }
 
   Future<Settings> getSettings() async {
-    final box = Hive.box(kTankTableKey);
+    final box = Hive.box(kSettingsTableKey);
     return box.get('settings');
   }
 

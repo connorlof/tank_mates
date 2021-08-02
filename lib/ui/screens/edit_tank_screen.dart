@@ -43,6 +43,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
     ]);
 
     generateAvailableFishList();
+    loadSettings();
   }
 
   void generateAvailableFishList() {
@@ -60,6 +61,11 @@ class _EditTankScreenState extends State<EditTankScreen> {
         _topBarIndex = choice;
       });
     }
+  }
+
+  void loadSettings() async {
+    final viewModel = Provider.of<SettingsViewModel>(context, listen: false);
+    await viewModel.loadSettings();
   }
 
   @override
@@ -128,7 +134,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                               state.tempMax.toDouble()) &&
                                           state.fishAdded.length > 0
                                       ? '${settingsViewModel.temperatureQuantity(state.tempMin)} - '
-                                          '${settingsViewModel.temperatureQuantity(state.tempMax)} °${settingsViewModel.temperatureUnitString()}'
+                                          '${settingsViewModel.temperatureQuantity(state.tempMax)} ${settingsViewModel.temperatureUnitString()}'
                                       : '?? - ??',
                                 ),
                                 ParameterTile(

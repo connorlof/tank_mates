@@ -9,7 +9,10 @@ class SettingsViewModel extends ChangeNotifier {
 
   Future loadSettings() async {
     Settings settings = await _settingsDao.getSettings();
-    _currentSettings = settings;
+
+    if (settings != null) {
+      _currentSettings = settings;
+    }
   }
 
   Settings get settings {

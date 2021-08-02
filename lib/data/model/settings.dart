@@ -1,6 +1,6 @@
 class Settings {
-  TemperatureUnit temperatureUnit;
-  VolumeUnit volumeUnit;
+  TemperatureUnit temperatureUnit = TemperatureUnit.fahrenheit;
+  VolumeUnit volumeUnit = VolumeUnit.gallons;
 
   Settings(this.temperatureUnit, this.volumeUnit);
 
