@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/bloc/settings_view_model.dart';
 import 'package:tank_mates/data/model/settings.dart';
 import 'package:tank_mates/util/constants.dart';
@@ -25,6 +26,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final SettingsViewModel settingsViewModel =
         Provider.of<SettingsViewModel>(context);
+    final EditTankViewModel tankViewModel =
+        Provider.of<EditTankViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -88,6 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           setState(() {
                             settingsViewModel.updateTemperatureUnit(
                                 TemperatureUnit.values[value]);
+                            tankViewModel.updateTankState();
                           });
                         },
                       ),
@@ -103,6 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           setState(() {
                             settingsViewModel.updateTemperatureUnit(
                                 TemperatureUnit.values[value]);
+                            tankViewModel.updateTankState();
                           });
                         },
                       ),
@@ -140,6 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           setState(() {
                             settingsViewModel
                                 .updateVolumeUnit(VolumeUnit.values[value]);
+                            tankViewModel.updateTankState();
                           });
                         },
                       ),
@@ -154,6 +160,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           setState(() {
                             settingsViewModel
                                 .updateVolumeUnit(VolumeUnit.values[value]);
+                            tankViewModel.updateTankState();
                           });
                         },
                       ),

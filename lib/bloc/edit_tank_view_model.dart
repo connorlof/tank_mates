@@ -18,7 +18,7 @@ class EditTankViewModel extends ChangeNotifier {
   List<Species> availableFish = [];
   TankValidator tankValidator = TankValidator();
 
-  void _updateTankState() {
+  void updateTankState() {
     _updateTankValues();
     notifyListeners();
   }
@@ -108,12 +108,12 @@ class EditTankViewModel extends ChangeNotifier {
 
   void addFish(Species fish) {
     _tankState.fishAdded.add(fish);
-    _updateTankState();
+    updateTankState();
   }
 
   void removeFish(Species species) {
     _tankState.fishAdded.removeWhere((item) => item.key == species.key);
-    _updateTankState();
+    updateTankState();
   }
 
   void setTankName(String name) {
@@ -130,12 +130,12 @@ class EditTankViewModel extends ChangeNotifier {
 
   void incrementTankGallons() {
     _tankState.gallons++;
-    _updateTankState();
+    updateTankState();
   }
 
   void decrementTankGallons() {
     _tankState.gallons--;
-    _updateTankState();
+    updateTankState();
   }
 
   void loadSavedTank(Tank tankDataToLoad) {
@@ -158,14 +158,14 @@ class EditTankViewModel extends ChangeNotifier {
       }
     }
 
-    _updateTankState();
+    updateTankState();
   }
 
   void resetTank() async {
     _tankState = TankState();
     id = -1;
 
-    _updateTankState();
+    updateTankState();
   }
 
   void saveTank() async {
