@@ -10,26 +10,28 @@ class RoundButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: ButtonTheme(
-        minWidth: 160.0,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 18.0,
-              color: isSelected ? kPrimaryColor : kBackGroundColor,
-              fontFamily: 'Oswald',
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+        child: ButtonTheme(
+          minWidth: 160.0,
+          child: ElevatedButton(
+            onPressed: onPressed,
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 18.0,
+                color: isSelected ? kPrimaryColor : kBackGroundColor,
+                fontFamily: 'Oswald',
+              ),
             ),
+            style: TextButton.styleFrom(
+                backgroundColor: isSelected ? kBackGroundColor : kPrimaryColor,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: kBackGroundColor),
+                  borderRadius: BorderRadius.circular(30.0),
+                )),
           ),
-          style: TextButton.styleFrom(
-              backgroundColor: isSelected ? kBackGroundColor : kPrimaryColor,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: kBackGroundColor),
-                borderRadius: BorderRadius.circular(30.0),
-              )),
         ),
       ),
     );
