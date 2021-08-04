@@ -12,6 +12,7 @@ class SettingsViewModel extends ChangeNotifier {
 
     if (settings != null) {
       _currentSettings = settings;
+      _settingsDao.update(settings);
     }
   }
 
@@ -20,15 +21,13 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void updateTemperatureUnit(TemperatureUnit newUnit) async {
-    Settings settings = await _settingsDao.getSettings();
-    settings.temperatureUnit = newUnit;
+    _currentSettings.temperatureUnit = newUnit;
     _settingsDao.update(settings);
     _currentSettings = settings;
   }
 
   void updateVolumeUnit(VolumeUnit newUnit) async {
-    Settings settings = await _settingsDao.getSettings();
-    settings.volumeUnit = newUnit;
+    _currentSettings.volumeUnit = newUnit;
     _settingsDao.update(settings);
     _currentSettings = settings;
   }

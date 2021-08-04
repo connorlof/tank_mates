@@ -10,6 +10,7 @@ import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank_state.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
 import 'package:tank_mates/ui/screens/add_fish_screen.dart';
+import 'package:tank_mates/ui/screens/settings_screen.dart';
 import 'package:tank_mates/ui/screens/tank_settings_screen.dart';
 import 'package:tank_mates/ui/widgets/card_button.dart';
 import 'package:tank_mates/ui/widgets/menu_bar.dart';
@@ -56,6 +57,9 @@ class _EditTankScreenState extends State<EditTankScreen> {
     if (choice.id == kIdAboutScreen) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AboutScreen()));
+    } else if (choice.id == kIdSettingsScreen) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SettingsScreen()));
     } else {
       setState(() {
         _topBarIndex = choice;

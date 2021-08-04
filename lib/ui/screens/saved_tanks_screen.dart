@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/model/tank.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
+import 'package:tank_mates/ui/screens/settings_screen.dart';
 import 'package:tank_mates/ui/widgets/menu_bar.dart';
 import 'package:tank_mates/util/constants.dart';
 
@@ -35,6 +36,9 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
     if (choice.id == kIdAboutScreen) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AboutScreen()));
+    } else if (choice.id == kIdSettingsScreen) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SettingsScreen()));
     } else {
       setState(() {
         _topBarIndex = choice;

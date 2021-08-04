@@ -22,6 +22,7 @@ class TankDao {
     }
   }
 
+  // TODO: toModel should be added
   Future<Tank> getTank(int id) async {
     final box = Hive.box(kTankTableKey);
     return box.getAt(id);

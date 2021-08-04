@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/bloc/settings_view_model.dart';
+import 'package:tank_mates/data/model/settings.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -20,6 +23,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsViewModel settingsViewModel =
+        Provider.of<SettingsViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -76,8 +82,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: <Widget>[
                       Radio(
                         value: 0,
-                        groupValue: 0,
-                        onChanged: (int) {},
+                        groupValue:
+                            settingsViewModel.settings.temperatureUnit.index,
+                        onChanged: (value) {
+                          setState(() {
+                            settingsViewModel.updateTemperatureUnit(
+                                TemperatureUnit.values[value]);
+                          });
+                        },
                       ),
                       Text(
                         'fahrenheit',
@@ -85,8 +97,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Radio(
                         value: 1,
-                        groupValue: 0,
-                        onChanged: (int) {},
+                        groupValue:
+                            settingsViewModel.settings.temperatureUnit.index,
+                        onChanged: (value) {
+                          setState(() {
+                            settingsViewModel.updateTemperatureUnit(
+                                TemperatureUnit.values[value]);
+                          });
+                        },
                       ),
                       Text(
                         'celsius',
@@ -117,8 +135,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     children: <Widget>[
                       Radio(
                         value: 0,
-                        groupValue: 1,
-                        onChanged: (int) {},
+                        groupValue: settingsViewModel.settings.volumeUnit.index,
+                        onChanged: (value) {
+                          setState(() {
+                            settingsViewModel
+                                .updateVolumeUnit(VolumeUnit.values[value]);
+                          });
+                        },
                       ),
                       Text(
                         'gallons',
@@ -126,8 +149,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Radio(
                         value: 1,
-                        groupValue: 1,
-                        onChanged: (int) {},
+                        groupValue: settingsViewModel.settings.volumeUnit.index,
+                        onChanged: (value) {
+                          setState(() {
+                            settingsViewModel
+                                .updateVolumeUnit(VolumeUnit.values[value]);
+                          });
+                        },
                       ),
                       Text(
                         'liters',

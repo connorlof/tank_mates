@@ -68,8 +68,9 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   ParameterTile(
-                    label: 'Gallons',
-                    value: '${state.gallons}',
+                    label:
+                        'Tank Size (${state.gallons} gallons | ${(state.gallons / 0.26417).round()} liters)',
+                    value: '${state.gallons} g',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
