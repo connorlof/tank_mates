@@ -178,9 +178,9 @@ Widget _buildListItem(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  itemTank.name.length < 16
+                  itemTank.name.length < 20
                       ? itemTank.name
-                      : '${itemTank.name.substring(0, 15)}...',
+                      : '${itemTank.name.substring(0, 19)}...',
                   style: kTextStyleLarge,
                 ),
                 Text(
