@@ -214,10 +214,21 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       '${toBeginningOfSentenceCase(state.status.toString().split('.').last)}',
                                   value: '${state.percentFilled} %',
                                 ),
-                                Text(
-                                  '${settingsViewModel.volumeQuantity(state.gallons)} ${settingsViewModel.volumeUnitString()} aquarium',
-                                  style: kTextStyleSmall,
-                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      '${settingsViewModel.volumeQuantity(state.gallons)} ${settingsViewModel.volumeUnitString()} aquarium',
+                                      style: kTextStyleSmall,
+                                    ),
+                                    Icon(
+                                      Icons.tune,
+                                      size: 24.0,
+                                      color: kPrimaryColor,
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ),
