@@ -70,6 +70,9 @@ class _EditTankScreenState extends State<EditTankScreen> {
   void loadSettings() async {
     final viewModel = Provider.of<SettingsViewModel>(context, listen: false);
     await viewModel.loadSettings();
+
+    // Ensure initial tank is updated for loaded settings
+    Provider.of<EditTankViewModel>(context, listen: false).updateTankState();
   }
 
   @override
