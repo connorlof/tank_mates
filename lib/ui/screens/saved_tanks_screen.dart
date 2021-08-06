@@ -137,9 +137,21 @@ Widget _buildListItem(
     actionPane: SlidableDrawerActionPane(),
     secondaryActions: <Widget>[
       Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 5.0,
+        margin: EdgeInsets.only(
+          bottom: 10.0,
         ),
+        child: IconSlideAction(
+          foregroundColor: kPrimaryColor,
+          caption: 'Edit',
+          color: kBackGroundColor,
+          icon: Icons.edit,
+          onTap: () {
+            Navigator.pop(context, itemTank);
+            viewModel.loadSavedTank(itemTank);
+          },
+        ),
+      ),
+      Container(
         margin: EdgeInsets.only(
           bottom: 10.0,
         ),
@@ -189,6 +201,14 @@ Widget _buildListItem(
                 ),
               ],
             ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 4),
+              child: Icon(
+                Icons.swipe,
+                size: 22.0,
+                color: kPrimaryColor,
+              ),
+            )
           ],
         ),
       ),
