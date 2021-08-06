@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
@@ -259,56 +260,79 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       (BuildContext context, int index) {
                                     final species = addedFishData
                                         .addedFishConsolidated[index];
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Divider(),
-                                        InkWell(
-                                          onTap: () {
-                                            showModalBottomSheet(
-                                              context: context,
-                                              isScrollControlled: true,
-                                              builder: (context) =>
-                                                  SingleChildScrollView(
-                                                child: Container(
-                                                  padding: EdgeInsets.only(
-                                                      bottom:
-                                                          MediaQuery.of(context)
-                                                              .viewInsets
-                                                              .bottom),
-                                                  child: EditSpeciesScreen(viewModel
-                                                      .speciesFromConsolidatedString(
-                                                          species)),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 15.0),
-                                                child: Text(
-                                                  '$species',
-                                                  style: kTextStyleSmall,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 15.0),
-                                                child: Icon(
-                                                  Icons.add,
-                                                  size: 24.0,
-                                                  color: kSecondaryColor,
-                                                ),
-                                              ),
-                                            ],
+                                    return Slidable(
+                                      actionPane: SlidableDrawerActionPane(),
+                                      secondaryActions: <Widget>[
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                            top: 15.0,
                                           ),
-                                        ),
+                                          child: IconSlideAction(
+                                            foregroundColor: kPrimaryColor,
+                                            color: kBackGroundColor,
+                                            icon: Icons.delete,
+                                            onTap: () => viewModel.removeFish(
+                                                viewModel
+                                                    .speciesFromConsolidatedString(
+                                                        species)),
+                                          ),
+                                        )
                                       ],
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Divider(),
+                                          InkWell(
+                                            onTap: () {
+                                              showModalBottomSheet(
+                                                context: context,
+                                                isScrollControlled: true,
+                                                builder: (context) =>
+                                                    SingleChildScrollView(
+                                                  child: Container(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: MediaQuery.of(
+                                                                context)
+                                                            .viewInsets
+                                                            .bottom),
+                                                    child: EditSpeciesScreen(
+                                                        viewModel
+                                                            .speciesFromConsolidatedString(
+                                                                species)),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 15.0),
+                                                  child: Text(
+                                                    '$species',
+                                                    style: kTextStyleSmall,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 15.0),
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    size: 24.0,
+                                                    color: kSecondaryColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 ),
