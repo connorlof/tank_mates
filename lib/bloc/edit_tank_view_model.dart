@@ -73,6 +73,10 @@ class EditTankViewModel extends ChangeNotifier {
 
     _tankState.recommendationList
         .add(FishComparator.determineRecommendationFood(_tankState.fishAdded));
+
+    if (_tankState.recommendationList[0] == null) {
+      _tankState.recommendationList = ['Add some fish to your tank!'];
+    }
   }
 
   UnmodifiableListView<Species> get addedFish {
