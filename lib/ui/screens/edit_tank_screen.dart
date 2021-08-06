@@ -10,6 +10,7 @@ import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank_state.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
 import 'package:tank_mates/ui/screens/add_fish_screen.dart';
+import 'package:tank_mates/ui/screens/edit_species_screen.dart';
 import 'package:tank_mates/ui/screens/settings_screen.dart';
 import 'package:tank_mates/ui/screens/tank_settings_screen.dart';
 import 'package:tank_mates/ui/widgets/card_button.dart';
@@ -263,29 +264,48 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Divider(),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15.0),
-                                              child: Text(
-                                                '$species',
-                                                style: kTextStyleSmall,
+                                        InkWell(
+                                          onTap: () {
+                                            showModalBottomSheet(
+                                              context: context,
+                                              isScrollControlled: true,
+                                              builder: (context) =>
+                                                  SingleChildScrollView(
+                                                child: Container(
+                                                  padding: EdgeInsets.only(
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                              .viewInsets
+                                                              .bottom),
+                                                  child: EditSpeciesScreen(),
+                                                ),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 15.0),
-                                              child: Icon(
-                                                Icons.add,
-                                                size: 24.0,
-                                                color: kSecondaryColor,
+                                            );
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 15.0),
+                                                child: Text(
+                                                  '$species',
+                                                  style: kTextStyleSmall,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        )
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 15.0),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 24.0,
+                                                  color: kSecondaryColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     );
                                   },
