@@ -43,9 +43,20 @@ class EditTankViewModel extends ChangeNotifier {
     _tankState.hardnessMax =
         FishComparator.determineMaxHardness(_tankState.fishAdded);
 
+    if (_tankState.percentFilled > 130) {
+      _tankState.status = TankStatus.Overstocked;
+    } else if (!tankValidator.isValidTank(_tankState)) {
+      _tankState.status = TankStatus.Warning;
+    } else {
+      _tankState.status = TankStatus.Good;
+    }
+
+    // Recommendations
     _tankState.recommendationList.clear();
-    _tankState.recommendationList
-        .add(FishComparator.determineRecommendationFood(_tankState.fishAdded));
+
+    if (_tankState.status == TankStatus.Warning) {
+      _tankState.recommendationList.add(kRecParamWarning);
+    }
 
     if (_tankState.status == TankStatus.Overstocked) {
       _tankState.recommendationList.add(kRecUpgradeTank);
@@ -60,13 +71,8 @@ class EditTankViewModel extends ChangeNotifier {
       }
     }
 
-    if (!tankValidator.isValidTank(_tankState)) {
-      _tankState.status = TankStatus.Incompatible;
-    } else if (_tankState.percentFilled > 130) {
-      _tankState.status = TankStatus.Overstocked;
-    } else {
-      _tankState.status = TankStatus.Good;
-    }
+    _tankState.recommendationList
+        .add(FishComparator.determineRecommendationFood(_tankState.fishAdded));
   }
 
   UnmodifiableListView<Species> get addedFish {

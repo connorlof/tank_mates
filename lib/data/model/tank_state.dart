@@ -19,4 +19,4 @@ class TankState {
   List<Species> fishAdded = [];
 }
 
-enum TankStatus { Good, Warning, Incompatible, Overstocked }
+enum TankStatus { Good, Warning, Overstocked }
