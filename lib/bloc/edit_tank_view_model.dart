@@ -111,6 +111,14 @@ class EditTankViewModel extends ChangeNotifier {
     updateTankState();
   }
 
+  void removeFishOnce(Species species) {
+    int lastIndex = _tankState.fishAdded.lastIndexOf(species);
+
+    if (lastIndex > -1) _tankState.fishAdded.removeAt(lastIndex);
+
+    updateTankState();
+  }
+
   void removeFish(Species species) {
     _tankState.fishAdded.removeWhere((item) => item.key == species.key);
     updateTankState();
@@ -184,5 +192,16 @@ class EditTankViewModel extends ChangeNotifier {
 
   Future<List<Tank>> loadSavedTanks() async {
     return await _tankDao.getAllTanks(availableFish);
+  }
+
+  Species speciesFromConsolidatedString(String speciesString) {
+    var parts = speciesString.split(' ');
+    var speciesName = parts.sublist(1).join(' ').trim();
+
+    return availableFish.where((species) => species.name == speciesName).first;
+  }
+
+  int quantityOfSpecies(Species species) {
+    return _tankState.fishAdded.where((spec) => spec == species).length;
   }
 }

@@ -277,7 +277,9 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                                           MediaQuery.of(context)
                                                               .viewInsets
                                                               .bottom),
-                                                  child: EditSpeciesScreen(),
+                                                  child: EditSpeciesScreen(viewModel
+                                                      .speciesFromConsolidatedString(
+                                                          species)),
                                                 ),
                                               ),
                                             );

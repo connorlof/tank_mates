@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/ui/widgets/parameter_tile.dart';
 import 'package:tank_mates/ui/widgets/round_icon_button.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class EditSpeciesScreen extends StatefulWidget {
+  final Species species;
+  const EditSpeciesScreen(this.species);
+
   @override
   _EditSpeciesScreenState createState() => _EditSpeciesScreenState();
 }
@@ -12,22 +17,9 @@ class EditSpeciesScreen extends StatefulWidget {
 class _EditSpeciesScreenState extends State<EditSpeciesScreen> {
   @override
   Widget build(BuildContext context) {
-    Species species = Species(
-        "Tetraodon abei",
-        "Abei Puffer",
-        "Tetraodon abei",
-        "puffer",
-        Aggressiveness.aggressive,
-        6.0,
-        7.8,
-        73,
-        81,
-        3,
-        15,
-        CareLevel.moderate,
-        4,
-        Diet.carnivore,
-        20);
+    final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
+    Species species = widget.species;
+    int quantity = viewModel.quantityOfSpecies(species);
 
     return Container(
       color: Color(0xff757575),
@@ -57,21 +49,32 @@ class _EditSpeciesScreenState extends State<EditSpeciesScreen> {
                 children: <Widget>[
                   ParameterTile(
                     label: 'Quantity',
-                    value: '5',
+                    value: '$quantity',
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RoundIconButton(
                         icon: Icons.remove,
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            quantity--;
+                            if (quantity < 0) quantity = 0;
+                            viewModel.removeFishOnce(species);
+                          });
+                        },
                       ),
                       SizedBox(
                         width: 10.0,
                       ),
                       RoundIconButton(
                         icon: Icons.add,
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            quantity++;
+                            viewModel.addFish(species);
+                          });
+                        },
                       ),
                     ],
                   ),
