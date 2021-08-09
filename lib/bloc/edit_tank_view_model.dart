@@ -74,7 +74,7 @@ class EditTankViewModel extends ChangeNotifier {
     _tankState.recommendationList
         .add(FishComparator.determineRecommendationFood(_tankState.fishAdded));
 
-    if (_tankState.recommendationList[0] == null) {
+    if (_tankState.fishAdded.isEmpty) {
       _tankState.recommendationList = ['Add some fish to your tank!'];
     }
   }
@@ -213,5 +213,12 @@ class EditTankViewModel extends ChangeNotifier {
 
   int quantityOfSpecies(Species species) {
     return _tankState.fishAdded.where((spec) => spec == species).length;
+  }
+
+  List<String> speciesGroups() {
+    var speciesGroups =
+        availableFish.map((species) => species.speciesGroup).toSet().toList();
+    speciesGroups.sort();
+    return speciesGroups;
   }
 }
