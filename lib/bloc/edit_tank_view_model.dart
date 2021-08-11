@@ -16,6 +16,7 @@ class EditTankViewModel extends ChangeNotifier {
   int id = -1;
 
   List<Species> availableFish = [];
+  int speciesFilter = 0;
   TankValidator tankValidator = TankValidator();
 
   void updateTankState() {
@@ -182,6 +183,7 @@ class EditTankViewModel extends ChangeNotifier {
   void resetTank() async {
     _tankState = TankState();
     id = -1;
+    speciesFilter = 0;
 
     updateTankState();
   }
@@ -220,5 +222,10 @@ class EditTankViewModel extends ChangeNotifier {
         availableFish.map((species) => species.speciesGroup).toSet().toList();
     speciesGroups.sort();
     return speciesGroups;
+  }
+
+  void setSpeciesFilter(int value) {
+    speciesFilter = value;
+    notifyListeners();
   }
 }

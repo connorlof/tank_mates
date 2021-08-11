@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class FilterListScreen extends StatefulWidget {
@@ -13,8 +15,9 @@ class FilterListScreen extends StatefulWidget {
 class _FilterListScreenState extends State<FilterListScreen> {
   @override
   Widget build(BuildContext context) {
-    var filterIndex = 0;
-    var speciesGroups = ['All'];
+    final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
+    var speciesGroups = ['All'] + viewModel.speciesGroups();
+    var filterIndex = viewModel.speciesFilter;
 
     return Container(
       color: Color(0xff757575),
@@ -51,7 +54,7 @@ class _FilterListScreenState extends State<FilterListScreen> {
                             toBeginningOfSentenceCase(speciesGroups[index])),
                         onChanged: (val) {
                           setState(() {
-                            filterIndex = val;
+                            viewModel.setSpeciesFilter(val);
                           });
                         },
                       ),

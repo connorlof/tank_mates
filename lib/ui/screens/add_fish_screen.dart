@@ -10,12 +10,13 @@ class AddFishScreen extends StatelessWidget {
   AddFishScreen({@required this.data});
 
   final List<Species> data;
-  final filterIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
     var speciesGroups = ['All'] + viewModel.speciesGroups();
+
+    final filterIndex = Provider.of<EditTankViewModel>(context).speciesFilter;
     List<Species> activeData = data.where((species) {
       if (filterIndex == 0)
         return true;
