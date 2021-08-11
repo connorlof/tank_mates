@@ -16,6 +16,10 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
     final state = Provider.of<EditTankViewModel>(context).tankState;
     final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
 
+    final textController = TextEditingController(text: '${state.tankName}');
+    textController.selection = TextSelection.fromPosition(
+        TextPosition(offset: textController.text.length));
+
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -47,9 +51,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
                     style: kTextStyleSmall,
                   ),
                   TextField(
-                    controller: TextEditingController(
-                      text: '${state.tankName}',
-                    ),
+                    controller: textController,
                     style: kTextStyleLarge,
                     autofocus: false,
                     textAlign: TextAlign.start,
