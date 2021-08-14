@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/bloc/settings_view_model.dart';
@@ -24,9 +24,7 @@ void main() async {
 void _initializeHiveDatabase() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final appDocumentDirectory =
-      await path_provider.getApplicationDocumentsDirectory();
-  Hive.init(appDocumentDirectory.path);
+  await Hive.initFlutter();
   Hive.registerAdapter(SettingsRecordAdapter());
   Hive.registerAdapter(SpeciesRecordAdapter());
   Hive.registerAdapter(TankRecordAdapter());
