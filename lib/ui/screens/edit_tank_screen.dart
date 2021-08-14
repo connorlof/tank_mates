@@ -308,14 +308,17 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 15.0),
-                                                  child: Text(
-                                                    '$species',
-                                                    style: kTextStyleSmall,
+                                                Flexible(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 15.0),
+                                                    child: Text(
+                                                      '$species',
+                                                      style: kTextStyleSmall,
+                                                    ),
                                                   ),
                                                 ),
                                                 Padding(
