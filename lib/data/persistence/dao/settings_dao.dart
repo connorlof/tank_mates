@@ -15,6 +15,9 @@ class SettingsDao {
   Future<Settings> getSettings() async {
     final box = Hive.box(kSettingsTableKey);
     SettingsRecord record = await box.get('settings');
+
+    if (record == null) return Settings.general();
+
     return toModel(record);
   }
 
