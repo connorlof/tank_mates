@@ -13,15 +13,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
-
-  void _selectTopIndex(AppBarChoice choice) {
-    // Causes the app to rebuild with the new _selectedChoice.
-    setState(() {
-      _topBarIndex = choice;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final SettingsViewModel settingsViewModel =
@@ -38,24 +29,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           appName,
           style: kTextStyleHeader,
         ),
-        actions: <Widget>[
-          // overflow menu
-          PopupMenuButton<AppBarChoice>(
-            icon: Icon(Icons.opacity),
-            onSelected: _selectTopIndex,
-            itemBuilder: (BuildContext context) {
-              return appBarChoices.map((AppBarChoice choice) {
-                return PopupMenuItem<AppBarChoice>(
-                  value: choice,
-                  child: Text(
-                    choice.title,
-                    style: kTextStyleSmall,
-                  ),
-                );
-              }).toList();
-            },
-          ),
-        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

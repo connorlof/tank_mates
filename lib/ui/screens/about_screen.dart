@@ -11,15 +11,6 @@ class AboutScreen extends StatefulWidget {
 }
 
 class _AboutScreenState extends State<AboutScreen> {
-  AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
-
-  void _selectTopIndex(AppBarChoice choice) {
-    // Causes the app to rebuild with the new _selectedChoice.
-    setState(() {
-      _topBarIndex = choice;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,24 +22,6 @@ class _AboutScreenState extends State<AboutScreen> {
           appName,
           style: kTextStyleHeader,
         ),
-        actions: <Widget>[
-          // overflow menu
-          PopupMenuButton<AppBarChoice>(
-            icon: Icon(Icons.opacity),
-            onSelected: _selectTopIndex,
-            itemBuilder: (BuildContext context) {
-              return appBarChoices.map((AppBarChoice choice) {
-                return PopupMenuItem<AppBarChoice>(
-                  value: choice,
-                  child: Text(
-                    choice.title,
-                    style: kTextStyleSmall,
-                  ),
-                );
-              }).toList();
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
