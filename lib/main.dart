@@ -17,7 +17,8 @@ import 'package:tank_mates/ui/screens/settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 
 void main() async {
-  _initializeHiveDatabase();
+  runApp(Center(child: CircularProgressIndicator()));
+  await _initializeHiveDatabase();
   runApp(TankMatesApp());
 }
 
