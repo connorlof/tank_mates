@@ -308,7 +308,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
-                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Flexible(
                                                   child: Padding(
