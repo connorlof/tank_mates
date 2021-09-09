@@ -20,16 +20,10 @@ class _FilterListScreenState extends State<FilterListScreen> {
     var filterIndex = viewModel.speciesFilter;
 
     return Container(
-      color: Color(0xff757575),
+      color: kModalBackgroundColor,
       child: Container(
-        padding: EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          color: kBackGroundColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-        ),
+        padding: kModalPadding,
+        decoration: kModalBoxDecoration,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[

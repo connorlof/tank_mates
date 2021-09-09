@@ -26,7 +26,18 @@ const String kRecParamWarning =
 const kPrimaryColor = const Color(0xFF3D6E90);
 const kBackGroundColor = const Color(0xFFFDFDFD);
 const kSecondaryColor = const Color(0xFF3c4146);
+const kModalBackgroundColor = const Color(0xff757575);
 const kCardColor = kPrimaryColor;
+
+const kModalBoxDecoration = BoxDecoration(
+  color: kBackGroundColor,
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(20.0),
+    topRight: Radius.circular(20.0),
+  ),
+);
+
+const kModalPadding = EdgeInsets.all(20.0);
 
 const kTextStyleSmall = TextStyle(
   fontSize: 14.0,
