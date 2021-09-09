@@ -7,17 +7,17 @@ import 'package:tank_mates/ui/screens/filter_list_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class AddFishScreen extends StatelessWidget {
-  AddFishScreen({@required this.data});
+  AddFishScreen({@required this.availableSpecies});
 
-  final List<Species> data;
+  final List<Species> availableSpecies;
 
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
-    var speciesGroups = ['All'] + viewModel.speciesGroups();
-
+    final speciesGroups = ['All'] + viewModel.speciesGroups();
     final filterIndex = Provider.of<EditTankViewModel>(context).speciesFilter;
-    List<Species> activeData = data.where((species) {
+
+    List<Species> activeAvailableSpecies = availableSpecies.where((species) {
       if (filterIndex == 0)
         return true;
       else
@@ -82,11 +82,11 @@ class AddFishScreen extends StatelessWidget {
             Container(
               height: 400.0,
               child: ListView.builder(
-                itemCount: activeData.length,
+                itemCount: activeAvailableSpecies.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      viewModel.addFish(activeData[index]);
+                      viewModel.addFish(activeAvailableSpecies[index]);
                       Navigator.pop(context);
                     },
                     child: Column(
@@ -94,13 +94,9 @@ class AddFishScreen extends StatelessWidget {
                       children: <Widget>[
                         Divider(),
                         Text(
-                          '${activeData[index].name}',
+                          '${activeAvailableSpecies[index].name}',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Oswald',
-                            fontSize: 18.0,
-                            color: Color(0xFF3c4146),
-                          ),
+                          style: kListItemTextStyle,
                         ),
                       ],
                     ),
@@ -111,11 +107,7 @@ class AddFishScreen extends StatelessWidget {
             TextButton(
               child: Text(
                 'Cancel',
-                style: TextStyle(
-                  color: kBackGroundColor,
-                  fontFamily: 'Oswald',
-                  fontSize: 18.0,
-                ),
+                style: kPrimaryButtonTextStyle,
               ),
               style: TextButton.styleFrom(backgroundColor: kPrimaryColor),
               onPressed: () {

@@ -32,8 +32,6 @@ class EditTankScreen extends StatefulWidget {
 }
 
 class _EditTankScreenState extends State<EditTankScreen> {
-  AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
-
   FishComparator fishComparator = FishComparator();
   List<String> speciesAvailable = <String>[];
   List<Species> addedSpecies = [];
@@ -62,10 +60,6 @@ class _EditTankScreenState extends State<EditTankScreen> {
     } else if (choice.id == kIdSettingsScreen) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => SettingsScreen()));
-    } else {
-      setState(() {
-        _topBarIndex = choice;
-      });
     }
   }
 
@@ -352,7 +346,6 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   ),
                                 ),
                               );
-                              ;
                             }
                           }),
                         ),
@@ -368,7 +361,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                           .viewInsets
                                           .bottom),
                                   child: AddFishScreen(
-                                    data: widget.speciesList,
+                                    availableSpecies: widget.speciesList,
                                   ),
                                 ),
                               ),

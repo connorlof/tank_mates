@@ -53,6 +53,18 @@ const kRecommendationTextStyle = TextStyle(
   fontFamily: 'Oswald',
 );
 
+const kListItemTextStyle = TextStyle(
+  fontFamily: 'Oswald',
+  fontSize: 18.0,
+  color: kSecondaryColor,
+);
+
+const kPrimaryButtonTextStyle = TextStyle(
+  color: kBackGroundColor,
+  fontFamily: 'Oswald',
+  fontSize: 18.0,
+);
+
 const kRichTextLinkFontSize = 22.0;
 const kRichTextFontSize = 20.0;
 
