@@ -53,6 +53,9 @@ const kRecommendationTextStyle = TextStyle(
   fontFamily: 'Oswald',
 );
 
+const kRichTextLinkFontSize = 22.0;
+const kRichTextFontSize = 20.0;
+
 const List<AppBarChoice> appBarChoices = const <AppBarChoice>[
   const AppBarChoice('Settings', kIdSettingsScreen),
   const AppBarChoice('About', kIdAboutScreen),

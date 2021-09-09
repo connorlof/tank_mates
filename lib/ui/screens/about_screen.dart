@@ -11,6 +11,13 @@ class AboutScreen extends StatefulWidget {
 }
 
 class _AboutScreenState extends State<AboutScreen> {
+  final richTextFontStyle =
+      kTextStyleSmall.copyWith(fontSize: kRichTextFontSize);
+  final linkFontStyle = kTextStyleSmall.copyWith(
+    fontSize: kRichTextLinkFontSize,
+    color: kPrimaryColor,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +39,7 @@ class _AboutScreenState extends State<AboutScreen> {
             children: <Widget>[
               Center(
                 child: Text(
-                  'About Tank Mates',
+                  'About $appName',
                   style: kTextStyleLarge,
                 ),
               ),
@@ -47,7 +54,7 @@ class _AboutScreenState extends State<AboutScreen> {
                       text:
                           'Hi there I\'m Connor, a mobile software developer living just outside of Philadelphia, PA.'
                           ' I got my first taste of coding in 2014. I spent the following summer learning to create my own Android apps.',
-                      style: kTextStyleSmall.copyWith(fontSize: 20.0),
+                      style: richTextFontStyle,
                     ),
                   ],
                 ),
@@ -64,7 +71,7 @@ class _AboutScreenState extends State<AboutScreen> {
                           ' I created this app as both a challenge to myself while learning Flutter and'
                           ' to create an aquarium stocking calculator that uses modern day design principles.'
                           ' I plan to continue to work on and release regular updates on Tank Mates.',
-                      style: kTextStyleSmall.copyWith(fontSize: 20.0),
+                      style: richTextFontStyle,
                     ),
                   ],
                 ),
@@ -78,14 +85,11 @@ class _AboutScreenState extends State<AboutScreen> {
                     TextSpan(
                       text:
                           'If you would like to find out more about my fish keeping journey follow me on ',
-                      style: kTextStyleSmall.copyWith(fontSize: 20.0),
+                      style: richTextFontStyle,
                     ),
                     TextSpan(
                       text: 'Instagram',
-                      style: kTextStyleSmall.copyWith(
-                        fontSize: 22.0,
-                        color: kPrimaryColor,
-                      ),
+                      style: linkFontStyle,
                       recognizer: new TapGestureRecognizer()
                         ..onTap = () {
                           launch('https://www.instagram.com/aquatic_coder/');
@@ -93,14 +97,11 @@ class _AboutScreenState extends State<AboutScreen> {
                     ),
                     TextSpan(
                       text: ' or ',
-                      style: kTextStyleSmall.copyWith(fontSize: 20.0),
+                      style: richTextFontStyle,
                     ),
                     TextSpan(
                       text: 'Youtube',
-                      style: kTextStyleSmall.copyWith(
-                        fontSize: 22.0,
-                        color: kPrimaryColor,
-                      ),
+                      style: linkFontStyle,
                       recognizer: new TapGestureRecognizer()
                         ..onTap = () {
                           launch('https://www.youtube.com/c/TheAquaticCoder');
@@ -122,14 +123,11 @@ class _AboutScreenState extends State<AboutScreen> {
                           'Thanks for downloading and checking out Tank Mates. Many improvements are planned for the future'
                           ' but I appreciate any feedback or feature requests. If you enjoy this app or see a feature'
                           ' you would like added please leave a rating for this app on the ',
-                      style: kTextStyleSmall.copyWith(fontSize: 20.0),
+                      style: richTextFontStyle,
                     ),
                     TextSpan(
                       text: 'Play Store or App Store',
-                      style: kTextStyleSmall.copyWith(
-                        fontSize: 22.0,
-                        color: kPrimaryColor,
-                      ),
+                      style: linkFontStyle,
                       recognizer: new TapGestureRecognizer()
                         ..onTap = () {
                           launch(
@@ -148,14 +146,11 @@ class _AboutScreenState extends State<AboutScreen> {
                     TextSpan(
                       text:
                           'If you would like to reach out to me direct with an issue or feedback send me an email at ',
-                      style: kTextStyleSmall.copyWith(fontSize: 20.0),
+                      style: richTextFontStyle,
                     ),
                     TextSpan(
                       text: 'loftydev@gmail.com',
-                      style: kTextStyleSmall.copyWith(
-                        fontSize: 22.0,
-                        color: kPrimaryColor,
-                      ),
+                      style: linkFontStyle,
                       recognizer: new TapGestureRecognizer()
                         ..onTap = () {
                           launch('mailto:loftydev@gmail.com');
@@ -163,14 +158,11 @@ class _AboutScreenState extends State<AboutScreen> {
                     ),
                     TextSpan(
                       text: ' or post an issue on ',
-                      style: kTextStyleSmall.copyWith(fontSize: 20.0),
+                      style: richTextFontStyle,
                     ),
                     TextSpan(
                       text: 'Github',
-                      style: kTextStyleSmall.copyWith(
-                        fontSize: 22.0,
-                        color: kPrimaryColor,
-                      ),
+                      style: linkFontStyle,
                       recognizer: new TapGestureRecognizer()
                         ..onTap = () {
                           launch('https://github.com/connorlof/tank_mates/');
@@ -188,14 +180,11 @@ class _AboutScreenState extends State<AboutScreen> {
                     TextSpan(
                       text:
                           'Other ways to support the app can be to share it with a friend or a ',
-                      style: kTextStyleSmall.copyWith(fontSize: 20.0),
+                      style: richTextFontStyle,
                     ),
                     TextSpan(
                       text: 'small donation to help fund future development',
-                      style: kTextStyleSmall.copyWith(
-                        fontSize: 22.0,
-                        color: kPrimaryColor,
-                      ),
+                      style: linkFontStyle,
                       recognizer: new TapGestureRecognizer()
                         ..onTap = () {
                           launch('https://www.buymeacoffee.com/aquaticcoder');
