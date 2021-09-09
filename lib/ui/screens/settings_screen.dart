@@ -6,7 +6,7 @@ import 'package:tank_mates/data/model/settings.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
-  static String id = kIdSettingsScreen;
+  static final String id = kIdSettingsScreen;
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();

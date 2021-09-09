@@ -4,7 +4,7 @@ import 'package:tank_mates/util/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatefulWidget {
-  static String id = kIdAboutScreen;
+  static final String id = kIdAboutScreen;
 
   @override
   _AboutScreenState createState() => _AboutScreenState();

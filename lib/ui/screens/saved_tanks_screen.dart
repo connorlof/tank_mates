@@ -9,14 +9,13 @@ import 'package:tank_mates/ui/widgets/menu_bar.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class SavedTanksScreen extends StatefulWidget {
-  static String id = kIdSavedTanksScreen;
+  static final String id = kIdSavedTanksScreen;
 
   @override
   _SavedTanksScreenState createState() => _SavedTanksScreenState();
 }
 
 class _SavedTanksScreenState extends State<SavedTanksScreen> {
-  AppBarChoice _topBarIndex = appBarChoices[0]; // The app's "state".
   List<String> savedTankList = [
     'Tank #1',
     'Tank #2',
@@ -39,10 +38,6 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
     } else if (choice.id == kIdSettingsScreen) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => SettingsScreen()));
-    } else {
-      setState(() {
-        _topBarIndex = choice;
-      });
     }
   }
 

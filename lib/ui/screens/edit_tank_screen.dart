@@ -24,7 +24,7 @@ import 'package:tank_mates/util/constants.dart';
 class EditTankScreen extends StatefulWidget {
   EditTankScreen({this.speciesList});
 
-  static String id = kIdEditTankScreen;
+  static final String id = kIdEditTankScreen;
   final List<Species> speciesList;
 
   @override

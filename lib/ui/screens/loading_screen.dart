@@ -8,7 +8,7 @@ import 'package:tank_mates/ui/screens/edit_tank_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class LoadingScreen extends StatefulWidget {
-  static String id = kIdLoadingScreen;
+  static final String id = kIdLoadingScreen;
 
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
