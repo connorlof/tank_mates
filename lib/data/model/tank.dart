@@ -33,5 +33,11 @@ class Tank {
         : '${species.length} fish - ${speciesNames().join(", ").substring(0, 50).replaceAll('[', '').replaceAll(']', '')}...';
   }
 
+  String nameWithMaxLength(int maxLength) {
+    return name.length < maxLength
+        ? name
+        : '${name.substring(0, maxLength - 1)}...';
+  }
+
   Tank(this.id, this.name, this.gallons, this.species);
 }

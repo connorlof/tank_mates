@@ -16,20 +16,7 @@ class SavedTanksScreen extends StatefulWidget {
 }
 
 class _SavedTanksScreenState extends State<SavedTanksScreen> {
-  List<String> savedTankList = [
-    'Tank #1',
-    'Tank #2',
-    'Tank #3',
-    'Tank #4',
-    'Tank #5',
-    'Tank #6',
-    'Tank #7',
-    'Tank #8',
-    'Tank #9',
-    'Tank #10',
-    'Tank #11',
-    'Tank #12',
-  ];
+  //final List<String> savedTankList = [];
 
   void _selectTopIndex(AppBarChoice choice) {
     if (choice.id == kIdAboutScreen) {
@@ -93,7 +80,7 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
                     return Center(
                       child: Text(
                         'Error loading saved tanks...',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     );
                   } else if (snapshot.hasData) {
@@ -132,9 +119,7 @@ Widget _buildListItem(
     actionPane: SlidableDrawerActionPane(),
     secondaryActions: <Widget>[
       Container(
-        margin: EdgeInsets.only(
-          bottom: 10.0,
-        ),
+        margin: kContainerBottomMargin,
         child: IconSlideAction(
           foregroundColor: kPrimaryColor,
           caption: 'Edit',
@@ -147,9 +132,7 @@ Widget _buildListItem(
         ),
       ),
       Container(
-        margin: EdgeInsets.only(
-          bottom: 10.0,
-        ),
+        margin: kContainerBottomMargin,
         child: IconSlideAction(
           foregroundColor: kPrimaryColor,
           caption: 'Delete',
@@ -168,9 +151,7 @@ Widget _buildListItem(
         padding: EdgeInsets.symmetric(
           horizontal: 5.0,
         ),
-        margin: EdgeInsets.only(
-          bottom: 10.0,
-        ),
+        margin: kContainerBottomMargin,
         decoration: BoxDecoration(
           border: Border.all(
             color: kCardColor,
@@ -185,9 +166,7 @@ Widget _buildListItem(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  itemTank.name.length < 20
-                      ? itemTank.name
-                      : '${itemTank.name.substring(0, 19)}...',
+                  itemTank.nameWithMaxLength(20),
                   style: kTextStyleLarge,
                 ),
                 Text(

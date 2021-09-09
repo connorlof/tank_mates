@@ -38,6 +38,9 @@ const kModalBoxDecoration = BoxDecoration(
 );
 
 const kModalPadding = EdgeInsets.all(20.0);
+const kContainerBottomMargin = EdgeInsets.only(
+  bottom: 10.0,
+);
 
 const kTextStyleSmall = TextStyle(
   fontSize: 14.0,

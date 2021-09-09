@@ -52,7 +52,7 @@ class TankDao {
             availableSpecies.firstWhere((species) => species.key == key))
         .toList();
 
-    print('toModel tank ID: ${id}');
+    print('toModel tank ID: $id');
 
     return Tank(id, record.name, record.gallons, speciesList);
   }
