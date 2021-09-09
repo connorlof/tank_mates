@@ -16,8 +16,8 @@ class _FilterListScreenState extends State<FilterListScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
-    var speciesGroups = ['All'] + viewModel.speciesGroups();
-    var filterIndex = viewModel.speciesFilter;
+    final speciesGroups = ['All'] + viewModel.speciesGroups();
+    final filterIndex = viewModel.speciesFilter;
 
     return Container(
       color: kModalBackgroundColor,
@@ -60,11 +60,7 @@ class _FilterListScreenState extends State<FilterListScreen> {
             TextButton(
               child: Text(
                 'Filter',
-                style: TextStyle(
-                  color: kBackGroundColor,
-                  fontFamily: 'Oswald',
-                  fontSize: 18.0,
-                ),
+                style: kPrimaryButtonTextStyle,
               ),
               style: TextButton.styleFrom(backgroundColor: kPrimaryColor),
               onPressed: () {
