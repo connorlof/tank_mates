@@ -1,26 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tank_mates/persistence/tank_database.dart';
-import 'package:tank_mates/provider/active_tank_data.dart';
-import 'package:tank_mates/screens/about_screen.dart';
-import 'package:tank_mates/screens/edit_tank_screen.dart';
-import 'package:tank_mates/screens/loading_screen.dart';
-import 'package:tank_mates/screens/saved_tanks_screen.dart';
-import 'package:tank_mates/screens/settings_screen.dart';
+import 'package:tank_mates/bloc/edit_tank_view_model.dart';
+import 'package:tank_mates/bloc/settings_view_model.dart';
+import 'package:tank_mates/data/persistence/hive/SettingsRecord.dart';
+import 'package:tank_mates/data/persistence/hive/SpeciesRecord.dart';
+import 'package:tank_mates/data/persistence/hive/TankRecord.dart';
+import 'package:tank_mates/data/persistence/hive/hive_constants.dart';
+import 'package:tank_mates/ui/screens/about_screen.dart';
+import 'package:tank_mates/ui/screens/edit_tank_screen.dart';
+import 'package:tank_mates/ui/screens/loading_screen.dart';
+import 'package:tank_mates/ui/screens/saved_tanks_screen.dart';
+import 'package:tank_mates/ui/screens/settings_screen.dart';
 import 'package:tank_mates/util/constants.dart';
 
-void main() => runApp(TankMatesApp());
+void main() async {
+  runApp(Center(child: CircularProgressIndicator()));
+  await _initializeHiveDatabase();
+  runApp(TankMatesApp());
+}
+
+void _initializeHiveDatabase() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(SettingsRecordAdapter());
+  Hive.registerAdapter(SpeciesRecordAdapter());
+  Hive.registerAdapter(TankRecordAdapter());
+
+  await Hive.openBox(kTankTableKey);
+  await Hive.openBox(kSettingsTableKey);
+}
 
 class TankMatesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Action bar color
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: kBackGroundColor));
+
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ActiveTankData()),
-        Provider(create: (context) => AppDatabase()),
+        ChangeNotifierProvider(create: (context) => EditTankViewModel()),
+        ChangeNotifierProvider(create: (context) => SettingsViewModel()),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -29,7 +53,7 @@ class TankMatesApp extends StatelessWidget {
             accentColor: kPrimaryColor,
             scaffoldBackgroundColor: kBackGroundColor,
             primaryTextTheme: TextTheme(
-                title: TextStyle(
+                headline6: TextStyle(
               color: kPrimaryColor,
             ))),
         initialRoute: LoadingScreen.id,
@@ -39,6 +63,7 @@ class TankMatesApp extends StatelessWidget {
           SavedTanksScreen.id: (context) => SavedTanksScreen(),
           SettingsScreen.id: (context) => EditTankScreen(),
           AboutScreen.id: (context) => AboutScreen(),
+          SettingsScreen.id: (context) => SettingsScreen(),
         },
       ),
     );

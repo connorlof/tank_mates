@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// Assets
+const kFreshwaterSpeciesJson = 'assets/freshwater_data.json';
+
+// Screen IDs
 const kIdLoadingScreen = 'loading_screen';
 const kIdEditTankScreen = 'edit_tank_screen';
 const kIdSavedTanksScreen = 'saved_tanks_screen';
@@ -16,6 +20,8 @@ const String kRecFoodHerbivore =
 const String kRecFoodOmnivore =
     'Ensure you are providing your fish both plant and meat based foods';
 const String kRecUpgradeTank = 'You are overstocked, upgrade your tank size';
+const String kRecParamWarning =
+    'Warning, there may be incompatible parameters for the selected species';
 
 const kPrimaryColor = const Color(0xFF3D6E90);
 const kBackGroundColor = const Color(0xFFFDFDFD);
@@ -48,9 +54,7 @@ const kRecommendationTextStyle = TextStyle(
 );
 
 const List<AppBarChoice> appBarChoices = const <AppBarChoice>[
-  //const AppBarChoice('New Tank', kIdEditTankScreen),
-  //const AppBarChoice('Saved Tanks', kIdSavedTanksScreen),
-  //const AppBarChoice('App Settings', kIdSettingsScreen),
+  const AppBarChoice('Settings', kIdSettingsScreen),
   const AppBarChoice('About', kIdAboutScreen),
 ];
 
