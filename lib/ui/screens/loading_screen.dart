@@ -33,7 +33,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             size: 100.0,
           ),
           Text(
-            'Tank Mates',
+            '$appName',
             style: kTextStyleLarge,
           )
         ],
@@ -42,10 +42,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getFishData() async {
-    SpeciesJsonParser jsonParser = SpeciesJsonParser();
     final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
     final json = await rootBundle.loadString(kFreshwaterSpeciesJson);
-    final speciesList = jsonParser.parseJsonToSpecies(json);
+    final speciesList = SpeciesJsonParser().parseJsonToSpecies(json);
 
     viewModel.setAvailableSpecies(speciesList);
 
