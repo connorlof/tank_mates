@@ -13,6 +13,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final leftPadding = EdgeInsets.only(right: 16.0);
+
   @override
   Widget build(BuildContext context) {
     final SettingsViewModel settingsViewModel =
@@ -44,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 16.0),
+                padding: leftPadding,
                 child: Text(
                   'Temperature Unit',
                   style: kTextStyleSmall,
@@ -52,7 +54,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
+                  padding: leftPadding,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -99,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 16.0),
+                padding: leftPadding,
                 child: Text(
                   'Water Volume Unit',
                   style: kTextStyleSmall,
@@ -107,7 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
+                  padding: leftPadding,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[

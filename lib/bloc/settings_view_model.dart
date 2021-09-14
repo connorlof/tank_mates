@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tank_mates/data/model/settings.dart';
 import 'package:tank_mates/data/persistence/dao/settings_dao.dart';
+import 'package:tank_mates/util/unit_conversions.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   SettingsDao _settingsDao = SettingsDao();
@@ -35,42 +36,36 @@ class SettingsViewModel extends ChangeNotifier {
   int volumeQuantity(int gallons) {
     VolumeUnit volumeUnit = _currentSettings.volumeUnit;
 
-    if (volumeUnit == VolumeUnit.gallons) {
+    if (volumeUnit == VolumeUnit.gallons)
       return gallons;
-    } else {
-      int liters = (gallons / 0.26417).round();
-      return liters;
-    }
+    else
+      return UnitConversions.gallonsToLiters(gallons);
   }
 
   String volumeUnitString() {
     VolumeUnit volumeUnit = _currentSettings.volumeUnit;
 
-    if (volumeUnit == VolumeUnit.gallons) {
+    if (volumeUnit == VolumeUnit.gallons)
       return 'gallon';
-    } else {
+    else
       return 'liter';
-    }
   }
 
   int temperatureQuantity(int fahrenheit) {
     TemperatureUnit temperatureUnit = _currentSettings.temperatureUnit;
 
-    if (temperatureUnit == TemperatureUnit.fahrenheit) {
+    if (temperatureUnit == TemperatureUnit.fahrenheit)
       return fahrenheit;
-    } else {
-      int celsius = ((5 / 9) * (fahrenheit - 32)).round();
-      return celsius;
-    }
+    else
+      return UnitConversions.fahrenheitToCelsius(fahrenheit);
   }
 
   String temperatureUnitString() {
     TemperatureUnit temperatureUnit = _currentSettings.temperatureUnit;
 
-    if (temperatureUnit == TemperatureUnit.fahrenheit) {
+    if (temperatureUnit == TemperatureUnit.fahrenheit)
       return '°F';
-    } else {
+    else
       return '°C';
-    }
   }
 }

@@ -4,6 +4,7 @@ import 'package:tank_mates/bloc/edit_tank_view_model.dart';
 import 'package:tank_mates/ui/widgets/parameter_tile.dart';
 import 'package:tank_mates/ui/widgets/round_icon_button.dart';
 import 'package:tank_mates/util/constants.dart';
+import 'package:tank_mates/util/unit_conversions.dart';
 
 class TankSettingsScreen extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class TankSettingsScreen extends StatefulWidget {
 }
 
 class _TankSettingsScreenState extends State<TankSettingsScreen> {
+  final horizontalPadding = EdgeInsets.symmetric(horizontal: 8.0);
+
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<EditTankViewModel>(context).tankState;
@@ -35,7 +38,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
             ),
             Divider(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: horizontalPadding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -58,14 +61,14 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
             ),
             Divider(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: horizontalPadding,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   ParameterTile(
                     label:
-                        'Tank Size (${state.gallons} gallons | ${(state.gallons / 0.26417).round()} liters)',
+                        'Tank Size (${state.gallons} gallons | ${UnitConversions.gallonsToLiters(state.gallons)} liters)',
                     value: '${state.gallons} g',
                   ),
                   Row(
@@ -94,11 +97,7 @@ class _TankSettingsScreenState extends State<TankSettingsScreen> {
             TextButton(
               child: Text(
                 'Return To Edit Tank',
-                style: TextStyle(
-                  color: kBackGroundColor,
-                  fontFamily: 'Oswald',
-                  fontSize: 18.0,
-                ),
+                style: kPrimaryButtonTextStyle,
               ),
               style: TextButton.styleFrom(backgroundColor: kPrimaryColor),
               onPressed: () {
