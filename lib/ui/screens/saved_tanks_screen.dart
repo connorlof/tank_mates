@@ -70,7 +70,7 @@ class _SavedTanksScreenState extends State<SavedTanksScreen> {
           MenuBar(false),
           Expanded(
             child: FutureBuilder<List<Tank>>(
-              future: viewModel.loadSavedTanks(),
+              future: viewModel.savedTanks(),
               initialData: [],
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {

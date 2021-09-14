@@ -13,17 +13,19 @@ import 'package:tank_mates/util/constants.dart';
 class EditTankViewModel extends ChangeNotifier {
   TankState _tankState = TankState();
   TankDao _tankDao = TankDao();
+  TankValidator _tankValidator = TankValidator();
 
   List<Species> availableSpecies = [];
-  int speciesFilter = 0;
-  TankValidator tankValidator = TankValidator();
+  int speciesFilter = 0; // TODO: Move filtering into separate VM
 
   void updateTankState() {
-    _updateTankValues();
+    _updateParameters();
+    _updateTankStatus();
+    _updateRecommendations();
     notifyListeners();
   }
 
-  void _updateTankValues() {
+  void _updateParameters() {
     _tankState.aggressiveness =
         SpeciesComparator.determineAggressiveness(_tankState.speciesAdded);
     _tankState.careLevel =
@@ -46,16 +48,19 @@ class EditTankViewModel extends ChangeNotifier {
         SpeciesComparator.determineMinHardness(_tankState.speciesAdded);
     _tankState.hardnessMax =
         SpeciesComparator.determineMaxHardness(_tankState.speciesAdded);
+  }
 
-    if (_tankState.percentFilled > 130) {
+  void _updateTankStatus() {
+    if (_tankValidator.isTankOverstocked(_tankState)) {
       _tankState.status = TankStatus.Overstocked;
-    } else if (!tankValidator.isValidTank(_tankState)) {
+    } else if (!_tankValidator.isValidTank(_tankState)) {
       _tankState.status = TankStatus.Warning;
     } else {
       _tankState.status = TankStatus.Good;
     }
+  }
 
-    // Recommendations
+  void _updateRecommendations() {
     _tankState.recommendationList.clear();
 
     if (_tankState.status == TankStatus.Warning) {
@@ -66,11 +71,12 @@ class EditTankViewModel extends ChangeNotifier {
       _tankState.recommendationList.add(kRecUpgradeTank);
     }
 
-    List<Species> oversizedFish =
+    List<Species> oversizedSpecies =
         SpeciesComparator.determineFishOverMinTankSize(
             _tankState.speciesAdded, _tankState.gallons);
-    if (oversizedFish.length > 0) {
-      for (Species fish in oversizedFish) {
+
+    if (oversizedSpecies.length > 0) {
+      for (Species fish in oversizedSpecies) {
         _tankState.recommendationList.add(
             '${fish.name} needs at least a ${fish.minTankSize} gallon tank');
       }
@@ -92,7 +98,8 @@ class EditTankViewModel extends ChangeNotifier {
     return _tankState;
   }
 
-  UnmodifiableListView<String> get addedFishConsolidated {
+  /* Return a list of unique species with quantity of each, ex: 'x3 Angelfish' */
+  UnmodifiableListView<String> get addedSpeciesConsolidated {
     List<Species> distinctFish =
         LinkedHashSet<Species>.from(_tankState.speciesAdded).toList();
     List<int> numFish = List.filled(distinctFish.length, 0);
@@ -111,14 +118,19 @@ class EditTankViewModel extends ChangeNotifier {
     return UnmodifiableListView(consolidatedList);
   }
 
-  List<String> get addedFishNames {
-    List<String> fishNames = [];
+  /* Return a species object from a consolidated string, ex: 'x3 Angelfish' -> Species Object of Angelfish */
+  Species speciesFromConsolidatedString(String speciesString) {
+    var parts = speciesString.split(' ');
+    var speciesName = parts.sublist(1).join(' ').trim();
 
-    for (Species fish in _tankState.speciesAdded) {
-      fishNames.add(fish.name);
-    }
+    return availableSpecies
+        .where((species) => species.name == speciesName)
+        .first;
+  }
 
-    return fishNames;
+  /* Return the current amount of a species added to the tank, ex: 'x3 Angelfish' -> 3 */
+  int quantityOfSpecies(Species species) {
+    return _tankState.speciesAdded.where((spec) => spec == species).length;
   }
 
   void addFish(Species fish) {
@@ -126,6 +138,7 @@ class EditTankViewModel extends ChangeNotifier {
     updateTankState();
   }
 
+  /* Remove single instance of a species, ex: 'x3 Angelfish' -> 'x2 Angelfish' */
   void removeFishOnce(Species species) {
     int lastIndex = _tankState.speciesAdded.lastIndexOf(species);
 
@@ -134,6 +147,7 @@ class EditTankViewModel extends ChangeNotifier {
     updateTankState();
   }
 
+  /* Remove all instances of a species, ex: 'x3 Angelfish' -> 'x0 Angelfish' */
   void removeFish(Species species) {
     _tankState.speciesAdded.removeWhere((item) => item.key == species.key);
     updateTankState();
@@ -143,12 +157,13 @@ class EditTankViewModel extends ChangeNotifier {
     _tankState.tankName = name;
   }
 
-  void setTankGallons(int newGallons) {
-    _tankState.gallons = newGallons;
-  }
-
+  /* Set the available species the user can select from */
   void setAvailableSpecies(List<Species> fish) {
     availableSpecies = fish;
+  }
+
+  void setTankGallons(int newGallons) {
+    _tankState.gallons = newGallons;
   }
 
   void incrementTankGallons() {
@@ -158,6 +173,14 @@ class EditTankViewModel extends ChangeNotifier {
 
   void decrementTankGallons() {
     _tankState.gallons--;
+    updateTankState();
+  }
+
+  /* Resets the tank to default values, saving after this will save a new tank */
+  void resetTank() async {
+    _tankState = TankState();
+    speciesFilter = 0;
+
     updateTankState();
   }
 
@@ -184,13 +207,6 @@ class EditTankViewModel extends ChangeNotifier {
     updateTankState();
   }
 
-  void resetTank() async {
-    _tankState = TankState();
-    speciesFilter = 0;
-
-    updateTankState();
-  }
-
   void saveTank() async {
     final currentTank = Tank(_tankState.id, _tankState.tankName,
         _tankState.gallons, _tankState.speciesAdded);
@@ -204,21 +220,8 @@ class EditTankViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Tank>> loadSavedTanks() async {
+  Future<List<Tank>> savedTanks() async {
     return await _tankDao.getAllTanks(availableSpecies);
-  }
-
-  Species speciesFromConsolidatedString(String speciesString) {
-    var parts = speciesString.split(' ');
-    var speciesName = parts.sublist(1).join(' ').trim();
-
-    return availableSpecies
-        .where((species) => species.name == speciesName)
-        .first;
-  }
-
-  int quantityOfSpecies(Species species) {
-    return _tankState.speciesAdded.where((spec) => spec == species).length;
   }
 
   List<String> speciesGroups() {

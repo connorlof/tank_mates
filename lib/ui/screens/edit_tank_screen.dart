@@ -225,16 +225,16 @@ class _EditTankScreenState extends State<EditTankScreen> {
                         Container(
                           child: Consumer<EditTankViewModel>(
                               builder: (context, addedFishData, child) {
-                            if (addedFishData.addedFishConsolidated.length >
+                            if (addedFishData.addedSpeciesConsolidated.length >
                                 0) {
                               return Expanded(
                                 child: ListView.builder(
                                   itemCount: addedFishData
-                                      .addedFishConsolidated.length,
+                                      .addedSpeciesConsolidated.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     final species = addedFishData
-                                        .addedFishConsolidated[index];
+                                        .addedSpeciesConsolidated[index];
                                     return Slidable(
                                       actionPane: SlidableDrawerActionPane(),
                                       secondaryActions: <Widget>[

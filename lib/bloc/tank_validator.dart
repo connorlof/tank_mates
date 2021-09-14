@@ -17,6 +17,10 @@ class TankValidator {
     return true;
   }
 
+  bool isTankOverstocked(TankState tank) {
+    return tank.percentFilled > 130;
+  }
+
   bool isValidTemperature(TankState tank) {
     if (tank.tempMin <= tank.tempMax) {
       return true;
