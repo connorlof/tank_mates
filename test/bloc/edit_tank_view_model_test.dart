@@ -45,7 +45,7 @@ void testAddFish() {
 
     expect(viewModel.addedFish.length, 1);
     expect(viewModel.tankState.aggressiveness, Aggressiveness.aggressive);
-    expect(viewModel.tankState.fishAdded, [exampleFish]);
+    expect(viewModel.tankState.speciesAdded, [exampleFish]);
   });
 }
 
@@ -94,10 +94,10 @@ void testSetAvailableSpecies() {
 
   test('Set available species updates state', () {
     viewModel.setAvailableSpecies([exampleFish]);
-    expect(viewModel.availableFish.length, 1);
+    expect(viewModel.availableSpecies.length, 1);
 
     viewModel.setAvailableSpecies([]);
-    expect(viewModel.availableFish.length, 0);
+    expect(viewModel.availableSpecies.length, 0);
   });
 }
 

@@ -16,7 +16,11 @@ class TankState {
   int percentFilled = 0;
 
   List<String> recommendationList = ['Add some fish to your tank!'];
-  List<Species> fishAdded = [];
+  List<Species> speciesAdded = [];
+
+  bool hasSpecies() {
+    return speciesAdded.length > 0;
+  }
 }
 
 enum TankStatus { Good, Warning, Overstocked }

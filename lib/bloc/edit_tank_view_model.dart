@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:tank_mates/bloc/fish_comparator.dart';
+import 'package:tank_mates/bloc/species_comparator.dart';
 import 'package:tank_mates/bloc/tank_validator.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank.dart';
@@ -15,7 +15,7 @@ class EditTankViewModel extends ChangeNotifier {
   TankDao _tankDao = TankDao();
   int id = -1;
 
-  List<Species> availableFish = [];
+  List<Species> availableSpecies = [];
   int speciesFilter = 0;
   TankValidator tankValidator = TankValidator();
 
@@ -26,23 +26,27 @@ class EditTankViewModel extends ChangeNotifier {
 
   void _updateTankValues() {
     _tankState.aggressiveness =
-        FishComparator.determineAggressiveness(_tankState.fishAdded);
+        SpeciesComparator.determineAggressiveness(_tankState.speciesAdded);
     _tankState.careLevel =
-        FishComparator.determineCareLevel(_tankState.fishAdded);
+        SpeciesComparator.determineCareLevel(_tankState.speciesAdded);
 
-    _tankState.percentFilled = FishComparator.determineStockingPercent(
-        _tankState.fishAdded, _tankState.gallons);
+    _tankState.percentFilled = SpeciesComparator.determineStockingPercent(
+        _tankState.speciesAdded, _tankState.gallons);
 
-    _tankState.tempMin = FishComparator.determineMinTemp(_tankState.fishAdded);
-    _tankState.tempMax = FishComparator.determineMaxTemp(_tankState.fishAdded);
+    _tankState.tempMin =
+        SpeciesComparator.determineMinTemp(_tankState.speciesAdded);
+    _tankState.tempMax =
+        SpeciesComparator.determineMaxTemp(_tankState.speciesAdded);
 
-    _tankState.phMin = FishComparator.determineMinPh(_tankState.fishAdded);
-    _tankState.phMax = FishComparator.determineMaxPh(_tankState.fishAdded);
+    _tankState.phMin =
+        SpeciesComparator.determineMinPh(_tankState.speciesAdded);
+    _tankState.phMax =
+        SpeciesComparator.determineMaxPh(_tankState.speciesAdded);
 
     _tankState.hardnessMin =
-        FishComparator.determineMinHardness(_tankState.fishAdded);
+        SpeciesComparator.determineMinHardness(_tankState.speciesAdded);
     _tankState.hardnessMax =
-        FishComparator.determineMaxHardness(_tankState.fishAdded);
+        SpeciesComparator.determineMaxHardness(_tankState.speciesAdded);
 
     if (_tankState.percentFilled > 130) {
       _tankState.status = TankStatus.Overstocked;
@@ -63,8 +67,9 @@ class EditTankViewModel extends ChangeNotifier {
       _tankState.recommendationList.add(kRecUpgradeTank);
     }
 
-    List<Species> oversizedFish = FishComparator.determineFishOverMinTankSize(
-        _tankState.fishAdded, _tankState.gallons);
+    List<Species> oversizedFish =
+        SpeciesComparator.determineFishOverMinTankSize(
+            _tankState.speciesAdded, _tankState.gallons);
     if (oversizedFish.length > 0) {
       for (Species fish in oversizedFish) {
         _tankState.recommendationList.add(
@@ -72,16 +77,16 @@ class EditTankViewModel extends ChangeNotifier {
       }
     }
 
-    _tankState.recommendationList
-        .add(FishComparator.determineRecommendationFood(_tankState.fishAdded));
+    _tankState.recommendationList.add(
+        SpeciesComparator.determineRecommendationFood(_tankState.speciesAdded));
 
-    if (_tankState.fishAdded.isEmpty) {
+    if (_tankState.speciesAdded.isEmpty) {
       _tankState.recommendationList = ['Add some fish to your tank!'];
     }
   }
 
   UnmodifiableListView<Species> get addedFish {
-    return UnmodifiableListView(_tankState.fishAdded);
+    return UnmodifiableListView(_tankState.speciesAdded);
   }
 
   TankState get tankState {
@@ -90,12 +95,12 @@ class EditTankViewModel extends ChangeNotifier {
 
   UnmodifiableListView<String> get addedFishConsolidated {
     List<Species> distinctFish =
-        LinkedHashSet<Species>.from(_tankState.fishAdded).toList();
+        LinkedHashSet<Species>.from(_tankState.speciesAdded).toList();
     List<int> numFish = List.filled(distinctFish.length, 0);
     List<String> consolidatedList = [];
 
     for (int i = 0; i < distinctFish.length; i++) {
-      for (Species fish in _tankState.fishAdded) {
+      for (Species fish in _tankState.speciesAdded) {
         if (distinctFish[i] == fish) {
           numFish[i]++;
         }
@@ -110,7 +115,7 @@ class EditTankViewModel extends ChangeNotifier {
   List<String> get addedFishNames {
     List<String> fishNames = [];
 
-    for (Species fish in _tankState.fishAdded) {
+    for (Species fish in _tankState.speciesAdded) {
       fishNames.add(fish.name);
     }
 
@@ -118,20 +123,20 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   void addFish(Species fish) {
-    _tankState.fishAdded.add(fish);
+    _tankState.speciesAdded.add(fish);
     updateTankState();
   }
 
   void removeFishOnce(Species species) {
-    int lastIndex = _tankState.fishAdded.lastIndexOf(species);
+    int lastIndex = _tankState.speciesAdded.lastIndexOf(species);
 
-    if (lastIndex > -1) _tankState.fishAdded.removeAt(lastIndex);
+    if (lastIndex > -1) _tankState.speciesAdded.removeAt(lastIndex);
 
     updateTankState();
   }
 
   void removeFish(Species species) {
-    _tankState.fishAdded.removeWhere((item) => item.key == species.key);
+    _tankState.speciesAdded.removeWhere((item) => item.key == species.key);
     updateTankState();
   }
 
@@ -144,7 +149,7 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   void setAvailableSpecies(List<Species> fish) {
-    availableFish = fish;
+    availableSpecies = fish;
   }
 
   void incrementTankGallons() {
@@ -159,7 +164,7 @@ class EditTankViewModel extends ChangeNotifier {
 
   void loadSavedTank(Tank tankDataToLoad) {
     _tankState = TankState();
-    _tankState.fishAdded = [];
+    _tankState.speciesAdded = [];
 
     id = tankDataToLoad.id;
     _tankState.tankName = tankDataToLoad.name;
@@ -170,9 +175,9 @@ class EditTankViewModel extends ChangeNotifier {
 
     for (String key in addedSpeciesKeys) {
       //find fish object by key (scientific name)
-      for (Species fish in availableFish) {
+      for (Species fish in availableSpecies) {
         if (fish.key == key) {
-          _tankState.fishAdded.add(fish);
+          _tankState.speciesAdded.add(fish);
         }
       }
     }
@@ -189,8 +194,8 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   void saveTank() async {
-    final currentTank =
-        Tank(id, _tankState.tankName, _tankState.gallons, _tankState.fishAdded);
+    final currentTank = Tank(
+        id, _tankState.tankName, _tankState.gallons, _tankState.speciesAdded);
 
     final savedTank = await _tankDao.updateOrInsert(currentTank);
     id = savedTank.id;
@@ -203,23 +208,27 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   Future<List<Tank>> loadSavedTanks() async {
-    return await _tankDao.getAllTanks(availableFish);
+    return await _tankDao.getAllTanks(availableSpecies);
   }
 
   Species speciesFromConsolidatedString(String speciesString) {
     var parts = speciesString.split(' ');
     var speciesName = parts.sublist(1).join(' ').trim();
 
-    return availableFish.where((species) => species.name == speciesName).first;
+    return availableSpecies
+        .where((species) => species.name == speciesName)
+        .first;
   }
 
   int quantityOfSpecies(Species species) {
-    return _tankState.fishAdded.where((spec) => spec == species).length;
+    return _tankState.speciesAdded.where((spec) => spec == species).length;
   }
 
   List<String> speciesGroups() {
-    var speciesGroups =
-        availableFish.map((species) => species.speciesGroup).toSet().toList();
+    var speciesGroups = availableSpecies
+        .map((species) => species.speciesGroup)
+        .toSet()
+        .toList();
     speciesGroups.sort();
     return speciesGroups;
   }

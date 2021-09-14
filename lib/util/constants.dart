@@ -22,6 +22,7 @@ const String kRecFoodOmnivore =
 const String kRecUpgradeTank = 'You are overstocked, upgrade your tank size';
 const String kRecParamWarning =
     'Warning, there may be incompatible parameters for the selected species';
+const String kUnknownParameter = '?? - ??';
 
 const kPrimaryColor = const Color(0xFF3D6E90);
 const kBackGroundColor = const Color(0xFFFDFDFD);

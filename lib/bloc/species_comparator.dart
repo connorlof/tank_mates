@@ -1,14 +1,7 @@
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/util/constants.dart';
 
-class FishComparator {
-  //String phRange = "6.9-7.1";
-  //String temperatureRange = "75-86";
-  //String hardness = "1-10";
-
-  //String maximumAdultSize = "5";
-  //String diet = "Carnivore";
-
+class SpeciesComparator {
   static Aggressiveness determineAggressiveness(List<Species> fishList) {
     Aggressiveness highestAggressiveness = Aggressiveness.peaceful;
     List<Aggressiveness> aggressionLevels = [];

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tank_mates/bloc/fish_comparator.dart';
+import 'package:tank_mates/bloc/species_comparator.dart';
 import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/util/constants.dart';
 
@@ -36,7 +36,7 @@ void testDetermineAggressiveness() {
     final List<Species> fishList = [];
 
     Aggressiveness foundAggressiveness =
-        FishComparator.determineAggressiveness(fishList);
+        SpeciesComparator.determineAggressiveness(fishList);
 
     //expectation
     expect(foundAggressiveness, Aggressiveness.peaceful);
@@ -54,7 +54,7 @@ void testDetermineAggressiveness() {
     ];
 
     Aggressiveness determinedAggressiveness =
-        FishComparator.determineAggressiveness(fishList);
+        SpeciesComparator.determineAggressiveness(fishList);
 
     //expectation
     expect(determinedAggressiveness, Aggressiveness.peaceful);
@@ -72,7 +72,7 @@ void testDetermineAggressiveness() {
     ];
 
     Aggressiveness determinedAggressiveness =
-        FishComparator.determineAggressiveness(fishList);
+        SpeciesComparator.determineAggressiveness(fishList);
 
     //expectation
     expect(determinedAggressiveness, Aggressiveness.moderate);
@@ -90,7 +90,7 @@ void testDetermineAggressiveness() {
     ];
 
     Aggressiveness determinedAggressiveness =
-        FishComparator.determineAggressiveness(fishList);
+        SpeciesComparator.determineAggressiveness(fishList);
 
     //expectation
     expect(determinedAggressiveness, Aggressiveness.semi_aggressive);
@@ -107,7 +107,7 @@ void testDetermineAggressiveness() {
     ];
 
     Aggressiveness determinedAggressiveness =
-        FishComparator.determineAggressiveness(fishList);
+        SpeciesComparator.determineAggressiveness(fishList);
 
     //expectation
     expect(determinedAggressiveness, Aggressiveness.aggressive);
@@ -131,7 +131,8 @@ void testDetermineCareLevel() {
     //setup of test case
     final List<Species> fishList = [];
 
-    CareLevel determinedCareLevel = FishComparator.determineCareLevel(fishList);
+    CareLevel determinedCareLevel =
+        SpeciesComparator.determineCareLevel(fishList);
 
     //expectation
     expect(determinedCareLevel, CareLevel.easy);
@@ -141,7 +142,8 @@ void testDetermineCareLevel() {
     //setup of test case
     final List<Species> fishList = [easyFish, easyFish, easyFish, easyFish];
 
-    CareLevel determinedCareLevel = FishComparator.determineCareLevel(fishList);
+    CareLevel determinedCareLevel =
+        SpeciesComparator.determineCareLevel(fishList);
 
     //expectation
     expect(determinedCareLevel, CareLevel.easy);
@@ -152,7 +154,8 @@ void testDetermineCareLevel() {
     //setup of test case
     final List<Species> fishList = [easyFish, moderateFish, easyFish, easyFish];
 
-    CareLevel determinedCareLevel = FishComparator.determineCareLevel(fishList);
+    CareLevel determinedCareLevel =
+        SpeciesComparator.determineCareLevel(fishList);
 
     //expectation
     expect(determinedCareLevel, CareLevel.moderate);
@@ -169,7 +172,8 @@ void testDetermineCareLevel() {
       easyFish
     ];
 
-    CareLevel determinedCareLevel = FishComparator.determineCareLevel(fishList);
+    CareLevel determinedCareLevel =
+        SpeciesComparator.determineCareLevel(fishList);
 
     //expectation
     expect(determinedCareLevel, CareLevel.difficult);
@@ -184,7 +188,8 @@ void testDetermineCareLevel() {
       expertFish
     ];
 
-    CareLevel determinedCareLevel = FishComparator.determineCareLevel(fishList);
+    CareLevel determinedCareLevel =
+        SpeciesComparator.determineCareLevel(fishList);
 
     //expectation
     expect(determinedCareLevel, CareLevel.expert);
@@ -202,7 +207,7 @@ void testDetermineMinTankSize() {
     //setup of test case
     final List<Species> fishList = [];
 
-    int minTankSize = FishComparator.determineMinTankSize(fishList);
+    int minTankSize = SpeciesComparator.determineMinTankSize(fishList);
 
     //expectation
     expect(minTankSize, 0);
@@ -214,7 +219,7 @@ void testDetermineMinTankSize() {
     //setup of test case
     final List<Species> fishList = [fishSize1];
 
-    int minTankSize = FishComparator.determineMinTankSize(fishList);
+    int minTankSize = SpeciesComparator.determineMinTankSize(fishList);
 
     //expectation
     expect(minTankSize, fishSize1.minTankSize);
@@ -226,7 +231,7 @@ void testDetermineMinTankSize() {
     //setup of test case
     final List<Species> fishList = [fishSize1, fishSize2];
 
-    int minTankSize = FishComparator.determineMinTankSize(fishList);
+    int minTankSize = SpeciesComparator.determineMinTankSize(fishList);
 
     //expectation
     expect(minTankSize, fishSize2.minTankSize);
@@ -245,7 +250,7 @@ void testDetermineStockingPercent() {
     final int gallons = 0;
 
     int stockingPercent =
-        FishComparator.determineStockingPercent(fishList, gallons);
+        SpeciesComparator.determineStockingPercent(fishList, gallons);
 
     //expectation
     expect(stockingPercent, 0);
@@ -259,7 +264,7 @@ void testDetermineStockingPercent() {
     final int gallons = fishSize1.maximumAdultSize.toInt();
 
     int stockingPercent =
-        FishComparator.determineStockingPercent(fishList, gallons);
+        SpeciesComparator.determineStockingPercent(fishList, gallons);
 
     //expectation
     expect(stockingPercent, 100);
@@ -273,7 +278,7 @@ void testDetermineStockingPercent() {
     final int gallons = fishSize1.maximumAdultSize.toInt() * 2;
 
     int stockingPercent =
-        FishComparator.determineStockingPercent(fishList, gallons);
+        SpeciesComparator.determineStockingPercent(fishList, gallons);
 
     //expectation
     expect(stockingPercent, 50);
@@ -287,7 +292,7 @@ void testDetermineStockingPercent() {
     final int gallons = fishSize1.maximumAdultSize.toInt();
 
     int stockingPercent =
-        FishComparator.determineStockingPercent(fishList, gallons);
+        SpeciesComparator.determineStockingPercent(fishList, gallons);
 
     //expectation
     expect(stockingPercent, 200);
@@ -300,7 +305,7 @@ void testDetermineStockingPercent() {
     final int gallons = 0;
 
     int stockingPercent =
-        FishComparator.determineStockingPercent(fishList, gallons);
+        SpeciesComparator.determineStockingPercent(fishList, gallons);
 
     //expectation
     expect(stockingPercent, 999);
@@ -324,7 +329,7 @@ void testDetermineMinTemp() {
     //setup of test case
     final List<Species> fishList = [];
 
-    int minTemp = FishComparator.determineMinTemp(fishList);
+    int minTemp = SpeciesComparator.determineMinTemp(fishList);
 
     //expectation
     expect(minTemp, 0);
@@ -336,7 +341,7 @@ void testDetermineMinTemp() {
     //setup of test case
     final List<Species> fishList = [fish1];
 
-    int minTemp = FishComparator.determineMinTemp(fishList);
+    int minTemp = SpeciesComparator.determineMinTemp(fishList);
 
     //expectation
     expect(minTemp, fish1.tempMin);
@@ -348,7 +353,7 @@ void testDetermineMinTemp() {
     //setup of test case
     final List<Species> fishList = [fish1, fish2, fish3];
 
-    int minTemp = FishComparator.determineMinTemp(fishList);
+    int minTemp = SpeciesComparator.determineMinTemp(fishList);
 
     //expectation
     expect(minTemp, fish1.tempMin);
@@ -372,7 +377,7 @@ void testDetermineMaxTemp() {
     //setup of test case
     final List<Species> fishList = [];
 
-    int maxTemp = FishComparator.determineMaxTemp(fishList);
+    int maxTemp = SpeciesComparator.determineMaxTemp(fishList);
 
     //expectation
     expect(maxTemp, 100);
@@ -384,7 +389,7 @@ void testDetermineMaxTemp() {
     //setup of test case
     final List<Species> fishList = [fish1];
 
-    int maxTemp = FishComparator.determineMaxTemp(fishList);
+    int maxTemp = SpeciesComparator.determineMaxTemp(fishList);
 
     //expectation
     expect(maxTemp, fish1.tempMax);
@@ -396,7 +401,7 @@ void testDetermineMaxTemp() {
     //setup of test case
     final List<Species> fishList = [fish1, fish2, fish3];
 
-    int maxTemp = FishComparator.determineMaxTemp(fishList);
+    int maxTemp = SpeciesComparator.determineMaxTemp(fishList);
 
     //expectation
     expect(maxTemp, fish1.tempMax);
@@ -421,7 +426,7 @@ void testDetermineMinPh() {
     //setup of test case
     final List<Species> fishList = [];
 
-    double minPh = FishComparator.determineMinPh(fishList);
+    double minPh = SpeciesComparator.determineMinPh(fishList);
 
     //expectation
     expect(minPh, 0.0);
@@ -433,7 +438,7 @@ void testDetermineMinPh() {
     //setup of test case
     final List<Species> fishList = [fish1];
 
-    double minPh = FishComparator.determineMinPh(fishList);
+    double minPh = SpeciesComparator.determineMinPh(fishList);
 
     //expectation
     expect(minPh, fish1.phMin);
@@ -445,7 +450,7 @@ void testDetermineMinPh() {
     //setup of test case
     final List<Species> fishList = [fish1, fish2, fish3];
 
-    double minPh = FishComparator.determineMinPh(fishList);
+    double minPh = SpeciesComparator.determineMinPh(fishList);
 
     //expectation
     expect(minPh, fish3.phMin);
@@ -470,7 +475,7 @@ void testDetermineMaxPh() {
     //setup of test case
     final List<Species> fishList = [];
 
-    double maxPh = FishComparator.determineMaxPh(fishList);
+    double maxPh = SpeciesComparator.determineMaxPh(fishList);
 
     //expectation
     expect(maxPh, 14.0);
@@ -482,7 +487,7 @@ void testDetermineMaxPh() {
     //setup of test case
     final List<Species> fishList = [fish1];
 
-    double maxPh = FishComparator.determineMaxPh(fishList);
+    double maxPh = SpeciesComparator.determineMaxPh(fishList);
 
     //expectation
     expect(maxPh, fish1.phMax);
@@ -494,7 +499,7 @@ void testDetermineMaxPh() {
     //setup of test case
     final List<Species> fishList = [fish1, fish2, fish3];
 
-    double maxPh = FishComparator.determineMaxPh(fishList);
+    double maxPh = SpeciesComparator.determineMaxPh(fishList);
 
     //expectation
     expect(maxPh, fish1.phMax);
@@ -519,7 +524,7 @@ void testDetermineMinHardness() {
     //setup of test case
     final List<Species> fishList = [];
 
-    int minHardness = FishComparator.determineMinHardness(fishList);
+    int minHardness = SpeciesComparator.determineMinHardness(fishList);
 
     //expectation
     expect(minHardness, 0);
@@ -531,7 +536,7 @@ void testDetermineMinHardness() {
     //setup of test case
     final List<Species> fishList = [fish1];
 
-    int minHardness = FishComparator.determineMinHardness(fishList);
+    int minHardness = SpeciesComparator.determineMinHardness(fishList);
 
     //expectation
     expect(minHardness, fish1.hardnessMin);
@@ -543,7 +548,7 @@ void testDetermineMinHardness() {
     //setup of test case
     final List<Species> fishList = [fish1, fish2, fish3];
 
-    int minHardness = FishComparator.determineMinHardness(fishList);
+    int minHardness = SpeciesComparator.determineMinHardness(fishList);
 
     //expectation
     expect(minHardness, fish3.hardnessMin);
@@ -568,7 +573,7 @@ void testDetermineMaxHardness() {
     //setup of test case
     final List<Species> fishList = [];
 
-    int maxHardness = FishComparator.determineMaxHardness(fishList);
+    int maxHardness = SpeciesComparator.determineMaxHardness(fishList);
 
     //expectation
     expect(maxHardness, 100);
@@ -580,7 +585,7 @@ void testDetermineMaxHardness() {
     //setup of test case
     final List<Species> fishList = [fish1];
 
-    int maxHardness = FishComparator.determineMaxHardness(fishList);
+    int maxHardness = SpeciesComparator.determineMaxHardness(fishList);
 
     //expectation
     expect(maxHardness, fish1.hardnessMax);
@@ -592,7 +597,7 @@ void testDetermineMaxHardness() {
     //setup of test case
     final List<Species> fishList = [fish1, fish2, fish3];
 
-    int maxHardness = FishComparator.determineMaxHardness(fishList);
+    int maxHardness = SpeciesComparator.determineMaxHardness(fishList);
 
     //expectation
     expect(maxHardness, fish1.hardnessMax);
@@ -616,7 +621,7 @@ void testDetermineRecommendationFood() {
     final List<Species> fishList = [];
 
     //expectation
-    expect(null, FishComparator.determineRecommendationFood(fishList));
+    expect(null, SpeciesComparator.determineRecommendationFood(fishList));
   });
 
   test(
@@ -631,7 +636,7 @@ void testDetermineRecommendationFood() {
 
     //expectation
     expect(kRecFoodCarnivore,
-        FishComparator.determineRecommendationFood(fishList));
+        SpeciesComparator.determineRecommendationFood(fishList));
   });
 
   test(
@@ -646,7 +651,7 @@ void testDetermineRecommendationFood() {
 
     //expectation
     expect(kRecFoodHerbivore,
-        FishComparator.determineRecommendationFood(fishList));
+        SpeciesComparator.determineRecommendationFood(fishList));
   });
 
   test(
@@ -660,8 +665,8 @@ void testDetermineRecommendationFood() {
     ];
 
     //expectation
-    expect(
-        kRecFoodOmnivore, FishComparator.determineRecommendationFood(fishList));
+    expect(kRecFoodOmnivore,
+        SpeciesComparator.determineRecommendationFood(fishList));
   });
 
   test(
@@ -671,8 +676,8 @@ void testDetermineRecommendationFood() {
     final List<Species> fishList = [fishOmnivore, fishOmnivore, fishOmnivore];
 
     //expectation
-    expect(
-        kRecFoodOmnivore, FishComparator.determineRecommendationFood(fishList));
+    expect(kRecFoodOmnivore,
+        SpeciesComparator.determineRecommendationFood(fishList));
   });
 
   test(
@@ -682,8 +687,8 @@ void testDetermineRecommendationFood() {
     final List<Species> fishList = [fishOmnivore, fishCarnivore, fishHerbivore];
 
     //expectation
-    expect(
-        kRecFoodOmnivore, FishComparator.determineRecommendationFood(fishList));
+    expect(kRecFoodOmnivore,
+        SpeciesComparator.determineRecommendationFood(fishList));
   });
 }
 
@@ -704,7 +709,8 @@ void testDetermineFishOverMinTankSize() {
     final int tankSize = 20;
 
     //expectation
-    expect([], FishComparator.determineFishOverMinTankSize(fishList, tankSize));
+    expect(
+        [], SpeciesComparator.determineFishOverMinTankSize(fishList, tankSize));
   });
 
   test(
@@ -715,7 +721,8 @@ void testDetermineFishOverMinTankSize() {
     final int tankSize = 20;
 
     //expectation
-    expect([], FishComparator.determineFishOverMinTankSize(fishList, tankSize));
+    expect(
+        [], SpeciesComparator.determineFishOverMinTankSize(fishList, tankSize));
   });
 
   test(
@@ -727,7 +734,7 @@ void testDetermineFishOverMinTankSize() {
 
     //expectation
     expect([fish55],
-        FishComparator.determineFishOverMinTankSize(fishList, tankSize));
+        SpeciesComparator.determineFishOverMinTankSize(fishList, tankSize));
   });
 
   test(
@@ -739,6 +746,6 @@ void testDetermineFishOverMinTankSize() {
 
     //expectation
     expect([fish55],
-        FishComparator.determineFishOverMinTankSize(fishList, tankSize));
+        SpeciesComparator.determineFishOverMinTankSize(fishList, tankSize));
   });
 }

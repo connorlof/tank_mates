@@ -49,9 +49,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     viewModel.setAvailableSpecies(speciesList);
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return EditTankScreen(
-        speciesList: speciesList,
-      );
+      return EditTankScreen();
     }));
   }
 }

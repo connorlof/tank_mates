@@ -5,9 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tank_mates/bloc/edit_tank_view_model.dart';
-import 'package:tank_mates/bloc/fish_comparator.dart';
 import 'package:tank_mates/bloc/settings_view_model.dart';
-import 'package:tank_mates/data/model/species.dart';
 import 'package:tank_mates/data/model/tank_state.dart';
 import 'package:tank_mates/ui/screens/about_screen.dart';
 import 'package:tank_mates/ui/screens/add_fish_screen.dart';
@@ -22,35 +20,18 @@ import 'package:tank_mates/ui/widgets/small_card_button.dart';
 import 'package:tank_mates/util/constants.dart';
 
 class EditTankScreen extends StatefulWidget {
-  EditTankScreen({this.speciesList});
-
   static final String id = kIdEditTankScreen;
-  final List<Species> speciesList;
 
   @override
   _EditTankScreenState createState() => _EditTankScreenState();
 }
 
 class _EditTankScreenState extends State<EditTankScreen> {
-  FishComparator fishComparator = FishComparator();
-  List<String> speciesAvailable = <String>[];
-  List<Species> addedSpecies = [];
-
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-
-    generateAvailableFishList();
-    loadSettings();
-  }
-
-  void generateAvailableFishList() {
-    for (int i = 0; i < widget.speciesList.length; i++) {
-      speciesAvailable.add(widget.speciesList[i].name);
-    }
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    _loadSettings();
   }
 
   void _selectTopIndex(AppBarChoice choice) {
@@ -63,7 +44,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
     }
   }
 
-  void loadSettings() async {
+  void _loadSettings() async {
     final viewModel = Provider.of<SettingsViewModel>(context, listen: false);
     await viewModel.loadSettings();
 
@@ -135,29 +116,29 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   label: 'Temperature',
                                   value: isValueValid(state.tempMin.toDouble(),
                                               state.tempMax.toDouble()) &&
-                                          state.fishAdded.length > 0
+                                          state.hasSpecies()
                                       ? '${settingsViewModel.temperatureQuantity(state.tempMin)} - '
                                           '${settingsViewModel.temperatureQuantity(state.tempMax)} ${settingsViewModel.temperatureUnitString()}'
-                                      : '?? - ??',
+                                      : '$kUnknownParameter',
                                 ),
                                 ParameterTile(
                                   label: 'pH',
                                   value:
                                       isValueValid(state.phMin, state.phMax) &&
-                                              state.fishAdded.length > 0
+                                              state.hasSpecies()
                                           ? '${state.phMin} - '
                                               '${state.phMax}'
-                                          : '?? - ??',
+                                          : '$kUnknownParameter',
                                 ),
                                 ParameterTile(
                                   label: 'Hardness',
                                   value: isValueValid(
                                               state.hardnessMin.toDouble(),
                                               state.hardnessMax.toDouble()) &&
-                                          state.fishAdded.length > 0
+                                          state.hasSpecies()
                                       ? '${state.hardnessMin} - '
                                           '${state.hardnessMax} dKH'
-                                      : '?? - ??',
+                                      : '$kUnknownParameter',
                                 ),
                                 ParameterTile(
                                   label: 'Care Level',
@@ -235,7 +216,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                '${state.fishAdded.length} fish added',
+                                '${state.speciesAdded.length} fish added',
                                 style: kTextStyleHeader,
                               ),
                             ],
@@ -361,7 +342,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                           .viewInsets
                                           .bottom),
                                   child: AddFishScreen(
-                                    availableSpecies: widget.speciesList,
+                                    availableSpecies:
+                                        viewModel.availableSpecies,
                                   ),
                                 ),
                               ),
