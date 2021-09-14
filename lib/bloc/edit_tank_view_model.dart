@@ -13,7 +13,6 @@ import 'package:tank_mates/util/constants.dart';
 class EditTankViewModel extends ChangeNotifier {
   TankState _tankState = TankState();
   TankDao _tankDao = TankDao();
-  int id = -1;
 
   List<Species> availableSpecies = [];
   int speciesFilter = 0;
@@ -166,7 +165,7 @@ class EditTankViewModel extends ChangeNotifier {
     _tankState = TankState();
     _tankState.speciesAdded = [];
 
-    id = tankDataToLoad.id;
+    _tankState.id = tankDataToLoad.id;
     _tankState.tankName = tankDataToLoad.name;
     _tankState.gallons = tankDataToLoad.gallons;
 
@@ -187,19 +186,17 @@ class EditTankViewModel extends ChangeNotifier {
 
   void resetTank() async {
     _tankState = TankState();
-    id = -1;
     speciesFilter = 0;
 
     updateTankState();
   }
 
   void saveTank() async {
-    final currentTank = Tank(
-        id, _tankState.tankName, _tankState.gallons, _tankState.speciesAdded);
+    final currentTank = Tank(_tankState.id, _tankState.tankName,
+        _tankState.gallons, _tankState.speciesAdded);
 
     final savedTank = await _tankDao.updateOrInsert(currentTank);
-    id = savedTank.id;
-    print('Tank saved, current ID: $id');
+    _tankState.id = savedTank.id;
   }
 
   void deleteTank(Tank tank) async {

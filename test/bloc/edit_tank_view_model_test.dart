@@ -131,10 +131,10 @@ void testLoadSavedTank() {
   final EditTankViewModel viewModel = EditTankViewModel();
 
   test('loadSavedTank reflects correct ID', () {
-    expect(viewModel.id, kDefaultTankId);
+    expect(viewModel.tankState.id, kDefaultTankId);
 
     viewModel.loadSavedTank(Tank(123, '', 0, []));
-    expect(viewModel.id, 123);
+    expect(viewModel.tankState.id, 123);
   });
 }
 
@@ -142,12 +142,12 @@ void testResetTank() {
   final EditTankViewModel viewModel = EditTankViewModel();
 
   test('resetTank reflects correct ID', () {
-    expect(viewModel.id, kDefaultTankId);
+    expect(viewModel.tankState.id, kDefaultTankId);
 
     viewModel.loadSavedTank(Tank(123, '', 0, []));
-    expect(viewModel.id, 123);
+    expect(viewModel.tankState.id, 123);
 
     viewModel.resetTank();
-    expect(viewModel.id, kDefaultTankId);
+    expect(viewModel.tankState.id, kDefaultTankId);
   });
 }
