@@ -117,8 +117,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                   value: isValueValid(state.tempMin.toDouble(),
                                               state.tempMax.toDouble()) &&
                                           state.hasSpecies()
-                                      ? '${settingsViewModel.temperatureQuantity(state.tempMin)} - '
-                                          '${settingsViewModel.temperatureQuantity(state.tempMax)} ${settingsViewModel.temperatureUnitString()}'
+                                      ? '${settingsViewModel.temperature(state.tempMin)} - '
+                                          '${settingsViewModel.temperature(state.tempMax)} ${settingsViewModel.temperatureUnit()}'
                                       : '$kUnknownParameter',
                                 ),
                                 ParameterTile(
@@ -196,7 +196,7 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      '${settingsViewModel.volumeQuantity(state.gallons)} ${settingsViewModel.volumeUnitString()} aquarium',
+                                      '${settingsViewModel.volume(state.gallons)} ${settingsViewModel.volumeUnit()} aquarium',
                                       style: kTextStyleSmall,
                                     ),
                                     Icon(
@@ -246,8 +246,8 @@ class _EditTankScreenState extends State<EditTankScreen> {
                                             foregroundColor: kPrimaryColor,
                                             color: kBackGroundColor,
                                             icon: Icons.delete,
-                                            onTap: () => viewModel.removeFish(
-                                                viewModel
+                                            onTap: () => viewModel
+                                                .removeSpecies(viewModel
                                                     .speciesFromConsolidatedString(
                                                         species)),
                                           ),

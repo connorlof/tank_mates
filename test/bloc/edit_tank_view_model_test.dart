@@ -41,7 +41,7 @@ void testAddFish() {
     expect(viewModel.tankState.aggressiveness, Aggressiveness.peaceful);
 
     //add fish
-    viewModel.addFish(exampleFish);
+    viewModel.addSpecies(exampleFish);
 
     expect(viewModel.addedFish.length, 1);
     expect(viewModel.tankState.aggressiveness, Aggressiveness.aggressive);
@@ -56,11 +56,11 @@ void testRemoveFish() {
     expect(viewModel.addedFish.length, 0);
 
     // Add species
-    viewModel.addFish(exampleFish);
+    viewModel.addSpecies(exampleFish);
     expect(viewModel.addedFish.length, 1);
 
     // Remove species
-    viewModel.removeFish(exampleFish);
+    viewModel.removeSpecies(exampleFish);
     expect(viewModel.addedFish.length, 0);
   });
 }

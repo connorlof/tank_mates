@@ -54,7 +54,7 @@ class _EditSpeciesScreenState extends State<EditSpeciesScreen> {
                           setState(() {
                             quantity--;
                             if (quantity < 0) quantity = 0;
-                            viewModel.removeFishOnce(species);
+                            viewModel.removeSpeciesOnce(species);
                           });
                         },
                       ),
@@ -66,7 +66,7 @@ class _EditSpeciesScreenState extends State<EditSpeciesScreen> {
                         onPressed: () {
                           setState(() {
                             quantity++;
-                            viewModel.addFish(species);
+                            viewModel.addSpecies(species);
                           });
                         },
                       ),

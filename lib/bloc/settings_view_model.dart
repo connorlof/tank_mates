@@ -8,6 +8,10 @@ class SettingsViewModel extends ChangeNotifier {
   SettingsDao _settingsDao = SettingsDao();
   Settings _currentSettings = Settings.general();
 
+  Settings get settings {
+    return _currentSettings;
+  }
+
   Future loadSettings() async {
     Settings settings = await _settingsDao.getSettings();
 
@@ -15,10 +19,6 @@ class SettingsViewModel extends ChangeNotifier {
       _currentSettings = settings;
       _settingsDao.update(settings);
     }
-  }
-
-  Settings get settings {
-    return _currentSettings;
   }
 
   void updateTemperatureUnit(TemperatureUnit newUnit) async {
@@ -33,7 +33,7 @@ class SettingsViewModel extends ChangeNotifier {
     _currentSettings = settings;
   }
 
-  int volumeQuantity(int gallons) {
+  int volume(int gallons) {
     VolumeUnit volumeUnit = _currentSettings.volumeUnit;
 
     if (volumeUnit == VolumeUnit.gallons)
@@ -42,7 +42,7 @@ class SettingsViewModel extends ChangeNotifier {
       return UnitConversions.gallonsToLiters(gallons);
   }
 
-  String volumeUnitString() {
+  String volumeUnit() {
     VolumeUnit volumeUnit = _currentSettings.volumeUnit;
 
     if (volumeUnit == VolumeUnit.gallons)
@@ -51,7 +51,7 @@ class SettingsViewModel extends ChangeNotifier {
       return 'liter';
   }
 
-  int temperatureQuantity(int fahrenheit) {
+  int temperature(int fahrenheit) {
     TemperatureUnit temperatureUnit = _currentSettings.temperatureUnit;
 
     if (temperatureUnit == TemperatureUnit.fahrenheit)
@@ -60,7 +60,7 @@ class SettingsViewModel extends ChangeNotifier {
       return UnitConversions.fahrenheitToCelsius(fahrenheit);
   }
 
-  String temperatureUnitString() {
+  String temperatureUnit() {
     TemperatureUnit temperatureUnit = _currentSettings.temperatureUnit;
 
     if (temperatureUnit == TemperatureUnit.fahrenheit)

@@ -80,7 +80,7 @@ class AddFishScreen extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      viewModel.addFish(activeAvailableSpecies[index]);
+                      viewModel.addSpecies(activeAvailableSpecies[index]);
                       Navigator.pop(context);
                     },
                     child: Column(

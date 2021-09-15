@@ -133,13 +133,13 @@ class EditTankViewModel extends ChangeNotifier {
     return _tankState.speciesAdded.where((spec) => spec == species).length;
   }
 
-  void addFish(Species fish) {
-    _tankState.speciesAdded.add(fish);
+  void addSpecies(Species species) {
+    _tankState.speciesAdded.add(species);
     updateTankState();
   }
 
   /* Remove single instance of a species, ex: 'x3 Angelfish' -> 'x2 Angelfish' */
-  void removeFishOnce(Species species) {
+  void removeSpeciesOnce(Species species) {
     int lastIndex = _tankState.speciesAdded.lastIndexOf(species);
 
     if (lastIndex > -1) _tankState.speciesAdded.removeAt(lastIndex);
@@ -148,7 +148,7 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   /* Remove all instances of a species, ex: 'x3 Angelfish' -> 'x0 Angelfish' */
-  void removeFish(Species species) {
+  void removeSpecies(Species species) {
     _tankState.speciesAdded.removeWhere((item) => item.key == species.key);
     updateTankState();
   }
@@ -158,8 +158,8 @@ class EditTankViewModel extends ChangeNotifier {
   }
 
   /* Set the available species the user can select from */
-  void setAvailableSpecies(List<Species> fish) {
-    availableSpecies = fish;
+  void setAvailableSpecies(List<Species> speciesList) {
+    availableSpecies = speciesList;
   }
 
   void setTankGallons(int newGallons) {
