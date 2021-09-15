@@ -14,6 +14,7 @@ class EditTankViewModel extends ChangeNotifier {
   TankState _tankState = TankState();
   TankDao _tankDao = TankDao();
   TankValidator _tankValidator = TankValidator();
+  SpeciesComparator _speciesComparator = SpeciesComparator();
 
   List<Species> availableSpecies = [];
   int speciesFilter = 0; // TODO: Move filtering into separate VM
@@ -27,27 +28,27 @@ class EditTankViewModel extends ChangeNotifier {
 
   void _updateParameters() {
     _tankState.aggressiveness =
-        SpeciesComparator.determineAggressiveness(_tankState.speciesAdded);
+        _speciesComparator.determineAggressiveness(_tankState.speciesAdded);
     _tankState.careLevel =
-        SpeciesComparator.determineCareLevel(_tankState.speciesAdded);
+        _speciesComparator.determineCareLevel(_tankState.speciesAdded);
 
-    _tankState.percentFilled = SpeciesComparator.determineStockingPercent(
+    _tankState.percentFilled = _speciesComparator.determineStockingPercent(
         _tankState.speciesAdded, _tankState.gallons);
 
     _tankState.tempMin =
-        SpeciesComparator.determineMinTemp(_tankState.speciesAdded);
+        _speciesComparator.determineMinTemp(_tankState.speciesAdded);
     _tankState.tempMax =
-        SpeciesComparator.determineMaxTemp(_tankState.speciesAdded);
+        _speciesComparator.determineMaxTemp(_tankState.speciesAdded);
 
     _tankState.phMin =
-        SpeciesComparator.determineMinPh(_tankState.speciesAdded);
+        _speciesComparator.determineMinPh(_tankState.speciesAdded);
     _tankState.phMax =
-        SpeciesComparator.determineMaxPh(_tankState.speciesAdded);
+        _speciesComparator.determineMaxPh(_tankState.speciesAdded);
 
     _tankState.hardnessMin =
-        SpeciesComparator.determineMinHardness(_tankState.speciesAdded);
+        _speciesComparator.determineMinHardness(_tankState.speciesAdded);
     _tankState.hardnessMax =
-        SpeciesComparator.determineMaxHardness(_tankState.speciesAdded);
+        _speciesComparator.determineMaxHardness(_tankState.speciesAdded);
   }
 
   void _updateTankStatus() {
@@ -72,7 +73,7 @@ class EditTankViewModel extends ChangeNotifier {
     }
 
     List<Species> oversizedSpecies =
-        SpeciesComparator.determineFishOverMinTankSize(
+        _speciesComparator.determineFishOverMinTankSize(
             _tankState.speciesAdded, _tankState.gallons);
 
     if (oversizedSpecies.length > 0) {
@@ -82,8 +83,8 @@ class EditTankViewModel extends ChangeNotifier {
       }
     }
 
-    _tankState.recommendationList.add(
-        SpeciesComparator.determineRecommendationFood(_tankState.speciesAdded));
+    _tankState.recommendationList.add(_speciesComparator
+        .determineRecommendationFood(_tankState.speciesAdded));
 
     if (_tankState.speciesAdded.isEmpty) {
       _tankState.recommendationList = ['Add some fish to your tank!'];
