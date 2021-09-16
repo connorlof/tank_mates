@@ -22,30 +22,21 @@ void testIsValidTemperature() {
   invalidTank.tempMax = 65;
 
   test('isValidTemperature returns true for a new Tank object', () {
-    //setup of test case
     bool isValid = tankValidator.isValidTemperature(defaultTank);
-
-    //expectation
     expect(isValid, true);
   });
 
   test(
       'isValidTemperature returns true for a Tank with a tempMin lower than tempMax',
       () {
-    //setup of test case
     bool isValid = tankValidator.isValidTemperature(validTank);
-
-    //expectation
     expect(isValid, true);
   });
 
   test(
       'isValidTemperature returns false for a Tank with a tempMin greater than tempMax',
       () {
-    //setup of test case
     bool isValid = tankValidator.isValidTemperature(invalidTank);
-
-    //expectation
     expect(isValid, false);
   });
 }
@@ -64,27 +55,18 @@ void testIsValidPh() {
   invalidTank.phMax = 6.0;
 
   test('isValidPh returns true for a new Tank object', () {
-    //setup of test case
     bool isValid = tankValidator.isValidPh(defaultTank);
-
-    //expectation
     expect(isValid, true);
   });
 
   test('isValidPh returns true for a Tank with a phMin lower than phMax', () {
-    //setup of test case
     bool isValid = tankValidator.isValidPh(validTank);
-
-    //expectation
     expect(isValid, true);
   });
 
   test('isValidPh returns false for a Tank with a phMin greater than phMax',
       () {
-    //setup of test case
     bool isValid = tankValidator.isValidPh(invalidTank);
-
-    //expectation
     expect(isValid, false);
   });
 }
@@ -103,30 +85,21 @@ void testIsValidHardness() {
   invalidTank.hardnessMax = 10;
 
   test('isValidHardness returns true for a new Tank object', () {
-    //setup of test case
     bool isValid = tankValidator.isValidHardness(defaultTank);
-
-    //expectation
     expect(isValid, true);
   });
 
   test(
       'isValidHardness returns true for a Tank with a hardnessMin lower than hardnessMax',
       () {
-    //setup of test case
     bool isValid = tankValidator.isValidHardness(validTank);
-
-    //expectation
     expect(isValid, true);
   });
 
   test(
       'isValidHardness returns false for a Tank with a hardnessMin greater than hardnessMax',
       () {
-    //setup of test case
     bool isValid = tankValidator.isValidHardness(invalidTank);
-
-    //expectation
     expect(isValid, false);
   });
 }
