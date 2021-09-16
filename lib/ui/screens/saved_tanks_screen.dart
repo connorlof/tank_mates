@@ -166,7 +166,7 @@ Widget _buildListItem(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  itemTank.nameWithMaxLength(20),
+                  itemTank.nameTrimmedToLength(20),
                   style: kTextStyleLarge,
                 ),
                 Text(

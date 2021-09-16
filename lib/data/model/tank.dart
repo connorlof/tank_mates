@@ -28,12 +28,14 @@ class Tank {
   }
 
   String speciesNamesJoinedString() {
-    return speciesNames().join(", ").length < 50
+    final maxLength = 50;
+
+    return speciesNames().join(", ").length < maxLength
         ? '${species.length} fish - ${speciesNames().join(", ").substring(0, speciesNames().join(", ").length).replaceAll('[', '').replaceAll(']', '')}'
-        : '${species.length} fish - ${speciesNames().join(", ").substring(0, 50).replaceAll('[', '').replaceAll(']', '')}...';
+        : '${species.length} fish - ${speciesNames().join(", ").substring(0, maxLength).replaceAll('[', '').replaceAll(']', '')}...';
   }
 
-  String nameWithMaxLength(int maxLength) {
+  String nameTrimmedToLength(int maxLength) {
     return name.length < maxLength
         ? name
         : '${name.substring(0, maxLength - 1)}...';
