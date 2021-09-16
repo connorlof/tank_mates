@@ -58,11 +58,11 @@ final catfish = Species(
 final availableSpecies = [puffer, acara, catfish];
 
 void main() {
-  testToModel();
-  //testToRecord();
+  toModel();
+  toRecord();
 }
 
-void testToModel() {
+void toModel() {
   test('toModel() returns the expected Tank', () {
     final tankRecord = TankRecord(0, 'my tank', 20, ["Tetraodon abei"]);
     final model = TankDao.toModel(123, tankRecord, availableSpecies);
@@ -75,7 +75,7 @@ void testToModel() {
   });
 }
 
-void testToRecord() {
+void toRecord() {
   test('toRecord() returns the expected record', () {
     final tank = Tank(321, 'my tank', 20, [catfish]);
     final record = TankDao.toRecord(tank);

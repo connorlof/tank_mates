@@ -12,20 +12,12 @@ class TankDao {
     if (record.id == kDefaultTankId) {
       // Insert new tank
       final int id = await box.add(record);
-      print('Inserted tank ID: $id');
       return Tank(id, tank.name, tank.gallons, tank.species);
     } else {
       // Update existing tank
       box.put(record.id, record);
-      print('Updated tank ID: ${record.id}');
       return tank;
     }
-  }
-
-  // TODO: toModel should be added
-  Future<Tank> getTank(int id) async {
-    final box = Hive.box(kTankTableKey);
-    return box.getAt(id);
   }
 
   Future<List<Tank>> getAllTanks(List<Species> availableSpecies) async {
@@ -41,7 +33,6 @@ class TankDao {
 
   void deleteTank(int id) async {
     final box = Hive.box(kTankTableKey);
-    print('Deleting tank ID: $id');
     box.delete(id);
   }
 
@@ -52,16 +43,12 @@ class TankDao {
             availableSpecies.firstWhere((species) => species.key == key))
         .toList();
 
-    print('toModel tank ID: $id');
-
     return Tank(id, record.name, record.gallons, speciesList);
   }
 
   static TankRecord toRecord(Tank model) {
     List<String> speciesKeys =
         model.species.map((species) => species.key).toList();
-
-    print('toModel tank ID: ${model.id}');
 
     return TankRecord(model.id, model.name, model.gallons, speciesKeys);
   }
