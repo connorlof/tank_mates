@@ -12,13 +12,14 @@ void main() async {
 
   // Parse json to Species list
   final json = await rootBundle.loadString(kFreshwaterSpeciesJson);
-  List<Species> species = jsonParser.parseJsonToSpecies(json);
+  List<Species> species = jsonParser.parseJsonToSpeciesList(json);
 
   // Run tests
   parsingReturnsExpectedNumSpecies(species);
   noNullValues(species);
   keysMatchScientificNames(species);
   noDuplicateKeysExist(species);
+  invalidSpeciesIsSkipped();
 }
 
 void parsingReturnsExpectedNumSpecies(List<Species> species) {
@@ -65,5 +66,14 @@ void noDuplicateKeysExist(List<Species> species) {
     print('keys: ${keys.length}');
     print('distinctKeys: ${distinctKeys.length}');
     expect(keys.length == distinctKeys.length, true);
+  });
+}
+
+void invalidSpeciesIsSkipped() {
+  test('invalid species in json is skipped', () async {
+    final json =
+        await rootBundle.loadString('assets/freshwater_data_invalid.json');
+    List<Species> species = jsonParser.parseJsonToSpeciesList(json);
+    expect(species.length, 595);
   });
 }

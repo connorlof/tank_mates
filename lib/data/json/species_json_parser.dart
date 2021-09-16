@@ -4,9 +4,7 @@ import 'package:tank_mates/data/json/species_json_data.dart';
 import 'package:tank_mates/data/model/species.dart';
 
 class SpeciesJsonParser {
-  SpeciesJsonParser();
-
-  List<Species> parseJsonToSpecies(String jsonData) {
+  List<Species> parseJsonToSpeciesList(String jsonData) {
     var jsonObjects = jsonDecode(jsonData)['freshwater_data'] as List;
 
     List<SpeciesJsonData> speciesJsonDataList = jsonObjects
@@ -16,42 +14,43 @@ class SpeciesJsonParser {
     var speciesList = <Species>[];
 
     for (int i = 0; i < speciesJsonDataList.length; i++) {
-      speciesList.add(outputValidatedFish(speciesJsonDataList[i]));
-      speciesList[i].key = speciesJsonDataList[i].scientificName;
+      try {
+        speciesList.add(parseSpecies(speciesJsonDataList[i]));
+        speciesList[i].key = speciesJsonDataList[i].scientificName;
+      } catch (e) {
+        // If species cannot be parsed log error and continue to next
+        print('Error parsing JSON for species: ${e.toString()}');
+      }
     }
 
     return speciesList;
   }
 
-  Species outputValidatedFish(SpeciesJsonData fishPodo) {
-    Species newFishObj = new Species.empty();
+  Species parseSpecies(SpeciesJsonData speciesJsonData) {
+    Species species = new Species.empty();
 
-    try {
-      newFishObj.name = fishPodo.name;
-      newFishObj.scientificName = fishPodo.scientificName;
-      newFishObj.speciesGroup = fishPodo.speciesGroup;
+    species.name = speciesJsonData.name;
+    species.scientificName = speciesJsonData.scientificName;
+    species.speciesGroup = speciesJsonData.speciesGroup;
 
-      newFishObj.aggressiveness =
-          parseAggressivenessFromString(fishPodo.aggressiveness);
+    species.aggressiveness =
+        parseAggressivenessFromString(speciesJsonData.aggressiveness);
 
-      newFishObj.phMin = parsePhMinFromRange(fishPodo.phRange);
-      newFishObj.phMax = parsePhMaxFromRange(fishPodo.phRange);
+    species.phMin = parsePhMinFromRange(speciesJsonData.phRange);
+    species.phMax = parsePhMaxFromRange(speciesJsonData.phRange);
 
-      newFishObj.tempMin = parseTempMinFromRange(fishPodo.temperatureRange);
-      newFishObj.tempMax = parseTempMaxFromRange(fishPodo.temperatureRange);
+    species.tempMin = parseTempMinFromRange(speciesJsonData.temperatureRange);
+    species.tempMax = parseTempMaxFromRange(speciesJsonData.temperatureRange);
 
-      newFishObj.hardnessMin = parseHardnessMinFromRange(fishPodo.hardness);
-      newFishObj.hardnessMax = parseHardnessMaxFromRange(fishPodo.hardness);
+    species.hardnessMin = parseHardnessMinFromRange(speciesJsonData.hardness);
+    species.hardnessMax = parseHardnessMaxFromRange(speciesJsonData.hardness);
 
-      newFishObj.careLevel = parseCareLevelFromString(fishPodo.careLevel);
-      newFishObj.maximumAdultSize = parseMaxSize(fishPodo.maximumAdultSize);
-      newFishObj.diet = parseDietFromString(fishPodo.diet);
-      newFishObj.minTankSize = parseMinTankSize(fishPodo.minTankSize);
-    } catch (e) {
-      print('Error parsing JSON: ${e.toString()}');
-    }
+    species.careLevel = parseCareLevelFromString(speciesJsonData.careLevel);
+    species.maximumAdultSize = parseMaxSize(speciesJsonData.maximumAdultSize);
+    species.diet = parseDietFromString(speciesJsonData.diet);
+    species.minTankSize = parseMinTankSize(speciesJsonData.minTankSize);
 
-    return newFishObj;
+    return species;
   }
 
   Aggressiveness parseAggressivenessFromString(String aggrString) {
@@ -148,8 +147,8 @@ class SpeciesJsonParser {
     return double.parse(maxSizeString.trim());
   }
 
-  Diet parseDietFromString(String aggrString) {
-    switch (aggrString.toLowerCase().trim()) {
+  Diet parseDietFromString(String dietString) {
+    switch (dietString.toLowerCase().trim()) {
       case "herbivore":
         {
           return Diet.herbivore;

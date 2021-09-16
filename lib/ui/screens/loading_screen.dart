@@ -44,7 +44,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getFishData() async {
     final viewModel = Provider.of<EditTankViewModel>(context, listen: false);
     final json = await rootBundle.loadString(kFreshwaterSpeciesJson);
-    final speciesList = SpeciesJsonParser().parseJsonToSpecies(json);
+    final speciesList = SpeciesJsonParser().parseJsonToSpeciesList(json);
 
     viewModel.setAvailableSpecies(speciesList);
 
