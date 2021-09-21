@@ -2,7 +2,7 @@ import 'package:tank_mates/data/model/species.dart';
 
 class TankState {
   int id = -1;
-  String tankName = "Tank Name";
+  String tankName = 'Tank Name';
   int gallons = 20;
   TankStatus status = TankStatus.Good;
 
