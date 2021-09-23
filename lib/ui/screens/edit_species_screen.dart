@@ -75,6 +75,82 @@ class _EditSpeciesScreenState extends State<EditSpeciesScreen> {
                 ],
               ),
             ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(right: 16.0),
+                    child: Text(
+                      'Size',
+                      style: kTextStyleSmall,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Radio(
+                            value: 0,
+                            groupValue: 0,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                          ),
+                          Text(
+                            'Adult',
+                            style: kTextStyleSmall,
+                          ),
+                          Radio(
+                            value: 1,
+                            groupValue: 0,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                          ),
+                          Text(
+                            'Juvenile',
+                            style: kTextStyleSmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(right: 16.0),
+                    child: Text(
+                      'Current Size (5.5 in / 14 cm)',
+                      style: kTextStyleSmall,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Slider(
+              value: 50,
+              min: 0,
+              max: 100,
+              divisions: 4,
+              label: '5.5 in / 14 cm',
+              onChanged: (double value) {
+                setState(() {});
+              },
+            ),
             TextButton(
               child: Text(
                 'Return To Edit Tank',
