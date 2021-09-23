@@ -14,6 +14,8 @@ class Species {
   double maximumAdultSize;
   Diet diet;
   int minTankSize;
+  bool isAdult;
+  double currentSize;
 
   Species(
       this.key,
@@ -30,7 +32,11 @@ class Species {
       this.careLevel,
       this.maximumAdultSize,
       this.diet,
-      this.minTankSize);
+      this.minTankSize,
+      this.isAdult,
+      this.currentSize) {
+    if (isAdult) currentSize = maximumAdultSize;
+  }
 
   Species.empty();
 }

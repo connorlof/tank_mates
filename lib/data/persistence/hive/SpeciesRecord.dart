@@ -52,6 +52,12 @@ class SpeciesRecord {
   @HiveField(14)
   final int minTankSize;
 
+  @HiveField(15)
+  final bool isAdult;
+
+  @HiveField(16)
+  final double currentSize;
+
   SpeciesRecord(
       this.key,
       this.name,
@@ -67,5 +73,7 @@ class SpeciesRecord {
       this.careLevel,
       this.maximumAdultSize,
       this.diet,
-      this.minTankSize);
+      this.minTankSize,
+      this.isAdult,
+      this.currentSize);
 }

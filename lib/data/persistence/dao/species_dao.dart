@@ -38,7 +38,9 @@ class SpeciesDao {
         CareLevel.values[record.careLevel],
         record.maximumAdultSize,
         Diet.values[record.diet],
-        record.minTankSize);
+        record.minTankSize,
+        record.isAdult,
+        record.currentSize);
   }
 
   static SpeciesRecord toRecord(Species model) {
@@ -57,6 +59,8 @@ class SpeciesDao {
         model.careLevel.index,
         model.maximumAdultSize,
         model.diet.index,
-        model.minTankSize);
+        model.minTankSize,
+        model.isAdult,
+        model.currentSize);
   }
 }

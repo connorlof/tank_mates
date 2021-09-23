@@ -19,7 +19,9 @@ final puffer = Species(
     CareLevel.moderate,
     4,
     Diet.carnivore,
-    20);
+    20,
+    true,
+    0.0);
 
 final acara = Species(
     "Aequidens diadema",
@@ -36,7 +38,9 @@ final acara = Species(
     CareLevel.moderate,
     4.7,
     Diet.omnivore,
-    29);
+    29,
+    true,
+    0.0);
 
 final catfish = Species(
     "Leiarius marmoratus",
@@ -53,7 +57,9 @@ final catfish = Species(
     CareLevel.moderate,
     31,
     Diet.carnivore,
-    150);
+    150,
+    true,
+    0.0);
 
 final availableSpecies = [puffer, acara, catfish];
 
