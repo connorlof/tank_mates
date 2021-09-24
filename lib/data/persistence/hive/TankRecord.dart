@@ -16,5 +16,9 @@ class TankRecord {
   @HiveField(3)
   final List<String> speciesKeys;
 
-  TankRecord(this.id, this.name, this.gallons, this.speciesKeys);
+  @HiveField(4)
+  final Map<String, List<double>> speciesJuvenileKeys;
+
+  TankRecord(this.id, this.name, this.gallons, this.speciesKeys,
+      this.speciesJuvenileKeys);
 }

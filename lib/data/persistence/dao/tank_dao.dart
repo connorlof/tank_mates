@@ -43,13 +43,61 @@ class TankDao {
             availableSpecies.firstWhere((species) => species.key == key))
         .toList();
 
+    // Parse juvenile species
+    record.speciesJuvenileKeys.forEach((key, sizes) {
+      sizes.forEach((juvenileSize) {
+        Species species =
+            availableSpecies.firstWhere((species) => species.key == key);
+        species.isAdult = false;
+        species.currentSize = juvenileSize;
+
+        speciesList.add(species);
+      });
+    });
+
     return Tank(id, record.name, record.gallons, speciesList);
   }
 
   static TankRecord toRecord(Tank model) {
-    List<String> speciesKeys =
-        model.species.map((species) => species.key).toList();
+    List<String> speciesKeys = [];
+    List<JuvenilePairs> juvenilePairs = [];
 
-    return TankRecord(model.id, model.name, model.gallons, speciesKeys);
+    model.species.forEach((species) {
+      if (species.isAdult)
+        speciesKeys.add(species.key);
+      else
+        juvenilePairs.add(JuvenilePairs(species.key, species.currentSize));
+    });
+
+    Map<String, List<double>> speciesJuvenileKeys =
+        _generateJuvenileMap(juvenilePairs);
+
+    return TankRecord(
+        model.id, model.name, model.gallons, speciesKeys, speciesJuvenileKeys);
   }
+
+  static Map<String, List<double>> _generateJuvenileMap(
+      List<JuvenilePairs> juvenilePairs) {
+    Map<String, List<double>> speciesJuvenileKeys = Map();
+
+    juvenilePairs.forEach((pair) {
+      if (!speciesJuvenileKeys.containsKey(pair.key)) {
+        speciesJuvenileKeys.putIfAbsent(pair.key, () => [pair.size]);
+      } else {
+        List<double> currentSizes = speciesJuvenileKeys[pair.key];
+        currentSizes.add(pair.size);
+
+        speciesJuvenileKeys.update(pair.key, (value) => currentSizes);
+      }
+    });
+
+    return speciesJuvenileKeys;
+  }
+}
+
+class JuvenilePairs {
+  String key;
+  double size;
+
+  JuvenilePairs(this.key, this.size);
 }

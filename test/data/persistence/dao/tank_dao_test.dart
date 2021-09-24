@@ -70,7 +70,7 @@ void main() {
 
 void toModel() {
   test('toModel() returns the expected Tank', () {
-    final tankRecord = TankRecord(0, 'my tank', 20, ["Tetraodon abei"]);
+    final tankRecord = TankRecord(0, 'my tank', 20, ["Tetraodon abei"], Map());
     final model = TankDao.toModel(123, tankRecord, availableSpecies);
 
     expect(model.id, 123);
