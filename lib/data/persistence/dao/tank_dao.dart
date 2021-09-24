@@ -48,10 +48,27 @@ class TankDao {
       sizes.forEach((juvenileSize) {
         Species species =
             availableSpecies.firstWhere((species) => species.key == key);
-        species.isAdult = false;
-        species.currentSize = juvenileSize;
 
-        speciesList.add(species);
+        Species juvenileSpecies = Species(
+            species.key,
+            species.name,
+            species.scientificName,
+            species.speciesGroup,
+            species.aggressiveness,
+            species.phMin,
+            species.phMax,
+            species.tempMin,
+            species.tempMax,
+            species.hardnessMin,
+            species.hardnessMax,
+            species.careLevel,
+            species.maximumAdultSize,
+            species.diet,
+            species.minTankSize,
+            false,
+            juvenileSize);
+
+        speciesList.add(juvenileSpecies);
       });
     });
 

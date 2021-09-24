@@ -42,6 +42,25 @@ final Species exampleSpecies2 = Species(
     true,
     0.0);
 
+final Species juvenileSpecies2 = Species(
+    "Aequidens diadema",
+    "Acara",
+    "Aequidens diadema",
+    "american cichlids",
+    Aggressiveness.semi_aggressive,
+    6.6,
+    7.5,
+    72,
+    83,
+    4,
+    20,
+    CareLevel.moderate,
+    4.7,
+    Diet.omnivore,
+    29,
+    false,
+    3.0);
+
 void main() {
   addedSpeciesConsolidated();
   speciesFromConsolidatedString();
@@ -71,6 +90,13 @@ void addedSpeciesConsolidated() {
     expect(viewModel.addedSpeciesConsolidated.length, 2);
     expect(viewModel.addedSpeciesConsolidated[0], 'x1 Abei Puffer');
     expect(viewModel.addedSpeciesConsolidated[1], 'x2 Acara');
+
+    // Add a juvenile species
+    viewModel.addSpecies(juvenileSpecies2);
+    expect(viewModel.addedFish.length, 4);
+    expect(viewModel.addedSpeciesConsolidated.length, 3);
+    expect(viewModel.addedSpeciesConsolidated.length, 3);
+    expect(viewModel.addedSpeciesConsolidated[2], 'x1 3.0" Acara');
   });
 }
 

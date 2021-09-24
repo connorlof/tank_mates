@@ -61,6 +61,25 @@ final catfish = Species(
     true,
     0.0);
 
+final juvenileCatfish = Species(
+    "Leiarius marmoratus",
+    "Achara Catfish",
+    "Leiarius marmoratus",
+    "misc catfish",
+    Aggressiveness.semi_aggressive,
+    5.8,
+    7.4,
+    69,
+    77,
+    8,
+    18,
+    CareLevel.moderate,
+    31,
+    Diet.carnivore,
+    150,
+    false,
+    5.0);
+
 final availableSpecies = [puffer, acara, catfish];
 
 void main() {
@@ -77,7 +96,25 @@ void toModel() {
     expect(model.name, 'my tank');
     expect(model.gallons, 20);
     expect(model.species.length, 1);
-    expect(model.species[0] == puffer, true);
+    expect(model.species[0], puffer);
+  });
+
+  test('toModel() with juvenile species', () {
+    Map<String, List<double>> juvenileMap = Map();
+    juvenileMap.putIfAbsent(
+        juvenileCatfish.key, () => [juvenileCatfish.currentSize]);
+
+    final tankRecord =
+        TankRecord(0, 'my tank', 20, ["Tetraodon abei"], juvenileMap);
+    final model = TankDao.toModel(123, tankRecord, availableSpecies);
+
+    expect(model.species.length, 2);
+    expect(model.species[0], puffer);
+
+    Species generatedJuvenile = model.species[1];
+    expect(generatedJuvenile.key, juvenileCatfish.key);
+    expect(generatedJuvenile.isAdult, juvenileCatfish.isAdult);
+    expect(generatedJuvenile.currentSize, juvenileCatfish.currentSize);
   });
 }
 
@@ -90,6 +127,19 @@ void toRecord() {
     expect(record.name, 'my tank');
     expect(record.gallons, 20);
     expect(record.speciesKeys.length, 1);
-    expect(record.speciesKeys[0] == catfish.key, true);
+    expect(record.speciesKeys[0], catfish.key);
+    expect(record.speciesJuvenileKeys.length, 0);
+  });
+
+  test('toRecord() with juvenile species', () {
+    final tank = Tank(321, 'my tank', 20, [catfish, juvenileCatfish]);
+    final record = TankDao.toRecord(tank);
+
+    expect(record.speciesKeys.length, 1);
+    expect(record.speciesKeys[0], catfish.key);
+
+    expect(record.speciesJuvenileKeys.length, 1);
+    expect(record.speciesJuvenileKeys[juvenileCatfish.key],
+        [juvenileCatfish.currentSize]);
   });
 }

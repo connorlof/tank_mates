@@ -113,7 +113,12 @@ class EditTankViewModel extends ChangeNotifier {
         }
       }
 
-      consolidatedList.add('x${numFish[i]} ${distinctFish[i].name}');
+      if (distinctFish[i].isAdult) {
+        consolidatedList.add('x${numFish[i]} ${distinctFish[i].name}');
+      } else {
+        consolidatedList.add(
+            'x${numFish[i]} ${distinctFish[i].currentSize.toStringAsPrecision(2)}" ${distinctFish[i].name}');
+      }
     }
 
     return UnmodifiableListView(consolidatedList);
