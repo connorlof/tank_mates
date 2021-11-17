@@ -50,6 +50,8 @@ class SpeciesJsonParser {
     species.diet = parseDietFromString(speciesJsonData.diet);
     species.minTankSize = parseMinTankSize(speciesJsonData.minTankSize);
 
+    species.isAdult = true;
+
     return species;
   }
 

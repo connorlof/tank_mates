@@ -17,6 +17,13 @@ class Species {
   bool isAdult;
   double currentSize;
 
+  double get size {
+    if (currentSize == null)
+      return maximumAdultSize;
+    else
+      return currentSize;
+  }
+
   Species(
       this.key,
       this.name,
